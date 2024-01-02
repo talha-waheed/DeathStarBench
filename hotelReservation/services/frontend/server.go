@@ -34,6 +34,7 @@ type Server struct {
 	Port                 int
 	Tracer               opentracing.Tracer
 	Registry             *registry.Client
+	Config               map[string]string
 }
 
 // Run the server
@@ -43,23 +44,23 @@ func (s *Server) Run() error {
 	}
 
 	log.Info().Msg("Initializing gRPC clients...")
-	if err := s.initSearchClient("srv-search"); err != nil {
+	if err := s.initSearchClient("search"); err != nil {
 		return err
 	}
 
-	if err := s.initProfileClient("srv-profile"); err != nil {
+	if err := s.initProfileClient("profile"); err != nil {
 		return err
 	}
 
-	if err := s.initRecommendationClient("srv-recommendation"); err != nil {
+	if err := s.initRecommendationClient("recommendation"); err != nil {
 		return err
 	}
 
-	if err := s.initUserClient("srv-user"); err != nil {
+	if err := s.initUserClient("user"); err != nil {
 		return err
 	}
 
-	if err := s.initReservation("srv-reservation"); err != nil {
+	if err := s.initReservation("reservation"); err != nil {
 		return err
 	}
 	log.Info().Msg("Successfull")
@@ -90,7 +91,11 @@ func (s *Server) Run() error {
 }
 
 func (s *Server) initSearchClient(name string) error {
-	conn, err := s.getGprcConn(name)
+	port, err := strconv.Atoi(s.Config["SearchPort"])
+	if err != nil {
+		port = -1
+	}
+	conn, err := s.getGprcConn(name, port)
 	if err != nil {
 		return fmt.Errorf("dialer error: %v", err)
 	}
@@ -99,7 +104,11 @@ func (s *Server) initSearchClient(name string) error {
 }
 
 func (s *Server) initProfileClient(name string) error {
-	conn, err := s.getGprcConn(name)
+	port, err := strconv.Atoi(s.Config["ProfilePort"])
+	if err != nil {
+		port = -1
+	}
+	conn, err := s.getGprcConn(name, port)
 	if err != nil {
 		return fmt.Errorf("dialer error: %v", err)
 	}
@@ -108,7 +117,11 @@ func (s *Server) initProfileClient(name string) error {
 }
 
 func (s *Server) initRecommendationClient(name string) error {
-	conn, err := s.getGprcConn(name)
+	port, err := strconv.Atoi(s.Config["RecommendPort"])
+	if err != nil {
+		port = -1
+	}
+	conn, err := s.getGprcConn(name, port)
 	if err != nil {
 		return fmt.Errorf("dialer error: %v", err)
 	}
@@ -117,7 +130,11 @@ func (s *Server) initRecommendationClient(name string) error {
 }
 
 func (s *Server) initUserClient(name string) error {
-	conn, err := s.getGprcConn(name)
+	port, err := strconv.Atoi(s.Config["UserPort"])
+	if err != nil {
+		port = -1
+	}
+	conn, err := s.getGprcConn(name, port)
 	if err != nil {
 		return fmt.Errorf("dialer error: %v", err)
 	}
@@ -126,7 +143,11 @@ func (s *Server) initUserClient(name string) error {
 }
 
 func (s *Server) initReservation(name string) error {
-	conn, err := s.getGprcConn(name)
+	port, err := strconv.Atoi(s.Config["ReservePort"])
+	if err != nil {
+		port = -1
+	}
+	conn, err := s.getGprcConn(name, port)
 	if err != nil {
 		return fmt.Errorf("dialer error: %v", err)
 	}
@@ -134,13 +155,13 @@ func (s *Server) initReservation(name string) error {
 	return nil
 }
 
-func (s *Server) getGprcConn(name string) (*grpc.ClientConn, error) {
-	log.Info().Msg("get Grpc conn is :")
-	log.Info().Msg(s.KnativeDns)
-	log.Info().Msg(fmt.Sprintf("%s.%s", name, s.KnativeDns))
-	if s.KnativeDns != "" {
+func (s *Server) getGprcConn(name string, port int) (*grpc.ClientConn, error) {
+	log.Info().Msg("getting gRPC conn for " + fmt.Sprintf("%s:%d", name, port))
+	//log.Info().Msg(s.KnativeDns)
+	//log.Info().Msg(fmt.Sprintf("%s.%s", name, s.KnativeDns))
+	if port > 0 {
 		return dialer.Dial(
-			fmt.Sprintf("%s.%s", name, s.KnativeDns),
+			fmt.Sprintf("%s:%d", name, port),
 			dialer.WithTracer(s.Tracer))
 	} else {
 		return dialer.Dial(

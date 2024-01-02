@@ -61,6 +61,7 @@ func main() {
 		Tracer:     tracer,
 		IpAddr:     servIP,
 		Port:       servPort,
+		Config:     result,
 	}
 
 	log.Info().Msg("Starting server...")
