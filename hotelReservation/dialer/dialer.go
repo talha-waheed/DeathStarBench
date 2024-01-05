@@ -1,11 +1,12 @@
 package dialer
 
 import (
+	"context"
 	"fmt"
+	"google.golang.org/grpc/metadata"
 	"time"
 
 	"github.com/delimitrou/DeathStarBench/hotelreservation/tls"
-	"github.com/grpc-ecosystem/grpc-opentracing/go/otgrpc"
 	consul "github.com/hashicorp/consul/api"
 	lb "github.com/olivere/grpc/lb/consul"
 	opentracing "github.com/opentracing/opentracing-go"
@@ -16,11 +17,28 @@ import (
 // DialOption allows optional config for dialer
 type DialOption func(name string) (grpc.DialOption, error)
 
+func UnaryClientInterceptor(
+	ctx context.Context,
+	method string,
+	req, reply interface{},
+	cc *grpc.ClientConn,
+	invoker grpc.UnaryInvoker,
+	opts ...grpc.CallOption) error {
+	// Take the incoming metadata and transfer it to the outgoing metadata
+	if md, ok := metadata.FromIncomingContext(ctx); ok {
+		ctx = metadata.NewOutgoingContext(ctx, md)
+	}
+	return invoker(ctx, method, req, reply, cc, opts...)
+}
+
 // WithTracer traces rpc calls
 func WithTracer(tracer opentracing.Tracer) DialOption {
 	return func(name string) (grpc.DialOption, error) {
-		return grpc.WithUnaryInterceptor(otgrpc.OpenTracingClientInterceptor(tracer)), nil
+		return grpc.WithUnaryInterceptor(UnaryClientInterceptor), nil
 	}
+	//return func(name string) (grpc.DialOption, error) {
+	//	return grpc.WithUnaryInterceptor(otgrpc.OpenTracingClientInterceptor(tracer)), nil
+	//}
 }
 
 // WithBalancer enables client side load balancing

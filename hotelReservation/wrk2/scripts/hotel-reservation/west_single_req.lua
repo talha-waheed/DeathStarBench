@@ -2,7 +2,8 @@ local socket = require("socket")
 math.randomseed(socket.gettime()*1000)
 math.random(); math.random(); math.random()
 
-local url = "http://node1.gangmuk-185120.istio-pg0.clemson.cloudlab.us:31029"
+local url = "http://node2.gangmuk-184284.istio-pg0.clemson.cloudlab.us:32340/"
+local counter = 0
 
 local function get_user()
   local id = math.random(0, 500)
@@ -40,7 +41,7 @@ local function search_hotel()
     "&outDate=" .. out_date_str .. "&lat=" .. tostring(lat) .. "&lon=" .. tostring(lon)
 
   local headers = {}
-  -- headers["Content-Type"] = "application/x-www-form-urlencoded"
+  headers["x-slate-destination"] = "west"
   return wrk.format(method, path, headers, nil)
 end
 
@@ -62,6 +63,7 @@ local function recommend()
   local path = url .. "/recommendations?require=" .. req_param .. 
     "&lat=" .. tostring(lat) .. "&lon=" .. tostring(lon)
   local headers = {}
+  headers["x-slate-destination"] = "west"
   -- headers["Content-Type"] = "application/x-www-form-urlencoded"
   return wrk.format(method, path, headers, nil)
 end
@@ -96,6 +98,7 @@ local function reserve()
     "&hotelId=" .. hotel_id .. "&customerName=" .. cust_name .. "&username=" .. user_id ..
     "&password=" .. password .. "&number=" .. num_room
   local headers = {}
+  headers["x-slate-destination"] = "west"
   -- headers["Content-Type"] = "application/x-www-form-urlencoded"
   return wrk.format(method, path, headers, nil)
 end
@@ -105,18 +108,23 @@ local function user_login()
   local method = "POST"
   local path = url .. "/user?username=" .. user_name .. "&password=" .. password
   local headers = {}
+  headers["x-slate-destination"] = "west"
   -- headers["Content-Type"] = "application/x-www-form-urlencoded"
   return wrk.format(method, path, headers, nil)
 end
 
 request = function()
+  if counter == 1 then
+    wrk.thread:stop()
+  end
   cur_time = math.floor(socket.gettime())
-  local search_ratio      = 0.6
+  local search_ratio      = 1
   local recommend_ratio   = 0.39
   local user_ratio        = 0.005
   local reserve_ratio     = 0.005
 
   local coin = math.random()
+  counter = counter + 1
   if coin < search_ratio then
     return search_hotel(url)
   elseif coin < search_ratio + recommend_ratio then

@@ -15,11 +15,32 @@
 package tracing
 
 import (
+	"google.golang.org/grpc/metadata"
 	"net/http"
 
-	"github.com/opentracing-contrib/go-stdlib/nethttp"
 	opentracing "github.com/opentracing/opentracing-go"
 )
+
+func tracingMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		ctx := r.Context()
+		tracingHeaders := []string{
+			"x-request-id",
+			"x-b3-traceid",
+			"x-b3-spanid",
+			"x-b3-sampled",
+			"x-b3-parentspanid",
+			"x-b3-flags",
+			"x-ot-span-context",
+		}
+		for _, key := range tracingHeaders {
+			if val := r.Header.Get(key); val != "" {
+				ctx = metadata.AppendToOutgoingContext(ctx, key, val)
+			}
+		}
+		next.ServeHTTP(w, r.WithContext(ctx))
+	})
+}
 
 // NewServeMux creates a new TracedServeMux.
 func NewServeMux(tracer opentracing.Tracer) *TracedServeMux {
@@ -37,13 +58,14 @@ type TracedServeMux struct {
 
 // Handle implements http.ServeMux#Handle
 func (tm *TracedServeMux) Handle(pattern string, handler http.Handler) {
-	middleware := nethttp.Middleware(
-		tm.tracer,
-		handler,
-		nethttp.OperationNameFunc(func(r *http.Request) string {
-			return "HTTP " + r.Method + " " + pattern
-		}))
-	tm.mux.Handle(pattern, middleware)
+	tm.mux.Handle(pattern, tracingMiddleware(handler))
+	//middleware := nethttp.Middleware(
+	//	tm.tracer,
+	//	handler,
+	//	nethttp.OperationNameFunc(func(r *http.Request) string {
+	//		return "HTTP " + r.Method + " " + pattern
+	//	}))
+	//tm.mux.Handle(pattern, middleware)
 }
 
 // ServeHTTP implements http.ServeMux#ServeHTTP

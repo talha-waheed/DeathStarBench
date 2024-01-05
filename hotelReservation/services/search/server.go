@@ -1,6 +1,11 @@
 package search
 
 import (
+	"encoding/json"
+	"io/ioutil"
+	"os"
+	"strconv"
+
 	// "encoding/json"
 	"fmt"
 	// F"io/ioutil"
@@ -38,6 +43,7 @@ type Server struct {
 	KnativeDns string
 	Registry   *registry.Client
 	uuid       string
+	Config     map[string]string
 }
 
 // Run starts the server
@@ -67,11 +73,24 @@ func (s *Server) Run() error {
 	srv := grpc.NewServer(opts...)
 	pb.RegisterSearchServer(srv, s)
 
+	jsonFile, err := os.Open("config.json")
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	defer jsonFile.Close()
+
+	byteValue, _ := ioutil.ReadAll(jsonFile)
+
+	var result map[string]string
+	json.Unmarshal([]byte(byteValue), &result)
+	s.Config = result
+
 	// init grpc clients
-	if err := s.initGeoClient("srv-geo"); err != nil {
+	if err := s.initGeoClient("geo"); err != nil {
 		return err
 	}
-	if err := s.initRateClient("srv-rate"); err != nil {
+	if err := s.initRateClient("rate"); err != nil {
 		return err
 	}
 
@@ -81,17 +100,6 @@ func (s *Server) Run() error {
 	}
 
 	// register with consul
-	// jsonFile, err := os.Open("config.json")
-	// if err != nil {
-	// 	fmt.Println(err)
-	// }
-
-	// defer jsonFile.Close()
-
-	// byteValue, _ := ioutil.ReadAll(jsonFile)
-
-	// var result map[string]string
-	// json.Unmarshal([]byte(byteValue), &result)
 
 	err = s.Registry.Register(name, s.uuid, s.IpAddr, s.Port)
 	if err != nil {
@@ -108,7 +116,11 @@ func (s *Server) Shutdown() {
 }
 
 func (s *Server) initGeoClient(name string) error {
-	conn, err := s.getGprcConn(name)
+	port, err := strconv.Atoi(s.Config["GeoPort"])
+	if err != nil {
+		port = -1
+	}
+	conn, err := s.getGprcConn(name, port)
 	if err != nil {
 		return fmt.Errorf("dialer error: %v", err)
 	}
@@ -117,7 +129,11 @@ func (s *Server) initGeoClient(name string) error {
 }
 
 func (s *Server) initRateClient(name string) error {
-	conn, err := s.getGprcConn(name)
+	port, err := strconv.Atoi(s.Config["RatePort"])
+	if err != nil {
+		port = -1
+	}
+	conn, err := s.getGprcConn(name, port)
 	if err != nil {
 		return fmt.Errorf("dialer error: %v", err)
 	}
@@ -125,10 +141,13 @@ func (s *Server) initRateClient(name string) error {
 	return nil
 }
 
-func (s *Server) getGprcConn(name string) (*grpc.ClientConn, error) {
-	if s.KnativeDns != "" {
+func (s *Server) getGprcConn(name string, port int) (*grpc.ClientConn, error) {
+	log.Info().Msg("getting gRPC conn for " + fmt.Sprintf("%s:%d", name, port))
+	//log.Info().Msg(s.KnativeDns)
+	//log.Info().Msg(fmt.Sprintf("%s.%s", name, s.KnativeDns))
+	if port > 0 {
 		return dialer.Dial(
-			fmt.Sprintf("%s.%s", name, s.KnativeDns),
+			fmt.Sprintf("%s:%d", name, port),
 			dialer.WithTracer(s.Tracer))
 	} else {
 		return dialer.Dial(

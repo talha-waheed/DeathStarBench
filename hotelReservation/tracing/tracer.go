@@ -11,7 +11,7 @@ import (
 )
 
 var (
-	defaultSampleRatio float64 = 0.01
+	defaultSampleRatio float64 = 0.5
 )
 
 // Init returns a newly configured tracer
@@ -32,7 +32,7 @@ func Init(serviceName, host string) (opentracing.Tracer, error) {
 			Param: ratio,
 		},
 		Reporter: &config.ReporterConfig{
-			LogSpans:            false,
+			LogSpans:            true,
 			BufferFlushInterval: 1 * time.Second,
 			LocalAgentHostPort:  host,
 		},

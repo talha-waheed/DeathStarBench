@@ -2,7 +2,7 @@ local socket = require("socket")
 math.randomseed(socket.gettime()*1000)
 math.random(); math.random(); math.random()
 
-local url = "http://localhost:5000"
+local url = "http://node2.gangmuk-184284.istio-pg0.clemson.cloudlab.us:32340"
 
 local function get_user()
   local id = math.random(0, 500)
@@ -114,7 +114,7 @@ end
 
 request = function()
   cur_time = math.floor(socket.gettime())
-  local search_ratio      = 0.6
+  local search_ratio      = 0.1
   local recommend_ratio   = 0.39
   local user_ratio        = 0.005
   local reserve_ratio     = 0.005
