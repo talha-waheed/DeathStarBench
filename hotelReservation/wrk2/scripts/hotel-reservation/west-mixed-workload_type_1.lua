@@ -8,8 +8,7 @@ local function get_user()
   local id = math.random(0, 500)
   local user_name = "Cornell_" .. tostring(id)
   local pass_word = ""
-  for i = 0, 9, 1 do 
-    pass_word = pass_word .. tostring(id)
+  for i = 0, 9, 1 do pass_word = pass_word .. tostring(id)
   end
   return user_name, pass_word
 end
@@ -114,10 +113,26 @@ end
 
 request = function()
   cur_time = math.floor(socket.gettime())
-  local search_ratio      = 0.1
-  local recommend_ratio   = 0.39
-  local user_ratio        = 0.005
-  local reserve_ratio     = 0.005
+
+  local search_ratio      = 0.0
+  local recommend_ratio   = 0.333
+  local user_ratio        = 0.333
+  local reserve_ratio     = 0.333
+
+--  local search_ratio      = 0.0
+--  local recommend_ratio   = 0.0
+--  local user_ratio        = 0.0
+--  local reserve_ratio     = 1.0
+
+  -- local search_ratio      = 0.6
+  -- local recommend_ratio   = 0.39
+  -- local user_ratio        = 0.005
+  -- local reserve_ratio     = 0.005
+
+--  local search_ratio      = 0.25
+--  local recommend_ratio   = 0.25
+--  local user_ratio        = 0.25
+--  local reserve_ratio     = 0.25
 
   local coin = math.random()
   if coin < search_ratio then
