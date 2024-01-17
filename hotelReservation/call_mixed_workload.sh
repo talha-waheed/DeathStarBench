@@ -2,9 +2,10 @@
 
 function wrk() {
     distribution=exp
+    #distribution=norm
     thread=50
     connection=50
-    duration=30
+    duration=60
 
 
     cluster=$1
@@ -40,9 +41,13 @@ function wrk() {
         mkdir -p "$name_tag"
     fi
 
-    filename="${name_tag}/${cluster}_${req_type}_${RPS}.wrklog"
+    name="${cluster}_${req_type}_${RPS}.wrklog"
+    filename="${name_tag}/${name}"
+
+    python scrape_resource_config.py > ${name_tag}/deployment_resource_${name}.txt
 
     echo "@@ Start ${req_type} RPS: ${RPS} to ${cluster} for ${duation} (filename: ${filename})"
+    echo "@@ python scrape_resource_config.py > ${name_tag}/deployment_resource_${name}.txt"
 
     echo "@@ +++++++++++++++++++++++++++++++++++++++++++++++++ " > ${filename}
     echo "--------------------------------"
@@ -98,7 +103,7 @@ function scp_trace_string_file(){
     tg=$1
     ## SCP trace_string.csv from slate-controller pod to the local filesystem
     slate_controller_pod=$(kubectl get pods -l app=slate-controller -o custom-columns=:metadata.name)
-    kubectl cp ${slate_controller_pod}:/app/trace_string.csv slate_trace_string_${tg}.slatelog
+    kubectl cp ${slate_controller_pod}:/app/trace_string.csv ${tg}/slate_trace_string_${tg}.slatelog
 }
 
 
@@ -115,52 +120,60 @@ function full_reset(){
 
 
 # init_time=$(date +"%y%m%d_%H%M%S")
+init_time=test
 # start_time=$(date +%s)
 
+#req_type=recommend
+#rps_list=(100 200 300 400 500 600 700 800)
+#tag=${req_type}_only_${init_time}
+#for rps in "${rps_list[@]}"; do
+#	per_wrk_st=$(date +%s)
+#	wrk west ${req_type} ${rps} ${tag}
+#	restart_wasm
+#	per_wrk_et=$(date +%s)
+#	per_wk_duration=$((per_wrk_et - per_wrk_st))
+#	echo "@@ per_wk_duration: ${per_wk_duration} seconds"
+#done
+#full_reset ${tag}
+#end_time=$(date +%s)
+#duration=$((end_time - start_time))
+#echo "@@ Duration: ${duration} seconds"
+#
+#req_type=user
+##rps_list=(50 200 400 600 800 1000)
+#rps_list=(100 200 300 400 500 600 700 800)
+#tag=${req_type}_only_${init_time}
+#for rps in "${rps_list[@]}"; do
+#	per_wrk_st=$(date +%s)
+#	wrk west ${req_type} ${rps} ${tag}
+#	restart_wasm
+#	per_wrk_et=$(date +%s)
+#	per_wk_duration=$((per_wrk_et - per_wrk_st))
+#	echo "@@ per_wk_duration: ${per_wk_duration} seconds"
+#done
+#full_reset ${tag}
+#end_time=$(date +%s)
+#duration=$((end_time - start_time))
+#echo "@@ Duration: ${duration} seconds"
+
+#req_type=reserve
+#req_type=search
 req_type=recommend
-rps_list=(50 200 400 600 800 1000)
+#req_type=user
+#rps_list=(10 20 30 40 50 60 70 80 90 100)
+#rps_list=(20 40 60 80 100)
+#rps_list=(40 60 80 100)
+rps_list=(1000)
 tag=${req_type}_only_${init_time}
 for rps in "${rps_list[@]}"; do
 	per_wrk_st=$(date +%s)
 	wrk west ${req_type} ${rps} ${tag}
-	restart_wasm
+	#restart_wasm
 	per_wrk_et=$(date +%s)
 	per_wk_duration=$((per_wrk_et - per_wrk_st))
 	echo "@@ per_wk_duration: ${per_wk_duration} seconds"
 done
-full_reset ${tag}
-end_time=$(date +%s)
-duration=$((end_time - start_time))
-echo "@@ Duration: ${duration} seconds"
-
-req_type=user
-rps_list=(50 200 400 600 800 1000)
-tag=${req_type}_only_${init_time}
-for rps in "${rps_list[@]}"; do
-	per_wrk_st=$(date +%s)
-	wrk west ${req_type} ${rps} ${tag}
-	restart_wasm
-	per_wrk_et=$(date +%s)
-	per_wk_duration=$((per_wrk_et - per_wrk_st))
-	echo "@@ per_wk_duration: ${per_wk_duration} seconds"
-done
-full_reset ${tag}
-end_time=$(date +%s)
-duration=$((end_time - start_time))
-echo "@@ Duration: ${duration} seconds"
-
-req_type=reserve
-rps_list=(10 20 30 40 50 60 70 80 90 100)
-tag=${req_type}_only_${init_time}
-for rps in "${rps_list[@]}"; do
-	per_wrk_st=$(date +%s)
-	wrk west ${req_type} ${rps} ${tag}
-	restart_wasm
-	per_wrk_et=$(date +%s)
-	per_wk_duration=$((per_wrk_et - per_wrk_st))
-	echo "@@ per_wk_duration: ${per_wk_duration} seconds"
-done
-full_reset ${tag}
+#full_reset ${tag}
 end_time=$(date +%s)
 duration=$((end_time - start_time))
 echo "@@ Duration: ${duration} seconds"
@@ -178,72 +191,3 @@ echo "@@ Duration: ${duration} seconds"
 # end_time=$(date +%s)
 # duration=$((end_time - start_time))
 # echo "@@ Duration: ${duration} seconds"
-
-# start_time=$(date +%s)
-# tag=case2_${init_time}
-# wrk west user 0 ${tag} &
-# wrk west recommend 100 ${tag} &
-# wrk west reserve 0 ${tag} &
-# wait
-# reset ${tag}
-# end_time=$(date +%s)
-# duration=$((end_time - start_time))
-# echo "@@ Duration: ${duration} seconds"
-
-# start_time=$(date +%s)
-# tag=case3_${init_time}
-# wrk west user 0 ${tag} &
-# wrk west recommend 0 ${tag} &
-# wrk west reserve 100 ${tag} &
-# wait
-# reset ${tag}
-# end_time=$(date +%s)
-# duration=$((end_time - start_time))
-# echo "@@ Duration: ${duration} seconds"
-
-# start_time=$(date +%s)
-# tag=case4_${init_time}
-# wrk west user 50 ${tag} &
-# wrk west recommend 50 ${tag} &
-# wrk west reserve 0 ${tag} &
-# wait
-# reset ${tag}
-# end_time=$(date +%s)
-# duration=$((end_time - start_time))
-# echo "@@ Duration: ${duration} seconds"
-
-# start_time=$(date +%s)
-# tag=case5_${init_time}
-# wrk west user 50 ${tag} &
-# wrk west recommend 0 ${tag} &
-# wrk west reserve 50 ${tag} &
-# wait
-# reset ${tag}
-# end_time=$(date +%s)
-# duration=$((end_time - start_time))
-# echo "@@ Duration: ${duration} seconds"
-
-# start_time=$(date +%s)
-# tag=case6_${init_time}
-# wrk west user 0 ${tag} &
-# wrk west recommend 50 ${tag} &
-# wrk west reserve 50 ${tag} &
-# wait
-# reset ${tag}
-# end_time=$(date +%s)
-# duration=$((end_time - start_time))
-# echo "@@ Duration: ${duration} seconds"
-
-# start_time=$(date +%s)
-# tag=case7_${init_time}
-# wrk west user 33 ${tag} &
-# wrk west recommend 33 ${tag} &
-# wrk west reserve 33 ${tag} &
-# wait
-# reset ${tag}
-# end_time=$(date +%s)
-# duration=$((end_time - start_time))
-# echo "@@ Duration: ${duration} seconds"
-
-
-#################################################
