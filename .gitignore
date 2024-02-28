@@ -1,6 +1,7 @@
 .vscode
 .vs
 .DS_Store
+.slatelog
 build
 */wrk2/deps/
 */wrk2/obj/
