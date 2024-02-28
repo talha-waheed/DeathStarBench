@@ -1,54 +1,39 @@
 #!/bin/bash
 
+
 function wrk() {
-    distribution=exp
-    #distribution=norm
-    thread=50
-    connection=50
-    duration=60
-
-
     cluster=$1
     req_type=$2
     RPS=$3
-
+    dir=$4
+    distribution=exp
+    thread=50
+    connection=50
+    duration=30
+    nodename=$(kubectl get nodes | grep "node1" | awk '{print $1}')
+    ingressgw_http2_nodeport=$(kubectl get svc istio-ingressgateway -n istio-system -o=json | jq '.spec.ports[] | select(.name=="http2") | .nodePort')
+    server_ip="http://${nodename}:${ingressgw_http2_nodeport}"
+    echo $server_ip
+    name="${cluster}_${req_type}_${RPS}.wrklog"
+    filename="${dir}/${name}"
     if [ ${RPS} -lt ${connection} ]; then
         connection=${RPS}
     fi
     if [ ${connection} -lt ${thread} ]; then
         thread=${connection}
     fi
-
-    name_tag=$4
-
-    if [ ${cluster} == "west" ]; then
-        server_ip="http://node1.gangmuk-185120.istio-pg0.clemson.cloudlab.us:31029"
-    elif [ ${cluster} == "east" ]; then
-    ## TODO: needs valid east ip address
-        server_ip="http://node2.gangmuk-185120.istio-pg0.clemson.cloudlab.us:31029"
-    else
-        echo "@@ ERROR: Wrong cluster: ${cluster}"
-        exit
-    fi
-
-    #if [ "${req_type}" != "user" ] && [ ${req_type} != "recommend" ] && [ ${req_type} != "reserve" ]; then
     if [ "${req_type}" != "search" ] && [ "${req_type}" != "user" ] && [ ${req_type} != "recommend" ] && [ ${req_type} != "reserve" ]; then
         echo "@@ Wrong req_type: ${req_type}"
         exit
     fi
-
-    if [ ! -d "$name_tag" ]; then
-        mkdir -p "$name_tag"
+    if [ ! -d "$dir" ]; then
+        mkdir -p "$dir"
     fi
 
-    name="${cluster}_${req_type}_${RPS}.wrklog"
-    filename="${name_tag}/${name}"
-
-    python scrape_resource_config.py > ${name_tag}/deployment_resource_${name}.txt
+    python ~/projects/slate-benchmark/scrape_resource_config.py > ${dir}/deployment_resource_${name}.txt
+    echo "@@ python scrape_resource_config.py > ${dir}/deployment_resource_${name}.txt"
 
     echo "@@ Start ${req_type} RPS: ${RPS} to ${cluster} for ${duation} (filename: ${filename})"
-    echo "@@ python scrape_resource_config.py > ${name_tag}/deployment_resource_${name}.txt"
-
     echo "@@ +++++++++++++++++++++++++++++++++++++++++++++++++ " > ${filename}
     echo "--------------------------------"
     echo "distribution: ${distribution}"
@@ -89,7 +74,7 @@ function restart_wasm(){
 
     kubectl apply -f wasmplugins.yaml
     echo "@@ kubectl apply -f wasmplugins.yaml"
-    sleep_and_print 5
+    sleep_and_print 10
 }
 
 function restart_slate_controller(){
@@ -100,94 +85,48 @@ function restart_slate_controller(){
 }
 
 function scp_trace_string_file(){
-    tg=$1
+    dir=$1
+    req_type=$2
+    rps=$3
     ## SCP trace_string.csv from slate-controller pod to the local filesystem
     slate_controller_pod=$(kubectl get pods -l app=slate-controller -o custom-columns=:metadata.name)
-    kubectl cp ${slate_controller_pod}:/app/trace_string.csv ${tg}/slate_trace_string_${tg}.slatelog
+    echo "scp_trace_string_file"
+    echo "source: ${slate_controller_pod}:/app/trace_string.csv"
+    echo "destination: ${dir}/slate_trace_string_${req_type}_${rps}.slatelog"
+    echo "kubectl cp ${slate_controller_pod}:/app/trace_string.csv ${dir}/slate_trace_string_${dir}.slatelog"
+    kubectl cp ${slate_controller_pod}:/app/trace_string.csv ${dir}/slate_trace_string_${dir}.slatelog
 }
 
 
-function full_reset(){
-    tg=$1
+#function full_reset(){
+#    tg=$1
+#    scp_trace_string_file $tg
+#    restart_wasm
+#    restart_slate_controller
+#}
 
-    scp_trace_string_file $tg
+start_time=$(date +%s)
+cluster=west # west or east
 
-    restart_wasm
-
-    restart_slate_controller
-
-}
-
-
-# init_time=$(date +"%y%m%d_%H%M%S")
-init_time=test
-# start_time=$(date +%s)
-
-#req_type=recommend
-#rps_list=(100 200 300 400 500 600 700 800)
-#tag=${req_type}_only_${init_time}
-#for rps in "${rps_list[@]}"; do
-#	per_wrk_st=$(date +%s)
-#	wrk west ${req_type} ${rps} ${tag}
-#	restart_wasm
-#	per_wrk_et=$(date +%s)
-#	per_wk_duration=$((per_wrk_et - per_wrk_st))
-#	echo "@@ per_wk_duration: ${per_wk_duration} seconds"
-#done
-#full_reset ${tag}
-#end_time=$(date +%s)
-#duration=$((end_time - start_time))
-#echo "@@ Duration: ${duration} seconds"
-#
-#req_type=user
-##rps_list=(50 200 400 600 800 1000)
-#rps_list=(100 200 300 400 500 600 700 800)
-#tag=${req_type}_only_${init_time}
-#for rps in "${rps_list[@]}"; do
-#	per_wrk_st=$(date +%s)
-#	wrk west ${req_type} ${rps} ${tag}
-#	restart_wasm
-#	per_wrk_et=$(date +%s)
-#	per_wk_duration=$((per_wrk_et - per_wrk_st))
-#	echo "@@ per_wk_duration: ${per_wk_duration} seconds"
-#done
-#full_reset ${tag}
-#end_time=$(date +%s)
-#duration=$((end_time - start_time))
-#echo "@@ Duration: ${duration} seconds"
-
-#req_type=reserve
-#req_type=search
-req_type=recommend
-#req_type=user
-#rps_list=(10 20 30 40 50 60 70 80 90 100)
-#rps_list=(20 40 60 80 100)
-#rps_list=(40 60 80 100)
-rps_list=(1000)
-tag=${req_type}_only_${init_time}
-for rps in "${rps_list[@]}"; do
-	per_wrk_st=$(date +%s)
-	wrk west ${req_type} ${rps} ${tag}
-	#restart_wasm
-	per_wrk_et=$(date +%s)
-	per_wk_duration=$((per_wrk_et - per_wrk_st))
-	echo "@@ per_wk_duration: ${per_wk_duration} seconds"
+# req_type_list=(reserve search recommend user)
+req_type_list=(search)
+for req_type in "${req_type_list[@]}"; do
+    dir=${req_type}_test
+    # rps_list=(100 200 300 400 500 600 700 800 900 1000)
+    rps_list=(200)
+    for rps in "${rps_list[@]}"; do
+        per_wrk_st=$(date +%s)
+        wrk ${cluster} ${req_type} ${rps} ${dir}
+        scp_trace_string_file ${dir} ${req_type} ${rps}
+        # restart_wasm
+        restart_slate_controller
+        per_wrk_et=$(date +%s)
+        per_wk_duration=$((per_wrk_et - per_wrk_st))
+        echo "@@ per_wk_duration: ${per_wk_duration} seconds"
+    done
 done
-#full_reset ${tag}
+restart_slate_controller
+
 end_time=$(date +%s)
 duration=$((end_time - start_time))
-echo "@@ Duration: ${duration} seconds"
-
-
-
-# init_time=$(date +"%y%m%d_%H%M%S")
-# start_time=$(date +%s)
-# tag=case1_${init_time}
-# wrk west user 100 ${tag} &
-# wrk west recommend 0 ${tag} &
-# wrk west reserve 0 ${tag} &
-# wait
-# reset ${tag}
-# end_time=$(date +%s)
-# duration=$((end_time - start_time))
-# echo "@@ Duration: ${duration} seconds"
+echo "@@ Total runtime: ${duration} seconds"
