@@ -1,0 +1,452 @@
+@@ +++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+--------------------------------
+distribution: exp
+thread: 50
+connection: 50
+duration: 60
+cluster: west
+req_type: search
+RPS: 500
+--------------------------------
+Running 1m test @ http://node1.gangmuk-193213.istio-pg0.utah.cloudlab.us:32735
+  50 threads and 50 connections
+
+  Thread calibration: mean lat.: 5154.904ms, rate sampling interval: 14147ms
+  Thread calibration: mean lat.: 5095.234ms, rate sampling interval: 12623ms
+  Thread calibration: mean lat.: 5752.964ms, rate sampling interval: 13713ms
+  Thread calibration: mean lat.: 5741.720ms, rate sampling interval: 13901ms
+  Thread calibration: mean lat.: 5317.744ms, rate sampling interval: 14041ms
+  Thread calibration: mean lat.: 5437.965ms, rate sampling interval: 13557ms
+  Thread calibration: mean lat.: 5190.268ms, rate sampling interval: 12435ms
+  Thread calibration: mean lat.: 4435.968ms, rate sampling interval: 10199ms
+  Thread calibration: mean lat.: 4506.029ms, rate sampling interval: 11919ms
+  Thread calibration: mean lat.: 4993.823ms, rate sampling interval: 11739ms
+  Thread calibration: mean lat.: 5447.621ms, rate sampling interval: 12296ms
+  Thread calibration: mean lat.: 5232.285ms, rate sampling interval: 13918ms
+  Thread calibration: mean lat.: 4873.602ms, rate sampling interval: 11288ms
+  Thread calibration: mean lat.: 6060.985ms, rate sampling interval: 15138ms
+  Thread calibration: mean lat.: 5189.051ms, rate sampling interval: 12582ms
+  Thread calibration: mean lat.: 4527.995ms, rate sampling interval: 10502ms
+  Thread calibration: mean lat.: 3943.381ms, rate sampling interval: 10117ms
+  Thread calibration: mean lat.: 4885.405ms, rate sampling interval: 11263ms
+  Thread calibration: mean lat.: 5572.608ms, rate sampling interval: 12869ms
+  Thread calibration: mean lat.: 4167.341ms, rate sampling interval: 10199ms
+  Thread calibration: mean lat.: 5762.041ms, rate sampling interval: 15695ms
+  Thread calibration: mean lat.: 4927.249ms, rate sampling interval: 11919ms
+  Thread calibration: mean lat.: 4825.518ms, rate sampling interval: 11689ms
+  Thread calibration: mean lat.: 5497.066ms, rate sampling interval: 13615ms
+  Thread calibration: mean lat.: 5987.101ms, rate sampling interval: 15073ms
+  Thread calibration: mean lat.: 6198.314ms, rate sampling interval: 15704ms
+  Thread calibration: mean lat.: 5808.847ms, rate sampling interval: 13336ms
+  Thread calibration: mean lat.: 4621.141ms, rate sampling interval: 10797ms
+  Thread calibration: mean lat.: 5902.226ms, rate sampling interval: 14147ms
+  Thread calibration: mean lat.: 4598.569ms, rate sampling interval: 10297ms
+  Thread calibration: mean lat.: 4798.354ms, rate sampling interval: 12484ms
+  Thread calibration: mean lat.: 4771.072ms, rate sampling interval: 13672ms
+  Thread calibration: mean lat.: 4869.123ms, rate sampling interval: 11567ms
+  Thread calibration: mean lat.: 5355.842ms, rate sampling interval: 15163ms
+  Thread calibration: mean lat.: 4246.989ms, rate sampling interval: 10256ms
+  Thread calibration: mean lat.: 4693.473ms, rate sampling interval: 11534ms
+  Thread calibration: mean lat.: 5557.860ms, rate sampling interval: 13705ms
+  Thread calibration: mean lat.: 5305.952ms, rate sampling interval: 13008ms
+  Thread calibration: mean lat.: 4558.558ms, rate sampling interval: 10919ms
+  Thread calibration: mean lat.: 4922.475ms, rate sampling interval: 12058ms
+  Thread calibration: mean lat.: 4491.938ms, rate sampling interval: 11534ms
+  Thread calibration: mean lat.: 5025.962ms, rate sampling interval: 12238ms
+  Thread calibration: mean lat.: 4895.192ms, rate sampling interval: 10985ms
+  Thread calibration: mean lat.: 4958.297ms, rate sampling interval: 11419ms
+  Thread calibration: mean lat.: 4882.708ms, rate sampling interval: 11436ms
+  Thread calibration: mean lat.: 4679.040ms, rate sampling interval: 11436ms
+  Thread calibration: mean lat.: 5555.894ms, rate sampling interval: 12763ms
+  Thread calibration: mean lat.: 4808.274ms, rate sampling interval: 11419ms
+  Thread calibration: mean lat.: 5160.899ms, rate sampling interval: 11952ms
+  Thread calibration: mean lat.: 6183.210ms, rate sampling interval: 15106ms
+
+-----------------------------------------------------------------------
+Test Results @ http://node1.gangmuk-193213.istio-pg0.utah.cloudlab.us:32735 
+  Thread Stats   Avg      Stdev     99%   +/- Stdev
+    Latency    10.86s     2.78s   16.72s    62.75%
+    Req/Sec     1.98      2.11     6.00     96.07%
+  Latency Distribution (HdrHistogram - Recorded Latency)
+ 50.000%   10.83s 
+ 75.000%   13.04s 
+ 90.000%   14.69s 
+ 99.000%   16.72s 
+ 99.900%   17.40s 
+ 99.990%   17.84s 
+ 99.999%   17.84s 
+100.000%   17.84s 
+
+  Detailed Percentile spectrum:
+       Value   Percentile   TotalCount 1/(1-Percentile)
+
+    4960.255     0.000000            1         1.00
+    7208.959     0.100000          499         1.11
+    8187.903     0.200000          993         1.25
+    8962.047     0.300000         1491         1.43
+    9936.895     0.400000         1987         1.67
+   10829.823     0.500000         2483         2.00
+   11255.807     0.550000         2729         2.22
+   11657.215     0.600000         2981         2.50
+   12099.583     0.650000         3223         2.86
+   12607.487     0.700000         3474         3.33
+   13041.663     0.750000         3721         4.00
+   13262.847     0.775000         3850         4.44
+   13459.455     0.800000         3971         5.00
+   13721.599     0.825000         4094         5.71
+   14024.703     0.850000         4217         6.67
+   14327.807     0.875000         4342         8.00
+   14491.647     0.887500         4402         8.89
+   14696.447     0.900000         4465        10.00
+   14876.671     0.912500         4526        11.43
+   15089.663     0.925000         4589        13.33
+   15294.463     0.937500         4651        16.00
+   15376.383     0.943750         4681        17.78
+   15458.303     0.950000         4711        20.00
+   15581.183     0.956250         4742        22.86
+   15704.063     0.962500         4774        26.67
+   15876.095     0.968750         4804        32.00
+   15966.207     0.971875         4819        35.56
+   16097.279     0.975000         4835        40.00
+   16220.159     0.978125         4850        45.71
+   16367.615     0.981250         4866        53.33
+   16465.919     0.984375         4881        64.00
+   16564.223     0.985938         4890        71.11
+   16621.567     0.987500         4897        80.00
+   16695.295     0.989062         4905        91.43
+   16769.023     0.990625         4912       106.67
+   16908.287     0.992188         4921       128.00
+   16973.823     0.992969         4924       142.22
+   17055.743     0.993750         4930       160.00
+   17072.127     0.994531         4934       182.86
+   17088.511     0.995313         4936       213.33
+   17121.279     0.996094         4939       256.00
+   17170.431     0.996484         4943       284.44
+   17170.431     0.996875         4943       320.00
+   17219.583     0.997266         4945       365.71
+   17252.351     0.997656         4947       426.67
+   17301.503     0.998047         4949       512.00
+   17350.655     0.998242         4950       568.89
+   17367.039     0.998437         4952       640.00
+   17367.039     0.998633         4952       731.43
+   17399.807     0.998828         4953       853.33
+   17481.727     0.999023         4954      1024.00
+   17481.727     0.999121         4954      1137.78
+   17645.567     0.999219         4955      1280.00
+   17645.567     0.999316         4955      1462.86
+   17842.175     0.999414         4958      1706.67
+   17842.175     1.000000         4958          inf
+#[Mean    =    10863.361, StdDeviation   =     2779.104]
+#[Max     =    17825.792, Total count    =         4958]
+#[Buckets =           27, SubBuckets     =         2048]
+-----------------------------------------------------------------------
+  6667 requests in 1.00m, 16.50MB read
+Requests/sec:    111.10  
+Transfer/sec:    281.60KB
+@@ pod_metrics
+Pod: consul-7b54d78bd-vx96k
+Container: consul, CPU: 10m, Memory: 28 MiB
+Container: istio-proxy, CPU: 10m, Memory: 90 MiB
+Pod: frontend-us-east-1-776c9d7f7b-bs5sr
+Container: istio-proxy, CPU: 3m, Memory: 87 MiB
+Container: hotel-reserv-frontend, CPU: 3m, Memory: 5 MiB
+Pod: frontend-us-west-1-6f4f455b8-k4wh9
+Container: hotel-reserv-frontend, CPU: 87m, Memory: 21 MiB
+Container: istio-proxy, CPU: 87m, Memory: 98 MiB
+Pod: geo-us-east-1-8687dd889f-z6wjm
+Container: hotel-reserv-geo, CPU: 1m, Memory: 8 MiB
+Container: istio-proxy, CPU: 1m, Memory: 89 MiB
+Pod: geo-us-west-1-6765544fd7-sgxlt
+Container: hotel-reserv-geo, CPU: 88m, Memory: 9 MiB
+Container: istio-proxy, CPU: 88m, Memory: 95 MiB
+Pod: jaeger-us-east-1-98c84f59-xxml8
+Container: hotel-reserv-jaeger, CPU: 2m, Memory: 26 MiB
+Container: istio-proxy, CPU: 2m, Memory: 92 MiB
+Pod: jaeger-us-west-1-58fff45c9f-xk6jm
+Container: hotel-reserv-jaeger, CPU: 20m, Memory: 55 MiB
+Container: istio-proxy, CPU: 20m, Memory: 91 MiB
+Pod: memcached-profile-us-east-1-69b4cbf775-ls2x5
+Container: hotel-reserv-profile-mmc, CPU: 1m, Memory: 2 MiB
+Container: istio-proxy, CPU: 1m, Memory: 88 MiB
+Pod: memcached-profile-us-west-1-789b6ff7bc-ktpn7
+Container: hotel-reserv-profile-mmc, CPU: 10m, Memory: 5 MiB
+Container: istio-proxy, CPU: 10m, Memory: 89 MiB
+Pod: memcached-rate-us-east-1-59fcbb6c75-4cwg2
+Container: istio-proxy, CPU: 3m, Memory: 87 MiB
+Container: hotel-reserv-rate-mmc, CPU: 3m, Memory: 2 MiB
+Pod: memcached-rate-us-west-1-59df74bdff-2t5cp
+Container: istio-proxy, CPU: 252m, Memory: 92 MiB
+Container: hotel-reserv-rate-mmc, CPU: 252m, Memory: 24 MiB
+Pod: memcached-reserve-us-east-1-6fc6c854f5-kzb56
+Container: hotel-reserv-reservation-mmc, CPU: 1m, Memory: 2 MiB
+Container: istio-proxy, CPU: 1m, Memory: 90 MiB
+Pod: memcached-reserve-us-west-1-749fb76b7f-tm75z
+Container: hotel-reserv-reservation-mmc, CPU: 2229m, Memory: 548 MiB
+Container: istio-proxy, CPU: 2229m, Memory: 89 MiB
+Pod: mongodb-geo-us-east-1-69b956c6f5-2btpn
+Container: istio-proxy, CPU: 3m, Memory: 90 MiB
+Container: hotel-reserv-geo-mongo, CPU: 3m, Memory: 162 MiB
+Pod: mongodb-geo-us-west-1-f995b5987-rx9lk
+Container: hotel-reserv-geo-mongo, CPU: 5m, Memory: 162 MiB
+Container: istio-proxy, CPU: 5m, Memory: 91 MiB
+Pod: mongodb-profile-us-east-1-6d466b8fbf-pzv7r
+Container: hotel-reserv-profile-mongo, CPU: 3m, Memory: 162 MiB
+Container: istio-proxy, CPU: 3m, Memory: 90 MiB
+Pod: mongodb-profile-us-west-1-67b7b4c4f7-nxvtz
+Container: hotel-reserv-profile-mongo, CPU: 4m, Memory: 162 MiB
+Container: istio-proxy, CPU: 4m, Memory: 92 MiB
+Pod: mongodb-rate-us-east-1-8fb44c4dd-rx95q
+Container: hotel-reserv-rate-mongo, CPU: 3m, Memory: 162 MiB
+Container: istio-proxy, CPU: 3m, Memory: 88 MiB
+Pod: mongodb-rate-us-west-1-74fb56c6-gsbjj
+Container: hotel-reserv-rate-mongo, CPU: 4m, Memory: 168 MiB
+Container: istio-proxy, CPU: 4m, Memory: 91 MiB
+Pod: mongodb-recommendation-us-east-1-7d74ff8fb5-knt7r
+Container: istio-proxy, CPU: 3m, Memory: 90 MiB
+Container: hotel-reserv-recommendation-mongo, CPU: 3m, Memory: 164 MiB
+Pod: mongodb-recommendation-us-west-1-5db7bf6769-2vkmz
+Container: hotel-reserv-recommendation-mongo, CPU: 5m, Memory: 162 MiB
+Container: istio-proxy, CPU: 5m, Memory: 94 MiB
+Pod: mongodb-reservation-us-east-1-857f97b8c9-z6ss2
+Container: hotel-reserv-reservation-mongo, CPU: 3m, Memory: 162 MiB
+Container: istio-proxy, CPU: 3m, Memory: 91 MiB
+Pod: mongodb-reservation-us-west-1-5bfdf844f5-hqwbl
+Container: hotel-reserv-reservation-mongo, CPU: 5m, Memory: 162 MiB
+Container: istio-proxy, CPU: 5m, Memory: 91 MiB
+Pod: mongodb-user-us-east-1-58c65c76f-4h82g
+Container: hotel-reserv-user-mongo, CPU: 4m, Memory: 166 MiB
+Container: istio-proxy, CPU: 4m, Memory: 89 MiB
+Pod: mongodb-user-us-west-1-5987589f69-r4f9h
+Container: hotel-reserv-user-mongo, CPU: 5m, Memory: 167 MiB
+Container: istio-proxy, CPU: 5m, Memory: 89 MiB
+Pod: profile-us-east-1-5f58bb657d-kw2km
+Container: hotel-reserv-profile, CPU: 1m, Memory: 6 MiB
+Container: istio-proxy, CPU: 1m, Memory: 88 MiB
+Pod: profile-us-west-1-5998856978-lvxhj
+Container: hotel-reserv-profile, CPU: 92m, Memory: 13 MiB
+Container: istio-proxy, CPU: 92m, Memory: 96 MiB
+Pod: rate-us-east-1-545b5b46fb-vxtvp
+Container: hotel-reserv-rate, CPU: 1m, Memory: 4 MiB
+Container: istio-proxy, CPU: 1m, Memory: 91 MiB
+Pod: rate-us-west-1-d489bf8dd-tzlsh
+Container: hotel-reserv-rate, CPU: 7493m, Memory: 62 MiB
+Container: istio-proxy, CPU: 7493m, Memory: 109 MiB
+Pod: recommendation-us-east-1-69db85f47b-jl529
+Container: istio-proxy, CPU: 3m, Memory: 87 MiB
+Container: hotel-reserv-recommendation, CPU: 3m, Memory: 8 MiB
+Pod: recommendation-us-west-1-b44bcf9bd-hml5s
+Container: hotel-reserv-recommendation, CPU: 1m, Memory: 8 MiB
+Container: istio-proxy, CPU: 1m, Memory: 90 MiB
+Pod: reservation-us-east-1-6fd945b547-rzbg7
+Container: hotel-reserv-reservation, CPU: 1m, Memory: 5 MiB
+Container: istio-proxy, CPU: 1m, Memory: 89 MiB
+Pod: reservation-us-west-1-6f6f5597cf-h2sw2
+Container: hotel-reserv-reservation, CPU: 5629m, Memory: 132 MiB
+Container: istio-proxy, CPU: 5629m, Memory: 104 MiB
+Pod: search-us-east-1-65d854fd58-hvw8b
+Container: istio-proxy, CPU: 3m, Memory: 94 MiB
+Container: hotel-reserv-search, CPU: 3m, Memory: 3 MiB
+Pod: search-us-west-1-8584f78bfd-jhklz
+Container: hotel-reserv-search, CPU: 545m, Memory: 20 MiB
+Container: istio-proxy, CPU: 545m, Memory: 100 MiB
+Pod: slate-controller-58df8c4b6b-8mzmj
+Container: istio-proxy, CPU: 37m, Memory: 105 MiB
+Container: slate-controller, CPU: 37m, Memory: 205 MiB
+Pod: user-us-east-1-cfd6fd66f-xrfrs
+Container: hotel-reserv-user, CPU: 1m, Memory: 19 MiB
+Container: istio-proxy, CPU: 1m, Memory: 90 MiB
+Pod: user-us-west-1-c94d9668f-qc9xf
+Container: hotel-reserv-user, CPU: 1m, Memory: 21 MiB
+Container: istio-proxy, CPU: 1m, Memory: 87 MiB
+@@ resource_allocation
+Deployment,consul
+CPU Limit,N/A
+CPU Request,N/A
+Mem Limit,N/A
+Mem Request,N/A
+Deployment,frontend-us-east-1
+CPU Limit,N/A
+CPU Request,N/A
+Mem Limit,N/A
+Mem Request,N/A
+Deployment,frontend-us-west-1
+CPU Limit,N/A
+CPU Request,N/A
+Mem Limit,N/A
+Mem Request,N/A
+Deployment,geo-us-east-1
+CPU Limit,N/A
+CPU Request,N/A
+Mem Limit,N/A
+Mem Request,N/A
+Deployment,geo-us-west-1
+CPU Limit,N/A
+CPU Request,N/A
+Mem Limit,N/A
+Mem Request,N/A
+Deployment,jaeger-us-east-1
+CPU Limit,N/A
+CPU Request,N/A
+Mem Limit,N/A
+Mem Request,N/A
+Deployment,jaeger-us-west-1
+CPU Limit,N/A
+CPU Request,N/A
+Mem Limit,N/A
+Mem Request,N/A
+Deployment,memcached-profile-us-east-1
+CPU Limit,N/A
+CPU Request,N/A
+Mem Limit,N/A
+Mem Request,N/A
+Deployment,memcached-profile-us-west-1
+CPU Limit,N/A
+CPU Request,N/A
+Mem Limit,N/A
+Mem Request,N/A
+Deployment,memcached-rate-us-east-1
+CPU Limit,N/A
+CPU Request,N/A
+Mem Limit,N/A
+Mem Request,N/A
+Deployment,memcached-rate-us-west-1
+CPU Limit,N/A
+CPU Request,N/A
+Mem Limit,N/A
+Mem Request,N/A
+Deployment,memcached-reserve-us-east-1
+CPU Limit,N/A
+CPU Request,N/A
+Mem Limit,N/A
+Mem Request,N/A
+Deployment,memcached-reserve-us-west-1
+CPU Limit,N/A
+CPU Request,N/A
+Mem Limit,N/A
+Mem Request,N/A
+Deployment,mongodb-geo-us-east-1
+CPU Limit,N/A
+CPU Request,N/A
+Mem Limit,N/A
+Mem Request,N/A
+Deployment,mongodb-geo-us-west-1
+CPU Limit,N/A
+CPU Request,N/A
+Mem Limit,N/A
+Mem Request,N/A
+Deployment,mongodb-profile-us-east-1
+CPU Limit,N/A
+CPU Request,N/A
+Mem Limit,N/A
+Mem Request,N/A
+Deployment,mongodb-profile-us-west-1
+CPU Limit,N/A
+CPU Request,N/A
+Mem Limit,N/A
+Mem Request,N/A
+Deployment,mongodb-rate-us-east-1
+CPU Limit,N/A
+CPU Request,N/A
+Mem Limit,N/A
+Mem Request,N/A
+Deployment,mongodb-rate-us-west-1
+CPU Limit,N/A
+CPU Request,N/A
+Mem Limit,N/A
+Mem Request,N/A
+Deployment,mongodb-recommendation-us-east-1
+CPU Limit,N/A
+CPU Request,N/A
+Mem Limit,N/A
+Mem Request,N/A
+Deployment,mongodb-recommendation-us-west-1
+CPU Limit,N/A
+CPU Request,N/A
+Mem Limit,N/A
+Mem Request,N/A
+Deployment,mongodb-reservation-us-east-1
+CPU Limit,N/A
+CPU Request,N/A
+Mem Limit,N/A
+Mem Request,N/A
+Deployment,mongodb-reservation-us-west-1
+CPU Limit,N/A
+CPU Request,N/A
+Mem Limit,N/A
+Mem Request,N/A
+Deployment,mongodb-user-us-east-1
+CPU Limit,N/A
+CPU Request,N/A
+Mem Limit,N/A
+Mem Request,N/A
+Deployment,mongodb-user-us-west-1
+CPU Limit,N/A
+CPU Request,N/A
+Mem Limit,N/A
+Mem Request,N/A
+Deployment,profile-us-east-1
+CPU Limit,N/A
+CPU Request,N/A
+Mem Limit,N/A
+Mem Request,N/A
+Deployment,profile-us-west-1
+CPU Limit,N/A
+CPU Request,N/A
+Mem Limit,N/A
+Mem Request,N/A
+Deployment,rate-us-east-1
+CPU Limit,N/A
+CPU Request,N/A
+Mem Limit,N/A
+Mem Request,N/A
+Deployment,rate-us-west-1
+CPU Limit,N/A
+CPU Request,N/A
+Mem Limit,N/A
+Mem Request,N/A
+Deployment,recommendation-us-east-1
+CPU Limit,N/A
+CPU Request,N/A
+Mem Limit,N/A
+Mem Request,N/A
+Deployment,recommendation-us-west-1
+CPU Limit,N/A
+CPU Request,N/A
+Mem Limit,N/A
+Mem Request,N/A
+Deployment,reservation-us-east-1
+CPU Limit,N/A
+CPU Request,N/A
+Mem Limit,N/A
+Mem Request,N/A
+Deployment,reservation-us-west-1
+CPU Limit,N/A
+CPU Request,N/A
+Mem Limit,N/A
+Mem Request,N/A
+Deployment,search-us-east-1
+CPU Limit,N/A
+CPU Request,N/A
+Mem Limit,N/A
+Mem Request,N/A
+Deployment,search-us-west-1
+CPU Limit,N/A
+CPU Request,N/A
+Mem Limit,N/A
+Mem Request,N/A
+Deployment,slate-controller
+CPU Limit,N/A
+CPU Request,N/A
+Mem Limit,N/A
+Mem Request,N/A
+Deployment,user-us-east-1
+CPU Limit,N/A
+CPU Request,N/A
+Mem Limit,N/A
+Mem Request,N/A
+Deployment,user-us-west-1
+CPU Limit,N/A
+CPU Request,N/A
+Mem Limit,N/A
+Mem Request,N/A

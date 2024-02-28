@@ -1,0 +1,150 @@
+@@ +++++++++++++++++++++++++++++++++++++++++++++++++ 
+--------------------------------
+distribution: exp
+thread: 50
+connection: 50
+duration: 30
+cluster: west
+req_type: reserve
+RPS: 300
+--------------------------------
+Running 30s test @ http://node1.gangmuk-193213.istio-pg0.utah.cloudlab.us:32735
+  50 threads and 50 connections
+
+  Thread calibration: mean lat.: 13.815ms, rate sampling interval: 28ms
+  Thread calibration: mean lat.: 12.022ms, rate sampling interval: 27ms
+  Thread calibration: mean lat.: 10.198ms, rate sampling interval: 27ms
+  Thread calibration: mean lat.: 10.653ms, rate sampling interval: 24ms
+  Thread calibration: mean lat.: 14.788ms, rate sampling interval: 32ms
+  Thread calibration: mean lat.: 13.006ms, rate sampling interval: 29ms
+  Thread calibration: mean lat.: 13.814ms, rate sampling interval: 28ms
+  Thread calibration: mean lat.: 9.315ms, rate sampling interval: 25ms
+  Thread calibration: mean lat.: 9.397ms, rate sampling interval: 30ms
+  Thread calibration: mean lat.: 11.636ms, rate sampling interval: 28ms
+  Thread calibration: mean lat.: 10.876ms, rate sampling interval: 29ms
+  Thread calibration: mean lat.: 10.766ms, rate sampling interval: 25ms
+  Thread calibration: mean lat.: 9.844ms, rate sampling interval: 26ms
+  Thread calibration: mean lat.: 11.343ms, rate sampling interval: 28ms
+  Thread calibration: mean lat.: 14.100ms, rate sampling interval: 27ms
+  Thread calibration: mean lat.: 10.449ms, rate sampling interval: 27ms
+  Thread calibration: mean lat.: 13.619ms, rate sampling interval: 30ms
+  Thread calibration: mean lat.: 12.202ms, rate sampling interval: 31ms
+  Thread calibration: mean lat.: 10.692ms, rate sampling interval: 26ms
+  Thread calibration: mean lat.: 9.895ms, rate sampling interval: 27ms
+  Thread calibration: mean lat.: 10.335ms, rate sampling interval: 30ms
+  Thread calibration: mean lat.: 9.574ms, rate sampling interval: 27ms
+  Thread calibration: mean lat.: 11.754ms, rate sampling interval: 28ms
+  Thread calibration: mean lat.: 10.166ms, rate sampling interval: 29ms
+  Thread calibration: mean lat.: 9.259ms, rate sampling interval: 24ms
+  Thread calibration: mean lat.: 10.164ms, rate sampling interval: 32ms
+  Thread calibration: mean lat.: 10.127ms, rate sampling interval: 26ms
+  Thread calibration: mean lat.: 10.847ms, rate sampling interval: 30ms
+  Thread calibration: mean lat.: 10.353ms, rate sampling interval: 27ms
+  Thread calibration: mean lat.: 11.388ms, rate sampling interval: 29ms
+  Thread calibration: mean lat.: 11.591ms, rate sampling interval: 28ms
+  Thread calibration: mean lat.: 13.079ms, rate sampling interval: 27ms
+  Thread calibration: mean lat.: 11.157ms, rate sampling interval: 29ms
+  Thread calibration: mean lat.: 11.502ms, rate sampling interval: 26ms
+  Thread calibration: mean lat.: 11.020ms, rate sampling interval: 25ms
+  Thread calibration: mean lat.: 14.070ms, rate sampling interval: 30ms
+  Thread calibration: mean lat.: 16.164ms, rate sampling interval: 31ms
+  Thread calibration: mean lat.: 11.420ms, rate sampling interval: 23ms
+  Thread calibration: mean lat.: 13.575ms, rate sampling interval: 27ms
+  Thread calibration: mean lat.: 9.656ms, rate sampling interval: 29ms
+  Thread calibration: mean lat.: 13.691ms, rate sampling interval: 29ms
+  Thread calibration: mean lat.: 10.224ms, rate sampling interval: 30ms
+  Thread calibration: mean lat.: 11.813ms, rate sampling interval: 26ms
+  Thread calibration: mean lat.: 9.914ms, rate sampling interval: 26ms
+  Thread calibration: mean lat.: 11.039ms, rate sampling interval: 28ms
+  Thread calibration: mean lat.: 11.521ms, rate sampling interval: 24ms
+  Thread calibration: mean lat.: 12.709ms, rate sampling interval: 26ms
+  Thread calibration: mean lat.: 9.739ms, rate sampling interval: 25ms
+  Thread calibration: mean lat.: 10.093ms, rate sampling interval: 27ms
+  Thread calibration: mean lat.: 10.207ms, rate sampling interval: 27ms
+
+-----------------------------------------------------------------------
+Test Results @ http://node1.gangmuk-193213.istio-pg0.utah.cloudlab.us:32735 
+  Thread Stats   Avg      Stdev     99%   +/- Stdev
+    Latency     9.48ms    3.38ms  19.69ms   77.97%
+    Req/Sec     2.86     10.74    41.00     92.83%
+  Latency Distribution (HdrHistogram - Recorded Latency)
+ 50.000%    8.75ms
+ 75.000%   11.12ms
+ 90.000%   13.67ms
+ 99.000%   19.69ms
+ 99.900%   27.49ms
+ 99.990%   69.25ms
+ 99.999%   69.25ms
+100.000%   69.25ms
+
+  Detailed Percentile spectrum:
+       Value   Percentile   TotalCount 1/(1-Percentile)
+
+       4.291     0.000000            1         1.00
+       6.223     0.100000          288         1.11
+       6.787     0.200000          567         1.25
+       7.343     0.300000          850         1.43
+       7.999     0.400000         1133         1.67
+       8.751     0.500000         1418         2.00
+       9.071     0.550000         1560         2.22
+       9.527     0.600000         1700         2.50
+      10.023     0.650000         1842         2.86
+      10.479     0.700000         1984         3.33
+      11.119     0.750000         2125         4.00
+      11.487     0.775000         2196         4.44
+      11.855     0.800000         2267         5.00
+      12.215     0.825000         2337         5.71
+      12.719     0.850000         2408         6.67
+      13.159     0.875000         2478         8.00
+      13.431     0.887500         2514         8.89
+      13.671     0.900000         2549        10.00
+      14.015     0.912500         2585        11.43
+      14.375     0.925000         2620        13.33
+      14.935     0.937500         2655        16.00
+      15.223     0.943750         2673        17.78
+      15.463     0.950000         2691        20.00
+      15.687     0.956250         2710        22.86
+      16.119     0.962500         2726        26.67
+      16.623     0.968750         2744        32.00
+      16.895     0.971875         2753        35.56
+      17.311     0.975000         2762        40.00
+      17.711     0.978125         2771        45.71
+      18.223     0.981250         2780        53.33
+      18.623     0.984375         2788        64.00
+      19.087     0.985938         2793        71.11
+      19.375     0.987500         2797        80.00
+      19.631     0.989062         2802        91.43
+      19.935     0.990625         2806       106.67
+      20.735     0.992188         2810       128.00
+      21.071     0.992969         2813       142.22
+      21.471     0.993750         2815       160.00
+      21.935     0.994531         2817       182.86
+      22.255     0.995313         2819       213.33
+      23.007     0.996094         2821       256.00
+      23.087     0.996484         2823       284.44
+      23.679     0.996875         2824       320.00
+      24.527     0.997266         2825       365.71
+      24.543     0.997656         2826       426.67
+      24.831     0.998047         2827       512.00
+      25.119     0.998242         2828       568.89
+      25.119     0.998437         2828       640.00
+      27.487     0.998633         2829       731.43
+      27.487     0.998828         2829       853.33
+      29.215     0.999023         2830      1024.00
+      29.215     0.999121         2830      1137.78
+      29.215     0.999219         2830      1280.00
+      33.183     0.999316         2831      1462.86
+      33.183     0.999414         2831      1706.67
+      33.183     0.999512         2831      2048.00
+      33.183     0.999561         2831      2275.56
+      33.183     0.999609         2831      2560.00
+      69.247     0.999658         2832      2925.71
+      69.247     1.000000         2832          inf
+#[Mean    =        9.485, StdDeviation   =        3.377]
+#[Max     =       69.184, Total count    =         2832]
+#[Buckets =           27, SubBuckets     =         2048]
+-----------------------------------------------------------------------
+  5825 requests in 30.00s, 1.42MB read
+  Non-2xx or 3xx responses: 1
+Requests/sec:    194.15  
+Transfer/sec:     48.52KB

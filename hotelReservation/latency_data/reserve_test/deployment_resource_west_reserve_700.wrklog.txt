@@ -1,0 +1,267 @@
+Deployment: consul
+CPU Limit: 4
+CPU Request: 1
+Mem Limit: None
+Mem Request: None
+
+
+Deployment: frontend-us-east-1
+CPU Limit: 4
+CPU Request: 1
+Mem Limit: None
+Mem Request: None
+
+
+Deployment: frontend-us-west-1
+CPU Limit: 4
+CPU Request: 1
+Mem Limit: None
+Mem Request: None
+
+
+Deployment: geo-us-east-1
+CPU Limit: 4
+CPU Request: 1
+Mem Limit: None
+Mem Request: None
+
+
+Deployment: geo-us-west-1
+CPU Limit: 4
+CPU Request: 1
+Mem Limit: None
+Mem Request: None
+
+
+Deployment: jaeger-us-east-1
+CPU Limit: 4
+CPU Request: 1
+Mem Limit: None
+Mem Request: None
+
+
+Deployment: jaeger-us-west-1
+CPU Limit: 4
+CPU Request: 1
+Mem Limit: None
+Mem Request: None
+
+
+Deployment: memcached-profile-us-east-1
+CPU Limit: 4
+CPU Request: 1
+Mem Limit: None
+Mem Request: None
+
+
+Deployment: memcached-profile-us-west-1
+CPU Limit: 4
+CPU Request: 1
+Mem Limit: None
+Mem Request: None
+
+
+Deployment: memcached-rate-us-east-1
+CPU Limit: 4
+CPU Request: 1
+Mem Limit: None
+Mem Request: None
+
+
+Deployment: memcached-rate-us-west-1
+CPU Limit: 4
+CPU Request: 1
+Mem Limit: None
+Mem Request: None
+
+
+Deployment: memcached-reserve-us-east-1
+CPU Limit: 4
+CPU Request: 1
+Mem Limit: None
+Mem Request: None
+
+
+Deployment: memcached-reserve-us-west-1
+CPU Limit: 4
+CPU Request: 1
+Mem Limit: None
+Mem Request: None
+
+
+Deployment: mongodb-geo-us-east-1
+CPU Limit: 4
+CPU Request: 1
+Mem Limit: None
+Mem Request: None
+
+
+Deployment: mongodb-geo-us-west-1
+CPU Limit: 4
+CPU Request: 1
+Mem Limit: None
+Mem Request: None
+
+
+Deployment: mongodb-profile-us-east-1
+CPU Limit: 4
+CPU Request: 1
+Mem Limit: None
+Mem Request: None
+
+
+Deployment: mongodb-profile-us-west-1
+CPU Limit: 4
+CPU Request: 1
+Mem Limit: None
+Mem Request: None
+
+
+Deployment: mongodb-rate-us-east-1
+CPU Limit: 4
+CPU Request: 1
+Mem Limit: None
+Mem Request: None
+
+
+Deployment: mongodb-rate-us-west-1
+CPU Limit: 4
+CPU Request: 1
+Mem Limit: None
+Mem Request: None
+
+
+Deployment: mongodb-recommendation-us-east-1
+CPU Limit: 4
+CPU Request: 1
+Mem Limit: None
+Mem Request: None
+
+
+Deployment: mongodb-recommendation-us-west-1
+CPU Limit: 4
+CPU Request: 1
+Mem Limit: None
+Mem Request: None
+
+
+Deployment: mongodb-reservation-us-east-1
+CPU Limit: 4
+CPU Request: 1
+Mem Limit: None
+Mem Request: None
+
+
+Deployment: mongodb-reservation-us-west-1
+CPU Limit: 4
+CPU Request: 1
+Mem Limit: None
+Mem Request: None
+
+
+Deployment: mongodb-user-us-east-1
+CPU Limit: 4
+CPU Request: 1
+Mem Limit: None
+Mem Request: None
+
+
+Deployment: mongodb-user-us-west-1
+CPU Limit: 4
+CPU Request: 1
+Mem Limit: None
+Mem Request: None
+
+
+Deployment: profile-us-east-1
+CPU Limit: 4
+CPU Request: 1
+Mem Limit: None
+Mem Request: None
+
+
+Deployment: profile-us-west-1
+CPU Limit: 4
+CPU Request: 1
+Mem Limit: None
+Mem Request: None
+
+
+Deployment: rate-us-east-1
+CPU Limit: 4
+CPU Request: 1
+Mem Limit: None
+Mem Request: None
+
+
+Deployment: rate-us-west-1
+CPU Limit: 4
+CPU Request: 1
+Mem Limit: None
+Mem Request: None
+
+
+Deployment: recommendation-us-east-1
+CPU Limit: 4
+CPU Request: 1
+Mem Limit: None
+Mem Request: None
+
+
+Deployment: recommendation-us-west-1
+CPU Limit: 4
+CPU Request: 1
+Mem Limit: None
+Mem Request: None
+
+
+Deployment: reservation-us-east-1
+CPU Limit: 4
+CPU Request: 1
+Mem Limit: None
+Mem Request: None
+
+
+Deployment: reservation-us-west-1
+CPU Limit: 4
+CPU Request: 1
+Mem Limit: None
+Mem Request: None
+
+
+Deployment: search-us-east-1
+CPU Limit: 4
+CPU Request: 1
+Mem Limit: None
+Mem Request: None
+
+
+Deployment: search-us-west-1
+CPU Limit: 4
+CPU Request: 1
+Mem Limit: None
+Mem Request: None
+
+
+Deployment: slate-controller
+CPU Limit: N/A
+CPU Request: N/A
+Mem Limit: N/A
+Mem Request: N/A
+
+
+Deployment: user-us-east-1
+CPU Limit: 4
+CPU Request: 1
+Mem Limit: None
+Mem Request: None
+
+
+Deployment: user-us-west-1
+CPU Limit: 4
+CPU Request: 1
+Mem Limit: None
+Mem Request: None
+
+
+Resource information written to deployment_resources.txt in the default namespace.

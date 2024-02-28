@@ -1,0 +1,162 @@
+@@ +++++++++++++++++++++++++++++++++++++++++++++++++ 
+--------------------------------
+distribution: exp
+thread: 50
+connection: 50
+duration: 30
+cluster: west
+req_type: reserve
+RPS: 900
+--------------------------------
+Running 30s test @ http://node1.gangmuk-193213.istio-pg0.utah.cloudlab.us:32735
+  50 threads and 50 connections
+
+  Thread calibration: mean lat.: 23.403ms, rate sampling interval: 114ms
+  Thread calibration: mean lat.: 26.608ms, rate sampling interval: 121ms
+  Thread calibration: mean lat.: 45.719ms, rate sampling interval: 382ms
+  Thread calibration: mean lat.: 16.986ms, rate sampling interval: 76ms
+  Thread calibration: mean lat.: 34.963ms, rate sampling interval: 96ms
+  Thread calibration: mean lat.: 49.651ms, rate sampling interval: 419ms
+  Thread calibration: mean lat.: 17.228ms, rate sampling interval: 62ms
+  Thread calibration: mean lat.: 24.355ms, rate sampling interval: 88ms
+  Thread calibration: mean lat.: 34.362ms, rate sampling interval: 241ms
+  Thread calibration: mean lat.: 59.520ms, rate sampling interval: 369ms
+  Thread calibration: mean lat.: 76.121ms, rate sampling interval: 683ms
+  Thread calibration: mean lat.: 22.092ms, rate sampling interval: 68ms
+  Thread calibration: mean lat.: 20.452ms, rate sampling interval: 98ms
+  Thread calibration: mean lat.: 32.194ms, rate sampling interval: 171ms
+  Thread calibration: mean lat.: 29.558ms, rate sampling interval: 114ms
+  Thread calibration: mean lat.: 25.069ms, rate sampling interval: 72ms
+  Thread calibration: mean lat.: 48.473ms, rate sampling interval: 385ms
+  Thread calibration: mean lat.: 29.392ms, rate sampling interval: 79ms
+  Thread calibration: mean lat.: 17.415ms, rate sampling interval: 70ms
+  Thread calibration: mean lat.: 18.579ms, rate sampling interval: 62ms
+  Thread calibration: mean lat.: 23.889ms, rate sampling interval: 61ms
+  Thread calibration: mean lat.: 23.982ms, rate sampling interval: 146ms
+  Thread calibration: mean lat.: 21.068ms, rate sampling interval: 53ms
+  Thread calibration: mean lat.: 32.324ms, rate sampling interval: 141ms
+  Thread calibration: mean lat.: 26.283ms, rate sampling interval: 68ms
+  Thread calibration: mean lat.: 26.222ms, rate sampling interval: 72ms
+  Thread calibration: mean lat.: 24.286ms, rate sampling interval: 134ms
+  Thread calibration: mean lat.: 21.531ms, rate sampling interval: 58ms
+  Thread calibration: mean lat.: 20.974ms, rate sampling interval: 55ms
+  Thread calibration: mean lat.: 26.479ms, rate sampling interval: 117ms
+  Thread calibration: mean lat.: 27.099ms, rate sampling interval: 163ms
+  Thread calibration: mean lat.: 18.539ms, rate sampling interval: 83ms
+  Thread calibration: mean lat.: 39.055ms, rate sampling interval: 283ms
+  Thread calibration: mean lat.: 22.979ms, rate sampling interval: 78ms
+  Thread calibration: mean lat.: 27.864ms, rate sampling interval: 124ms
+  Thread calibration: mean lat.: 41.350ms, rate sampling interval: 404ms
+  Thread calibration: mean lat.: 39.504ms, rate sampling interval: 210ms
+  Thread calibration: mean lat.: 38.476ms, rate sampling interval: 287ms
+  Thread calibration: mean lat.: 28.357ms, rate sampling interval: 130ms
+  Thread calibration: mean lat.: 28.687ms, rate sampling interval: 108ms
+  Thread calibration: mean lat.: 33.041ms, rate sampling interval: 243ms
+  Thread calibration: mean lat.: 25.003ms, rate sampling interval: 118ms
+  Thread calibration: mean lat.: 33.536ms, rate sampling interval: 169ms
+  Thread calibration: mean lat.: 30.949ms, rate sampling interval: 195ms
+  Thread calibration: mean lat.: 34.898ms, rate sampling interval: 234ms
+  Thread calibration: mean lat.: 36.314ms, rate sampling interval: 245ms
+  Thread calibration: mean lat.: 19.179ms, rate sampling interval: 67ms
+  Thread calibration: mean lat.: 21.032ms, rate sampling interval: 74ms
+  Thread calibration: mean lat.: 20.726ms, rate sampling interval: 98ms
+  Thread calibration: mean lat.: 25.869ms, rate sampling interval: 115ms
+
+-----------------------------------------------------------------------
+Test Results @ http://node1.gangmuk-193213.istio-pg0.utah.cloudlab.us:32735 
+  Thread Stats   Avg      Stdev     99%   +/- Stdev
+    Latency   123.31ms  250.51ms   1.05s    85.48%
+    Req/Sec    17.61     13.67    59.00     68.05%
+  Latency Distribution (HdrHistogram - Recorded Latency)
+ 50.000%   12.22ms
+ 75.000%   28.86ms
+ 90.000%  545.28ms
+ 99.000%    1.05s 
+ 99.900%    1.31s 
+ 99.990%    1.45s 
+ 99.999%    1.49s 
+100.000%    1.49s 
+
+  Detailed Percentile spectrum:
+       Value   Percentile   TotalCount 1/(1-Percentile)
+
+       3.427     0.000000            1         1.00
+       6.271     0.100000         1790         1.11
+       7.559     0.200000         3584         1.25
+       8.855     0.300000         5381         1.43
+      10.271     0.400000         7163         1.67
+      12.223     0.500000         8952         2.00
+      13.471     0.550000         9848         2.22
+      15.119     0.600000        10740         2.50
+      17.455     0.650000        11638         2.86
+      21.055     0.700000        12533         3.33
+      28.863     0.750000        13425         4.00
+      41.151     0.775000        13873         4.44
+     111.039     0.800000        14321         5.00
+     236.415     0.825000        14768         5.71
+     352.767     0.850000        15215         6.67
+     455.935     0.875000        15663         8.00
+     499.711     0.887500        15888         8.89
+     545.279     0.900000        16111        10.00
+     589.311     0.912500        16338        11.43
+     633.855     0.925000        16562        13.33
+     677.887     0.937500        16783        16.00
+     701.439     0.943750        16894        17.78
+     731.647     0.950000        17005        20.00
+     767.487     0.956250        17117        22.86
+     806.399     0.962500        17229        26.67
+     851.455     0.968750        17341        32.00
+     871.935     0.971875        17398        35.56
+     897.535     0.975000        17454        40.00
+     921.599     0.978125        17509        45.71
+     949.759     0.981250        17566        53.33
+     980.991     0.984375        17622        64.00
+     999.935     0.985938        17649        71.11
+    1018.879     0.987500        17677        80.00
+    1037.823     0.989062        17705        91.43
+    1059.839     0.990625        17734       106.67
+    1089.535     0.992188        17762       128.00
+    1101.823     0.992969        17775       142.22
+    1120.255     0.993750        17789       160.00
+    1131.519     0.994531        17805       182.86
+    1145.855     0.995313        17818       213.33
+    1163.263     0.996094        17831       256.00
+    1168.383     0.996484        17838       284.44
+    1177.599     0.996875        17846       320.00
+    1196.031     0.997266        17852       365.71
+    1205.247     0.997656        17859       426.67
+    1246.207     0.998047        17866       512.00
+    1256.447     0.998242        17869       568.89
+    1281.023     0.998437        17873       640.00
+    1292.287     0.998633        17876       731.43
+    1303.551     0.998828        17880       853.33
+    1310.719     0.999023        17883      1024.00
+    1321.983     0.999121        17885      1137.78
+    1335.295     0.999219        17888      1280.00
+    1335.295     0.999316        17888      1462.86
+    1347.583     0.999414        17890      1706.67
+    1402.879     0.999512        17892      2048.00
+    1415.167     0.999561        17893      2275.56
+    1424.383     0.999609        17894      2560.00
+    1424.383     0.999658        17894      2925.71
+    1430.527     0.999707        17895      3413.33
+    1431.551     0.999756        17896      4096.00
+    1446.911     0.999780        17897      4551.11
+    1446.911     0.999805        17897      5120.00
+    1446.911     0.999829        17897      5851.43
+    1454.079     0.999854        17898      6826.67
+    1454.079     0.999878        17898      8192.00
+    1486.847     0.999890        17899      9102.22
+    1486.847     0.999902        17899     10240.00
+    1486.847     0.999915        17899     11702.86
+    1486.847     0.999927        17899     13653.33
+    1486.847     0.999939        17899     16384.00
+    1487.871     0.999945        17900     18204.44
+    1487.871     1.000000        17900          inf
+#[Mean    =      123.309, StdDeviation   =      250.509]
+#[Max     =     1486.848, Total count    =        17900]
+#[Buckets =           27, SubBuckets     =         2048]
+-----------------------------------------------------------------------
+  26859 requests in 30.00s, 6.33MB read
+Requests/sec:    895.23  
+Transfer/sec:    215.96KB
