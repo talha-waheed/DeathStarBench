@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "WANRING: THIS IS DEPRECATED. USE run_wrk.py instead"
+exit
 
 function wrk() {
     cluster=$1
