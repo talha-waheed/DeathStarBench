@@ -64,6 +64,7 @@ func (s *Server) Run() error {
 		grpc.UnaryInterceptor(
 			otgrpc.OpenTracingServerInterceptor(s.Tracer),
 		),
+		grpc.MaxConcurrentStreams(100),
 	}
 
 	if tlsopt := tls.GetServerOpt(); tlsopt != nil {

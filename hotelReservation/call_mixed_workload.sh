@@ -22,7 +22,7 @@ function wrk() {
     name_tag=$4
 
     if [ ${cluster} == "west" ]; then
-        server_ip="http://node1.gangmuk-185120.istio-pg0.clemson.cloudlab.us:31029"
+        server_ip="http://node2.gangmuk-186812.istio-pg0.utah.cloudlab.us:30000/"
     elif [ ${cluster} == "east" ]; then
     ## TODO: needs valid east ip address
         server_ip="http://node2.gangmuk-185120.istio-pg0.clemson.cloudlab.us:31029"
@@ -156,9 +156,9 @@ init_time=test
 #duration=$((end_time - start_time))
 #echo "@@ Duration: ${duration} seconds"
 
-#req_type=reserve
+req_type=reserve
 #req_type=search
-req_type=recommend
+#req_type=recommend
 #req_type=user
 #rps_list=(10 20 30 40 50 60 70 80 90 100)
 #rps_list=(20 40 60 80 100)

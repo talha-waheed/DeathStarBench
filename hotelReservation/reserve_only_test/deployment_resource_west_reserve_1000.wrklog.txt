@@ -1,0 +1,134 @@
+Deployment: consul
+CPU Limit: 1
+CPU Request: 100m
+MEM Limit: None
+MEM Request: None
+
+
+Deployment: frontend
+CPU Limit: 1
+CPU Request: 100m
+MEM Limit: None
+MEM Request: None
+
+
+Deployment: geo
+CPU Limit: 1
+CPU Request: 100m
+MEM Limit: None
+MEM Request: None
+
+
+Deployment: jaeger
+CPU Limit: 1
+CPU Request: 100m
+MEM Limit: None
+MEM Request: None
+
+
+Deployment: memcached-profile
+CPU Limit: 1
+CPU Request: 100m
+MEM Limit: None
+MEM Request: None
+
+
+Deployment: memcached-rate
+CPU Limit: 1
+CPU Request: 100m
+MEM Limit: None
+MEM Request: None
+
+
+Deployment: memcached-reserve
+CPU Limit: 1
+CPU Request: 100m
+MEM Limit: None
+MEM Request: None
+
+
+Deployment: mongodb-geo
+CPU Limit: 1
+CPU Request: 100m
+MEM Limit: None
+MEM Request: None
+
+
+Deployment: mongodb-profile
+CPU Limit: 1
+CPU Request: 100m
+MEM Limit: None
+MEM Request: None
+
+
+Deployment: mongodb-rate
+CPU Limit: 1
+CPU Request: 100m
+MEM Limit: None
+MEM Request: None
+
+
+Deployment: mongodb-recommendation
+CPU Limit: 1
+CPU Request: 100m
+MEM Limit: None
+MEM Request: None
+
+
+Deployment: mongodb-reservation
+CPU Limit: 1
+CPU Request: 100m
+MEM Limit: None
+MEM Request: None
+
+
+Deployment: mongodb-user
+CPU Limit: 1
+CPU Request: 100m
+MEM Limit: None
+MEM Request: None
+
+
+Deployment: profile
+CPU Limit: 1
+CPU Request: 100m
+MEM Limit: None
+MEM Request: None
+
+
+Deployment: rate
+CPU Limit: 1
+CPU Request: 100m
+MEM Limit: None
+MEM Request: None
+
+
+Deployment: recommendation
+CPU Limit: 1
+CPU Request: 100m
+MEM Limit: None
+MEM Request: None
+
+
+Deployment: reservation
+CPU Limit: 1
+CPU Request: 100m
+MEM Limit: None
+MEM Request: None
+
+
+Deployment: search
+CPU Limit: 1
+CPU Request: 100m
+MEM Limit: None
+MEM Request: None
+
+
+Deployment: user
+CPU Limit: 1
+CPU Request: 100m
+MEM Limit: None
+MEM Request: None
+
+
+Resource information written to deployment_resources.txt

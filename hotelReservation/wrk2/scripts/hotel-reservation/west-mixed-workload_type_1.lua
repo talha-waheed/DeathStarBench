@@ -2,8 +2,7 @@ local socket = require("socket")
 math.randomseed(socket.gettime()*1000)
 math.random(); math.random(); math.random()
 
-local url = "http://node2.gangmuk-184284.istio-pg0.clemson.cloudlab.us:32340"
-
+local url = "http://node1.gangmuk-193288.istio-pg0.apt.emulab.net:30863"
 local function get_user()
   local id = math.random(0, 500)
   local user_name = "Cornell_" .. tostring(id)
