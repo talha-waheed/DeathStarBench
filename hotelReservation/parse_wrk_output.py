@@ -37,15 +37,31 @@ def find_latency_value(pattern, log_content):
     else:
         return "Value not found"
 
-def parse_log_file(file_path, rps_threshold):
+def parse_log_file(file_path, columns, rps_threshold):
     # Include unit in the regex to differentiate between ms and s
-    latency_patterns = {
-        'avg': r"Latency\s+(\d+\.\d+)(ms|s)",
-        '50%': r"50\.000%\s+(\d+\.\d+)(ms|s)",
-        '99%': r"99\.000%\s+(\d+\.\d+)(ms|s)",
-        '99.9%': r"99\.900%\s+(\d+\.\d+)(ms|s)",
-        '99.99%': r"99\.990%\s+(\d+\.\d+)(ms|s)"
-    }
+    latency_patterns = dict()
+    # columns = ['avg', '50%', '99%', '99.9%', '99.99%']
+    for col in columns:
+        if col == 'avg':
+            latency_patterns[col] = r"Latency\s+(\d+\.\d+)(ms|s)"
+        elif col == '50%':
+            latency_patterns[col] = r"50\.000%\s+(\d+\.\d+)(ms|s)"
+        elif col == '99%':
+            latency_patterns[col] = r"99\.000%\s+(\d+\.\d+)(ms|s)"
+        elif col == '99.9%':
+            latency_patterns[col] = r"99\.900%\s+(\d+\.\d+)(ms|s)"  
+        elif col == '99.99%':
+            latency_patterns[col] = r"99\.990%\s+(\d+\.\d+)(ms|s)"
+        else:
+            print(f"Unknown column: {col}")
+            sys.exit(1)
+    #  latency_patterns = {
+    #     'avg': r"Latency\s+(\d+\.\d+)(ms|s)",
+    #     '50%': ,
+    #     '99%': r"99\.000%\s+(\d+\.\d+)(ms|s)",
+    #     # '99.9%': r"99\.900%\s+(\d+\.\d+)(ms|s)",
+    #     # '99.99%': r"99\.990%\s+(\d+\.\d+)(ms|s)"
+    # }
 
     try:
         with open(file_path, 'r') as file:
@@ -60,6 +76,7 @@ def parse_log_file(file_path, rps_threshold):
     if rps_value <= rps_threshold:
         for key, pattern in latency_patterns.items():
             latency_value = find_latency_value(pattern, log_content)
+            # print(f"key: {key}, latency_value: {latency_value}")
             if key not in new_latency:
                 new_latency[key] = []
             new_latency[key].append(latency_value)
@@ -76,16 +93,19 @@ if __name__ == "__main__":
         print("Usage: python script.py '<pattern>'")
         sys.exit(1)
 
-    rps_threshold = 1800
+    rps_threshold = 1500
+    print(f"NOTE: rps_threshold: {rps_threshold}")
+    # columns = ['avg', '50%', '99%', '99.9%', '99.99%']
+    columns = ['avg', '50%', '99%']
+    # columns = ['avg', '50%']
     for pattern in sys.argv[1:]:
         for file_path in glob.glob(pattern):
-            parse_log_file(file_path, rps_threshold)
+            parse_log_file(file_path, columns, rps_threshold)
 
 
     df = pd.DataFrame(new_latency)
     
     # Convert all latency values to numeric, assuming non-numeric values are errors or 'Value not found'
-    columns = ['avg', '50%', '99%', '99.9%', '99.99%']
     for col in columns:
         df[col] = pd.to_numeric(df[col], errors='coerce')
 
