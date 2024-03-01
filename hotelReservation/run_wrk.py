@@ -18,6 +18,9 @@ def are_all_pods_ready(namespace='default'):
     # Check if all pods are ready
     all_pods_ready = True
     for pod in pods.items:
+        if pod.status.conditions is None:
+            all_pods_ready = False
+            break
         for condition in pod.status.conditions:
             if condition.type == 'Ready' and condition.status != 'True':
                 all_pods_ready = False
@@ -168,6 +171,26 @@ def sleep_and_print(sl):
     print(f"@@ sleep {sl} seconds")
     run_command(f"sleep {sl}")
 
+def disable_istio():
+    run_command("kubectl label namespace default istio-injection=disabled")
+    print("@@ kubectl label namespace default istio-injection=disabled")
+    sleep_and_print(10)
+
+def enable_istio():
+    run_command("kubectl label namespace default istio-injection=enabled")
+    print("@@ kubectl label namespace default istio-injection=enabled")
+    sleep_and_print(10)
+
+def delete_wasm():
+    run_command("kubectl delete -f wasmplugins.yaml")
+    print("@@ kubectl delete -f wasmplugins.yaml")
+    sleep_and_print(5)
+
+def apply_wasm():
+    run_command("kubectl apply -f wasmplugins.yaml")
+    print("@@ kubectl apply -f wasmplugins.yaml")
+    sleep_and_print(5)
+
 def restart_wasm():
     run_command("kubectl delete -f wasmplugins.yaml")
     print("@@ kubectl delete -f wasmplugins.yaml")
@@ -176,14 +199,15 @@ def restart_wasm():
     print("@@ kubectl apply -f wasmplugins.yaml")
     sleep_and_print(10)
 
-def restart_deploy():
+def restart_deploy(exclude=[]):
+    print("start restart deploy")
     config.load_kube_config()
     api_instance = client.AppsV1Api()
-    excluded_deployment_name = "slate-controller"
+    # excluded_deployment_name = "slate-controller"
     try:
         deployments = api_instance.list_namespaced_deployment(namespace="default")
         for deployment in deployments.items:
-            if deployment.metadata.name != excluded_deployment_name:
+            if deployment.metadata.name not in exclude:
                 run_command(f"kubectl rollout restart deploy {deployment.metadata.name}")
     except client.ApiException as e:
         print("Exception when calling AppsV1Api->list_namespaced_deployment: %s\n" % e)
@@ -200,9 +224,10 @@ def restart_slate_controller():
     print("@@ kubectl rollout restart deploy slate-controller")
     sleep_and_print(10)
 
-def scp_trace_string_file(dir, req_type, rps):
+def scp_trace_string_file(dir, cluster, req_type, rps):
     slate_controller_pod = run_command("kubectl get pods -l app=slate-controller -o custom-columns=:metadata.name")
-    destination = f"{dir}/slate_trace_string_{req_type}_{rps}.slatelog"
+    # destination = f"{dir}/slate_trace_string_{req_type}_{rps}.slatelog"
+    destination = f"{dir}/{cluster}_{req_type}_{rps}.slatelog"
     run_command(f"kubectl cp {slate_controller_pod}:/app/trace_string.csv {destination}")
     print(f"scp_trace_string_file")
     print(f"source: {slate_controller_pod}:/app/trace_string.csv")
@@ -211,36 +236,73 @@ def scp_trace_string_file(dir, req_type, rps):
 def main():
     start_time = datetime.now()
     cluster = "west"
+    # with_wasm = [True, False]
+    istio_config = True
+    # with_wasm = [True, False]
+    with_wasm = [True]
+    
+    # if istio_config == False:
+    #     disable_istio()
+    # else:
+    #     enable_istio()
+        
     req_type_list = ["recommend"]
+    # req_type_list = ["reserve"] # reserve is not working
+    # req_type_list = ["user", "recommend", "search"]
     rps_list = {
-                "user": [200, 400, 600, 800, 1000, 1200, 1400, 1600, 2000], \
-                "recommend": [100], \
-                # "recommend": [200, 400, 600, 800, 1000, 1200, 1400, 1600], \
-                "search": [50, 100, 200, 300, 400, 500], \
-                "reserve": [200, 400, 600, 800, 1000, 1200, 1400, 1600] \
+                # "user": [1000, 2000, 3000, 4000], \
+                "user": [4000], \
+                # "user": [100, 500, 1000, 1500, 2000], \
+                "recommend": [500, 1000, 1500, 2000, 2500, 3000, 3500, 4000], \
+                # "search": [10, 50, 100, 200, 300], \
+                "search": [20, 40, 60, 80, 100, 150, 200], \
+                # "reserve": [50] \
                 }
-    for req_type in req_type_list:
-        dir = f"{req_type}_test3"
-        for rps in rps_list[req_type]:
-            per_wrk_st = datetime.now()
-            output_fn = run_wrk(cluster, req_type, rps, dir)
-            pod_metrics = get_pod_metrics('default')
-            resource_allocation = scrape_resource_config()
-            with open(output_fn, "a") as f:
-                f.write("@@ pod_metrics\n")
-                f.write(pod_metrics)
-                f.write("@@ resource_allocation\n")
-                f.write(resource_allocation)
-            scp_trace_string_file(dir, req_type, rps)
-            restart_wasm()
-            restart_deploy()
-            per_wrk_et = datetime.now()
-            per_wk_duration = (per_wrk_et - per_wrk_st).seconds
-            print(f"@@ per_wk_duration: {per_wk_duration} seconds")
-        restart_slate_controller()
-    end_time = datetime.now()
-    duration = (end_time - start_time).seconds
-    print(f"@@ Total runtime: {duration} seconds")
+    
+    for wasm_config in with_wasm:
+        if istio_config == True:
+            print(f"wasm config: {wasm_config}")
+            if wasm_config:
+                apply_wasm()
+            else:
+                delete_wasm()
+                restart_deploy(exclude=[])
+        print(f"istio config: {istio_config}")
+        
+        postfix = "0229_without_cpulimit"
+        print(f"\n* postfix for output file: {postfix}")
+        for i in [5,4,3,2,1]:
+            print(f"will start in {i} seconds")
+            time.sleep(1)
+        for req_type in req_type_list:
+            if istio_config:
+                if wasm_config:
+                    dir = f"{req_type}_with_wasm_{postfix}"
+                else:
+                    dir = f"{req_type}_without_wasm_{postfix}"
+            else:
+                dir = f"{req_type}_without_istio_{postfix}"
+            for rps in rps_list[req_type]:
+                per_wrk_st = datetime.now()
+                output_fn = run_wrk(cluster, req_type, rps, dir)
+                pod_metrics = get_pod_metrics('default')
+                resource_allocation = scrape_resource_config()
+                with open(output_fn, "a") as f:
+                    f.write("@@ pod_metrics\n")
+                    f.write(pod_metrics)
+                    f.write("@@ resource_allocation\n")
+                    f.write(resource_allocation)
+                # restart_wasm()
+                scp_trace_string_file(dir, cluster, req_type, rps)
+                # restart_deploy(exclude=["slate-controller"])
+                restart_deploy(exclude=[])
+                per_wrk_et = datetime.now()
+                per_wk_duration = (per_wrk_et - per_wrk_st).seconds
+                print(f"@@ per_wk_duration: {per_wk_duration} seconds")
+            # restart_slate_controller()
+        end_time = datetime.now()
+        duration = (end_time - start_time).seconds
+        print(f"@@ Total runtime: {duration} seconds")
 
 if __name__ == "__main__":
     main()
