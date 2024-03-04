@@ -4,6 +4,15 @@ from datetime import datetime
 from kubernetes import client, config
 import math
 import time
+import concurrent.futures
+
+# Config
+CONFIG = {
+    'distribution': 'exp',
+    'thread': 50,
+    'connection': 50,
+    'duration': 60
+}
 
 def are_all_pods_ready(namespace='default'):
     # Load kubeconfig
@@ -124,21 +133,17 @@ def run_command(command):
         print(f"Error executing command: {e.output.decode('utf-8')}")
         exit(1)
 
-def run_wrk(cluster, req_type, rps, dir):
-    distribution = "exp"
-    thread = 50
-    connection = 50
-    duration = 60
+def run_wrk(cluster, req_type, rps, dir, wasm_config, istio_config):
     nodename = run_command("kubectl get nodes | grep 'node1' | awk '{print $1}'")
     ingressgw_http2_nodeport = run_command("kubectl get svc istio-ingressgateway -n istio-system -o=json | jq '.spec.ports[] | select(.name==\"http2\") | .nodePort'")
     server_ip = f"http://{nodename}:{ingressgw_http2_nodeport}"
     print(server_ip)
     name = f"{cluster}_{req_type}_{rps}.wrklog"
     output_fn = os.path.join(dir, name)
-    if rps < connection:
-        connection = rps
-    if connection < thread:
-        thread = connection
+    if rps < CONFIG["connection"]:
+        CONFIG["connection"] = rps
+    if CONFIG["connection"] < CONFIG["thread"]:
+        CONFIG["thread"] = CONFIG["connection"]
     if req_type not in ["search", "user", "recommend", "reserve"]:
         print(f"@@ Wrong req_type: {req_type}")
         exit(1)
@@ -146,23 +151,25 @@ def run_wrk(cluster, req_type, rps, dir):
         os.makedirs(dir)
     
     
-    print(f"@@ Start {req_type} RPS: {rps} to {cluster} for {duration} (output_fn: {output_fn})")
+    print(f'@@ Start {req_type} RPS: {rps} to {cluster} for {CONFIG["duration"]} (output_fn: {output_fn})')
     with open(output_fn, "w") as f:
         f.write("@@ +++++++++++++++++++++++++++++++++++++++++++++++++ \n")
         info = f"""
 --------------------------------
-distribution: {distribution}
-thread: {thread}
-connection: {connection}
-duration: {duration}
+distribution: {CONFIG["distribution"]}
+thread: {CONFIG["thread"]}
+connection: {CONFIG["connection"]}
+duration: {CONFIG["duration"]}
 cluster: {cluster}
 req_type: {req_type}
 RPS: {rps}
+WASM: {wasm_config}
+ISTIO: {istio_config}
 --------------------------------
 """
         f.write(info)
     
-    wrk_command = f"./wrk -D {distribution} -t{thread} -c{connection} -d{duration} -L -S -s ./wrk2/scripts/hotel-reservation/{cluster}_{req_type}.lua {server_ip} -R{rps} >> {output_fn}"
+    wrk_command = f'./wrk -D {CONFIG["distribution"]} -t{CONFIG["thread"]} -c{CONFIG["connection"]} -d{CONFIG["duration"]} -L -S -s ./wrk2/scripts/hotel-reservation/{cluster}_{req_type}.lua {server_ip} -R{rps} >> {output_fn}'
     run_command(wrk_command)
     print(f"@@ OUTPUT FILENAME: {output_fn} written")
     return output_fn
@@ -253,7 +260,7 @@ def main():
                 # "user": [1000, 2000, 3000, 4000], \
                 "user": [4000], \
                 # "user": [100, 500, 1000, 1500, 2000], \
-                "recommend": [500, 1000, 1500, 2000, 2500, 3000, 3500, 4000], \
+                "recommend": [1600, 1800], \
                 # "search": [10, 50, 100, 200, 300], \
                 "search": [20, 40, 60, 80, 100, 150, 200], \
                 # "reserve": [50] \
@@ -269,7 +276,7 @@ def main():
                 restart_deploy(exclude=[])
         print(f"istio config: {istio_config}")
         
-        postfix = "0229_without_cpulimit"
+        postfix = "0301_cpu2_static"
         print(f"\n* postfix for output file: {postfix}")
         for i in [5,4,3,2,1]:
             print(f"will start in {i} seconds")
@@ -284,7 +291,18 @@ def main():
                 dir = f"{req_type}_without_istio_{postfix}"
             for rps in rps_list[req_type]:
                 per_wrk_st = datetime.now()
-                output_fn = run_wrk(cluster, req_type, rps, dir)
+                
+                # with concurrent.futures.ThreadPoolExecutor() as executor:
+                #     # Schedule both functions to run concurrently
+                #     future1 = executor.submit(run_wrk(cluster, req_type, rps, dir, wasm_config, istio_config))
+                #     future2 = executor.submit(get_pod_metrics('default'))
+                    
+                #     # Wait for both functions to complete
+                #     output_fn = future1.result()
+                #     pod_metrics = future2.result()
+                #     print("both are done")
+                
+                output_fn = run_wrk(cluster, req_type, rps, dir, wasm_config, istio_config)
                 pod_metrics = get_pod_metrics('default')
                 resource_allocation = scrape_resource_config()
                 with open(output_fn, "a") as f:
@@ -292,14 +310,11 @@ def main():
                     f.write(pod_metrics)
                     f.write("@@ resource_allocation\n")
                     f.write(resource_allocation)
-                # restart_wasm()
                 scp_trace_string_file(dir, cluster, req_type, rps)
-                # restart_deploy(exclude=["slate-controller"])
                 restart_deploy(exclude=[])
                 per_wrk_et = datetime.now()
                 per_wk_duration = (per_wrk_et - per_wrk_st).seconds
                 print(f"@@ per_wk_duration: {per_wk_duration} seconds")
-            # restart_slate_controller()
         end_time = datetime.now()
         duration = (end_time - start_time).seconds
         print(f"@@ Total runtime: {duration} seconds")
