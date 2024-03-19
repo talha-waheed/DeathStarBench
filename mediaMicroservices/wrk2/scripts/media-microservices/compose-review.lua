@@ -1032,6 +1032,7 @@ request = function()
   local headers = {}
   local body = "username=" .. username .. "&password=" .. password .. "&title=" ..
                   title .. "&rating=" .. rating .. "&text=" .. text
+  print(body)
   headers["Content-Type"] = "application/x-www-form-urlencoded"
 
   return wrk.format(method, path, headers, body)
