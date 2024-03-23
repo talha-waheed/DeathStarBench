@@ -52,7 +52,7 @@ int main(int argc, char *argv[]) {
         std::make_shared<TextServiceProcessor>(std::make_shared<TextHandler>(
             &url_client_pool, &user_mention_pool)),
         server_socket,
-        std::make_shared<TFramedTransportFactory>(),
+        std::make_shared<THttpServerTransportFactory>(),
         std::make_shared<TBinaryProtocolFactory>());
 
     LOG(info) << "Starting the text-service server...";

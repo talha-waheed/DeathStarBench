@@ -89,7 +89,7 @@ int main(int argc, char *argv[]) {
           &thread_lock, machine_id, secret, memcached_client_pool,
           mongodb_client_pool, &social_graph_client_pool)),
       server_socket,
-      std::make_shared<TFramedTransportFactory>(),
+      std::make_shared<THttpServerTransportFactory>(),
       std::make_shared<TBinaryProtocolFactory>());
   LOG(info) << "Starting the user-service server ...";
   server.serve();

@@ -31,7 +31,7 @@ int main(int argc, char *argv[]) {
   TThreadedServer server(
       std::make_shared<MediaServiceProcessor>(std::make_shared<MediaHandler>()),
       server_socket,
-      std::make_shared<TFramedTransportFactory>(),
+      std::make_shared<THttpServerTransportFactory>(),
       std::make_shared<TBinaryProtocolFactory>());
 
   LOG(info) << "Starting the media-service server...";

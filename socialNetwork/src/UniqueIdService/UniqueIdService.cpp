@@ -54,7 +54,7 @@ int main(int argc, char *argv[]) {
       std::make_shared<UniqueIdServiceProcessor>(
           std::make_shared<UniqueIdHandler>(&thread_lock, machine_id)),
       server_socket,
-      std::make_shared<TFramedTransportFactory>(),
+      std::make_shared<THttpServerTransportFactory>(),
       std::make_shared<TBinaryProtocolFactory>());
 
   LOG(info) << "Starting the unique-id-service server ...";
