@@ -7,6 +7,7 @@ local TSocketSSL = require "TSocketSSL"
 local TFramedTransport = require "TFramedTransport"
 local TBinaryProtocol = require "TBinaryProtocol"
 local THttpTransport = require "THttpTransport"
+local TJSONProtocol = require "TJsonProtocol"
 local Object = require "Object"
 
 local RpcClient = Object:new({
