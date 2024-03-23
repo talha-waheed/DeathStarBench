@@ -187,3 +187,5 @@ function THttpTransportFactory:getTransport(trans)
   end
   return THttpTransport:new{trans = trans}
 end
+
+return THttpTransport
