@@ -30,7 +30,7 @@ function RpcClient:init(ip,port,timeout,ssl)
 	local transport = THttpTransport:new{
 		trans = socket
 	}
-	local protocol = TBinaryProtocol:new{
+	local protocol = TJSONProtocol:new{
 		trans = transport
 	}
 	transport:open()
