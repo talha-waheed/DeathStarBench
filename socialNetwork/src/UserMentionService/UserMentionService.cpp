@@ -62,7 +62,7 @@ int main(int argc, char* argv[]) {
                              std::make_shared<UserMentionHandler>(
                                  memcached_client_pool, mongodb_client_pool)),
                          server_socket,
-                         std::make_shared<TFramedTransportFactory>(),
+                         std::make_shared<THttpServerTransportFactory>(),
                          std::make_shared<TBinaryProtocolFactory>());
 
   LOG(info) << "Starting the user-mention-service server...";

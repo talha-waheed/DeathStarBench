@@ -71,9 +71,11 @@ ThriftClient<TThriftClient>::ThriftClient(
 
 template <class TThriftClient>
 ThriftClient<TThriftClient>::ThriftClient(
-    const std::string &addr, int port, int keepalive_ms, const json &config_json) {
+    const std::string &addr, int port, int keepalive_ms, const json &config_json, const std::string &method, const std::string &path) {
   _addr = addr;
   _port = port;
+  _method = method;
+  _path = path;
   bool ssl_enabled = config_json["ssl"]["enabled"];
 
   if (ssl_enabled) {
@@ -98,7 +100,8 @@ ThriftClient<TThriftClient>::ThriftClient(
     _socket = std::shared_ptr<TSocket>(new TSocket(addr, port));
   }
   _socket->setKeepAlive(true);
-  _transport = std::shared_ptr<TTransport>(new TFramedTransport(_socket));
+  // _transport = std::shared_ptr<TTransport>(new TFramedTransport(_socket));
+  _transport = std::shared_ptr<TTransport>(new THttpClient(addr, path, path));
   _protocol = std::shared_ptr<TProtocol>(new TBinaryProtocol(_transport));
   _client = new TThriftClient(_protocol);
   _connect_timestamp = std::chrono::duration_cast<std::chrono::milliseconds>(

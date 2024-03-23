@@ -59,7 +59,7 @@ HomeTimelineHandler::HomeTimelineHandler(
         *social_graph_client_pool) {
     _redis_primary_pool = nullptr;
     _redis_replica_pool = nullptr;
-    _redis_client_pool = redis_pool;
+    _redis_client_pool = redis_pool;  
     _redis_cluster_client_pool = nullptr;
     _post_client_pool = post_client_pool;
     _social_graph_client_pool = social_graph_client_pool;

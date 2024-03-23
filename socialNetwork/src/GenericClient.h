@@ -19,6 +19,8 @@ class GenericClient{
  protected:
   std::string _addr;
   int _port;
+  std::string _method;
+  std::string _path;
 };
 
 } // namespace social_network
