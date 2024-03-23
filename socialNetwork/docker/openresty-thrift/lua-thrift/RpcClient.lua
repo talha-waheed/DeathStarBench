@@ -6,6 +6,7 @@ local TSocket = require "TSocket"
 local TSocketSSL = require "TSocketSSL"
 local TFramedTransport = require "TFramedTransport"
 local TBinaryProtocol = require "TBinaryProtocol"
+local THttpTransport = require "THttpTransport"
 local Object = require "Object"
 
 local RpcClient = Object:new({
@@ -26,7 +27,7 @@ function RpcClient:init(ip,port,timeout,ssl)
 		}
 	end
 	socket:setTimeout(timeout)
-	local transport = TFramedTransport:new{
+	local transport = THttpTransport:new{
 		trans = socket
 	}
 	local protocol = TBinaryProtocol:new{

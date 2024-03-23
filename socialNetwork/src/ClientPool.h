@@ -19,7 +19,7 @@ class ClientPool {
  public:
   ClientPool(const std::string &client_type, const std::string &addr,
       int port, int min_size, int max_size, int timeout_ms, int keepalive_ms,
-      const json &config_json);
+      const json &config_json, const std::string &method = "", const std::string &path = "");
   ~ClientPool();
 
   ClientPool(const ClientPool&) = delete;
@@ -103,7 +103,7 @@ TClient * ClientPool<TClient>::Pop() {
       client = _pool.front();
       _pool.pop_front();
     } else {
-      client = new TClient(_addr, _port, _keepalive_ms, *_config_json);
+      client = new TClient(_addr, _port, _keepalive_ms, *_config_json, "", "");
       _curr_pool_size++;
     }
   cv_lock.unlock();

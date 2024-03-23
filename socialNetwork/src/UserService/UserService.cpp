@@ -3,6 +3,7 @@
 #include <thrift/server/TThreadedServer.h>
 #include <thrift/transport/TBufferTransports.h>
 #include <thrift/transport/TServerSocket.h>
+#include <thrift/transport/THttpServer.h>
 
 #include "../utils.h"
 #include "../utils_memcached.h"
@@ -14,6 +15,7 @@ using apache::thrift::protocol::TBinaryProtocolFactory;
 using apache::thrift::server::TThreadedServer;
 using apache::thrift::transport::TFramedTransportFactory;
 using apache::thrift::transport::TServerSocket;
+using apache::thrift::transport::THttpServerTransportFactory;
 using namespace social_network;
 
 void sigintHandler(int sig) { exit(EXIT_SUCCESS); }

@@ -11,6 +11,7 @@
 #include <thrift/transport/TSocket.h>
 #include <thrift/transport/TSSLSocket.h>
 #include <thrift/transport/TTransportUtils.h>
+#include <thrift/transport/THttpClient.h>
 #include <thrift/stdcxx.h>
 #include <nlohmann/json.hpp>
 #include "logger.h"
@@ -25,14 +26,16 @@ using apache::thrift::transport::TFramedTransport;
 using apache::thrift::transport::TSocket;
 using apache::thrift::transport::TSSLSocketFactory;
 using apache::thrift::transport::TTransport;
+using apache::thrift::transport::THttpClient;
 using apache::thrift::TException;
+using std::make_shared;
 using json = nlohmann::json;
 
 template<class TThriftClient>
 class ThriftClient : public GenericClient {
  public:
   ThriftClient(const std::string &addr, int port);
-  ThriftClient(const std::string &addr, int port, int keepalive_ms, const json &config_json);
+  ThriftClient(const std::string &addr, int port, int keepalive_ms, const json &config_json, const std::string &method, const std::string &path);
 
   ThriftClient(const ThriftClient &) = delete;
   ThriftClient &operator=(const ThriftClient &) = delete;
@@ -101,7 +104,8 @@ ThriftClient<TThriftClient>::ThriftClient(
   }
   _socket->setKeepAlive(true);
   // _transport = std::shared_ptr<TTransport>(new TFramedTransport(_socket));
-  _transport = std::shared_ptr<TTransport>(new THttpClient(addr, path, path));
+  // _transport = std::shared_ptr<TTransport>(new THttpClient(addr, port, path));
+  _transport = make_shared<THttpClient>(addr, port, path);
   _protocol = std::shared_ptr<TProtocol>(new TBinaryProtocol(_transport));
   _client = new TThriftClient(_protocol);
   _connect_timestamp = std::chrono::duration_cast<std::chrono::milliseconds>(
