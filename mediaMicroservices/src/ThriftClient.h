@@ -9,7 +9,6 @@
 #include <thrift/protocol/TBinaryProtocol.h>
 #include <thrift/transport/TSocket.h>
 #include <thrift/transport/TTransportUtils.h>
-#include <thrift/transport/THTTPTransport.h>
 #include <thrift/stdcxx.h>
 #include "logger.h"
 #include "GenericClient.h"
@@ -19,7 +18,6 @@ namespace media_service {
 using apache::thrift::protocol::TProtocol;
 using apache::thrift::protocol::TBinaryProtocol;
 using apache::thrift::transport::TFramedTransport;
-using apache
 using apache::thrift::transport::TSocket;
 using apache::thrift::transport::TTransport;
 using apache::thrift::TException;

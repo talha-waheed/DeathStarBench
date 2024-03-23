@@ -116,7 +116,7 @@ int main(int argc, char *argv[]) {
                                    &redis_client_pool, mongodb_client_pool,
                                    &post_storage_client_pool)),
                            server_socket,
-                           std::make_shared<THttpServerTransportFactory>(),
+                           std::make_shared<TFramedTransportFactory>(),
                            std::make_shared<TBinaryProtocolFactory>());
     LOG(info) << "Starting the user-timeline-service server with Redis Cluster support...";
     server.serve();
@@ -129,7 +129,7 @@ int main(int argc, char *argv[]) {
               &redis_replica_client_pool, &redis_primary_client_pool, mongodb_client_pool,
               &post_storage_client_pool)),
           server_socket,
-          std::make_shared<THttpServerTransportFactory>(),
+          std::make_shared<TFramedTransportFactory>(),
           std::make_shared<TBinaryProtocolFactory>());
       LOG(info) << "Starting the user-timeline-service server with replicated Redis support...";
       server.serve();
@@ -143,7 +143,7 @@ int main(int argc, char *argv[]) {
                                    &redis_client_pool, mongodb_client_pool,
                                    &post_storage_client_pool)),
                            server_socket,
-                           std::make_shared<THttpServerTransportFactory>(),
+                           std::make_shared<TFramedTransportFactory>(),
                            std::make_shared<TBinaryProtocolFactory>());
     LOG(info) << "Starting the user-timeline-service server...";
     server.serve();

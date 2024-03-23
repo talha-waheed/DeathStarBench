@@ -105,7 +105,7 @@ int main(int argc, char *argv[]) {
               &user_client_pool, &unique_id_client_pool, &media_client_pool,
               &text_client_pool, &home_timeline_client_pool)),
       server_socket,
-      std::make_shared<THttpServerTransportFactory>(),
+      std::make_shared<TFramedTransportFactory>(),
       std::make_shared<TBinaryProtocolFactory>());
   LOG(info) << "Starting the compose-post-service server ...";
   server.serve();

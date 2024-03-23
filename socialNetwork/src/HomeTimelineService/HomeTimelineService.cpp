@@ -105,7 +105,7 @@ int main(int argc, char *argv[]) {
                       &redis_primary_client_pool,
                       &post_storage_client_pool,
                       &social_graph_client_pool)),
-              server_socket, std::make_shared<THttpServerTransportFactory>(),
+              server_socket, std::make_shared<TFramedTransportFactory>(),
               std::make_shared<TBinaryProtocolFactory>());
 
           LOG(info) << "Starting the home-timeline-service server with replicated Redis support...";
@@ -122,7 +122,7 @@ int main(int argc, char *argv[]) {
             std::make_shared<HomeTimelineHandler>(&redis_cluster_client_pool,
                                                   &post_storage_client_pool,
                                                   &social_graph_client_pool)),
-        server_socket, std::make_shared<THttpServerTransportFactory>(),
+        server_socket, std::make_shared<TFramedTransportFactory>(),
         std::make_shared<TBinaryProtocolFactory>());
 
     LOG(info) << "Starting the home-timeline-service server with Redis Cluster support...";
@@ -135,7 +135,7 @@ int main(int argc, char *argv[]) {
             std::make_shared<HomeTimelineHandler>(&redis_client_pool,
                                                   &post_storage_client_pool,
                                                   &social_graph_client_pool)),
-        server_socket, std::make_shared<THttpServerTransportFactory>(),
+        server_socket, std::make_shared<TFramedTransportFactory>(),
         std::make_shared<TBinaryProtocolFactory>());
 
     LOG(info) << "Starting the home-timeline-service server...";

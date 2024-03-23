@@ -75,7 +75,7 @@ int main(int argc, char* argv[]) {
           std::make_shared<UrlShortenHandler>(
               memcached_client_pool, mongodb_client_pool, &thread_lock)),
       server_socket,
-      std::make_shared<THttpServerTransportFactory>(),
+      std::make_shared<TFramedTransportFactory>(),
       std::make_shared<TBinaryProtocolFactory>());
 
   LOG(info) << "Starting the url-shorten-service server...";
