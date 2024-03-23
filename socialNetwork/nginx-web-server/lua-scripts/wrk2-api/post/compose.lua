@@ -46,12 +46,12 @@ function _M.ComposePost()
   tracer:text_map_inject(span:context(), carrier)
 
   if (not _StrIsEmpty(post.media_ids) and not _StrIsEmpty(post.media_types)) then
-    status, ret = pcall(client.ComposePost, client,
+    status, ret = xpcall(client.ComposePost, debug.traceback, client,
         req_id, post.username, tonumber(post.user_id), post.text,
         cjson.decode(post.media_ids), cjson.decode(post.media_types),
         tonumber(post.post_type), carrier)
   else
-    status, ret = pcall(client.ComposePost, client,
+    status, ret = xpcall(client.ComposePost, debug.traceback, client,
         req_id, post.username, tonumber(post.user_id), post.text,
         {}, {}, tonumber(post.post_type), carrier)
   end
