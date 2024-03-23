@@ -29,7 +29,8 @@ function RpcClient:init(ip,port,timeout,ssl)
 	end
 	socket:setTimeout(timeout)
 	local transport = THttpTransport:new{
-		trans = socket
+		trans = socket,
+		isServer = false
 	}
 	local protocol = TJSONProtocol:new{
 		trans = transport

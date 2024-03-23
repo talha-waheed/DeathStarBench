@@ -4,6 +4,7 @@
 #include <thrift/transport/TBufferTransports.h>
 #include <thrift/transport/TServerSocket.h>
 #include <thrift/transport/THttpServer.h>
+#include <thrift/protocol/TJSONProtocol.h>
 
 
 #include "../utils.h"
@@ -15,6 +16,7 @@ using apache::thrift::server::TThreadedServer;
 using apache::thrift::transport::TFramedTransportFactory;
 using apache::thrift::transport::TServerSocket;
 using apache::thrift::transport::THttpServerTransportFactory;
+using apache::thrift::protocol::TJSONProtocolFactory;
 using namespace social_network;
 
 void sigintHandler(int sig) { exit(EXIT_SUCCESS); }
@@ -109,7 +111,7 @@ int main(int argc, char *argv[]) {
               &text_client_pool, &home_timeline_client_pool)),
       server_socket,
       std::make_shared<THttpServerTransportFactory>(),
-      std::make_shared<TBinaryProtocolFactory>());
+      std::make_shared<TJSONProtocolFactory>());
   LOG(info) << "Starting the compose-post-service server ...";
   server.serve();
 }
