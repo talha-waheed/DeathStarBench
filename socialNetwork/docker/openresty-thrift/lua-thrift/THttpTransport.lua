@@ -163,6 +163,8 @@ function THttpTransport:writeHttpHeader(content_len)
       .. "Accept: application/x-thrift " .. self.CRLF
       .. "User-Agent: Thrift/" .. self.VERSION .. " (Lua/THttpClient)"
       .. self.CRLF .. self.CRLF
+      -- print header
+      print(header)
     self.trans:write(header)
   end
 end
