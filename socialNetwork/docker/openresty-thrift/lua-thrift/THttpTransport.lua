@@ -33,7 +33,7 @@ local THttpTransport = TTransportBase:new{
   rBuf = '',
   CRLF = '\r\n',
   VERSION = '0.11.0',
-  isServer = true
+  isServer = false
 }
 
 function THttpTransport:new(obj)
