@@ -268,7 +268,7 @@ function TBinaryProtocolFactory:getProtocol(trans)
   return TBinaryProtocol:new{
     trans = trans,
     strictRead = self.strictRead,
-    strictWrite = true
+    strictWrite = false
   }
 end
 

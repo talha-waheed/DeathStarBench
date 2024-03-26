@@ -105,7 +105,8 @@ ThriftClient<TThriftClient>::ThriftClient(
   _socket->setKeepAlive(true);
   // _transport = std::shared_ptr<TTransport>(new TFramedTransport(_socket));
   // _transport = std::shared_ptr<TTransport>(new THttpClient(addr, port, path));
-  _transport = make_shared<THttpClient>(addr, port, path);
+  LOG(info) << "addr: " << addr << " port: " << port << " path: " << path;
+  _transport = make_shared<THttpClient>(addr, port, "/");
   _protocol = std::shared_ptr<TProtocol>(new TBinaryProtocol(_transport));
   _client = new TThriftClient(_protocol);
   _connect_timestamp = std::chrono::duration_cast<std::chrono::milliseconds>(

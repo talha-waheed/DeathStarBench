@@ -65,7 +65,7 @@ request = function()
   media_types = media_types:sub(1, #media_types - 1) .. "]"
 
   local method = "POST"
-  local path = "http://localhost:8080/wrk2-api/post/compose"
+  local path = "http://node2.prajwal.istio-pg0.utah.cloudlab.us:30002/wrk2-api/post/compose"
   local headers = {}
   local body
   headers["Content-Type"] = "application/x-www-form-urlencoded"

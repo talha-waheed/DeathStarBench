@@ -1,6 +1,8 @@
 #ifndef SOCIAL_NETWORK_MICROSERVICES_SRC_COMPOSEPOSTSERVICE_COMPOSEPOSTHANDLER_H_
 #define SOCIAL_NETWORK_MICROSERVICES_SRC_COMPOSEPOSTSERVICE_COMPOSEPOSTHANDLER_H_
 
+#include <boost/exception/exception.hpp>
+#include <boost/log/trivial.hpp>
 #include <chrono>
 #include <future>
 #include <iostream>
@@ -26,6 +28,7 @@ namespace social_network {
 using json = nlohmann::json;
 using std::chrono::duration_cast;
 using std::chrono::milliseconds;
+
 using std::chrono::system_clock;
 
 class ComposePostHandler : public ComposePostServiceIf {
@@ -207,14 +210,17 @@ std::vector<Media> ComposePostHandler::_ComposeMediaHelper(
   auto media_client = media_client_wrapper->GetClient();
   std::vector<Media> _return_media;
   try {
+    LOG(warning) << "ComposeMedia";
     media_client->ComposeMedia(_return_media, req_id, media_types, media_ids,
                                writer_text_map);
-  } catch (...) {
-    LOG(error) << "Failed to send compose-media to media-service";
-    _media_service_client_pool->Remove(media_client_wrapper);
+  } catch (std::exception &e) {
+    LOG(error) << "Failed to send compose-media to media-service: " << e.what();
+    
+    _media_service_client_pool->Remove(media_client_wrapper); 
     span->Finish();
     throw;
   }
+  LOG(warning) << "ComposeMedia success";
   _media_service_client_pool->Keepalive(media_client_wrapper);
   span->Finish();
   return _return_media;
