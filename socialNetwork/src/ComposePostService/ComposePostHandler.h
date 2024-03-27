@@ -157,6 +157,7 @@ TextServiceReturn ComposePostHandler::_ComposeTextHelper(
   std::map<std::string, std::string> writer_text_map;
   TextMapWriter writer(writer_text_map);
   opentracing::Tracer::Global()->Inject(span->context(), writer);
+  LOG(warning) << "ComposeText";
 
   auto text_client_wrapper = _text_service_client_pool->Pop();
   if (!text_client_wrapper) {

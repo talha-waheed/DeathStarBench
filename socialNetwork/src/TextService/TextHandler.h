@@ -49,6 +49,8 @@ void TextHandler::ComposeText(
   auto span = opentracing::Tracer::Global()->StartSpan(
       "compose_text_server", {opentracing::ChildOf(parent_span->get())});
   opentracing::Tracer::Global()->Inject(span->context(), writer);
+  LOG(warning) << "ComposeText called with req_id: " << req_id
+            << " and text: " << text;
 
   std::vector<std::string> mention_usernames;
   std::smatch m;
