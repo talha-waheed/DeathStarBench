@@ -111,7 +111,7 @@ int main(int argc, char *argv[]) {
               &text_client_pool, &home_timeline_client_pool)),
       server_socket,
       std::make_shared<THttpServerTransportFactory>(),
-      std::make_shared<TBinaryProtocolFactory>());
+      std::make_shared<TJSONProtocolFactory>());
   LOG(info) << "Starting the compose-post-service server ...";
   server.serve();
 }
