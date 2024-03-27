@@ -10,8 +10,8 @@ local RpcClientFactory = RpcClient:new({
 function RpcClientFactory:createClient(thriftClient, ip, port, timeout, ssl)
     local protocol = self:init(ip, port, timeout, ssl)
     local client = thriftClient:new{
-        iprot = protocol,
-        oprot = protocol
+        -- iprot = protocol,
+        -- oprot = protocol
     }
     return client
 end
