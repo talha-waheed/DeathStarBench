@@ -139,7 +139,7 @@ int main(int argc, char *argv[]) {
                                                   &post_storage_client_pool,
                                                   &social_graph_client_pool)),
         server_socket, std::make_shared<THttpServerTransportFactory>(),
-        std::make_shared<TBinaryProtocolFactory>());
+        std::make_shared<TBinaryProtocolFactory>(0, 0, true, true));
 
     LOG(info) << "Starting the home-timeline-service server...";
     server.serve();

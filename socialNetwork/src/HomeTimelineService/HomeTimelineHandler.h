@@ -57,7 +57,7 @@ HomeTimelineHandler::HomeTimelineHandler(
     ClientPool<ThriftClient<PostStorageServiceClient>> *post_client_pool,
     ClientPool<ThriftClient<SocialGraphServiceClient>>
         *social_graph_client_pool) {
-    _redis_primary_pool = nullptr;
+    _redis_primary_pool = nullptr;false
     _redis_replica_pool = nullptr;
     _redis_client_pool = redis_pool;  
     _redis_cluster_client_pool = nullptr;
