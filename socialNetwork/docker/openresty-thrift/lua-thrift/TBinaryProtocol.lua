@@ -35,8 +35,8 @@ local TBinaryProtocol = __TObject.new(TProtocolBase, {
   VERSION_MASK = -65536, -- 0xffff0000
   VERSION_1    = -2147418112, -- 0x80010000
   TYPE_MASK    = 0x000000ff,
-  strictRead   = false,
-  strictWrite  = false
+  strictRead   = true,
+  strictWrite  = true
 })
 
 function TBinaryProtocol:writeMessageBegin(name, ttype, seqid)
@@ -255,7 +255,8 @@ end
 
 local TBinaryProtocolFactory = TProtocolFactory:new{
   __type = 'TBinaryProtocolFactory',
-  strictRead = false
+  strictRead = true,
+  strictWrite = true
 }
 
 function TBinaryProtocolFactory:getProtocol(trans)
@@ -267,8 +268,8 @@ function TBinaryProtocolFactory:getProtocol(trans)
   end
   return TBinaryProtocol:new{
     trans = trans,
-    strictRead = self.strictRead,
-    strictWrite = false
+    strictRead = true,
+    strictWrite = true
   }
 end
 
