@@ -4,7 +4,7 @@
 ----
 local TSocket = require "TSocket"
 local TSocketSSL = require "TSocketSSL"
-local TFramedTransport = require "TFramedTransport"
+local TFramedTra	nsport = require "TFramedTransport"
 local TBinaryProtocol = require "TBinaryProtocol"
 local THttpTransport = require "THttpTransport"
 local TJSONProtocol = require "TJsonProtocol"
@@ -32,12 +32,12 @@ function RpcClient:init(ip,port,timeout,ssl)
 		trans = socket,
 		isServer = false
 	}
-	local protocol = TBinaryProtocol:new{
-		trans = transport
-	}
-	-- local protocol = TJSONProtocol:new{
+	-- local protocol = TBinaryProtocol:new{
 	-- 	trans = transport
 	-- }
+	local protocol = TJSONProtocol:new{
+		trans = transport
+	}
 	transport:open()
 	return protocol;
 end
