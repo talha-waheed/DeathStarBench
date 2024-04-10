@@ -4,6 +4,7 @@
 #include <thrift/transport/TBufferTransports.h>
 #include <thrift/transport/TServerSocket.h>
 #include <thrift/transport/THttpServer.h>
+#include <thrift/protocol/TJSONProtocol.h>
 
 
 #include <boost/program_options.hpp>
@@ -21,6 +22,7 @@ using apache::thrift::server::TThreadedServer;
 using apache::thrift::transport::TFramedTransportFactory;
 using apache::thrift::transport::TServerSocket;
 using apache::thrift::transport::THttpServerTransportFactory;
+using apache::thrift::protocol::TJSONProtocolFactory;
 using namespace social_network;
 
 void sigintHandler(int sig) { exit(EXIT_SUCCESS); }
@@ -139,7 +141,7 @@ int main(int argc, char *argv[]) {
                                                   &post_storage_client_pool,
                                                   &social_graph_client_pool)),
         server_socket, std::make_shared<THttpServerTransportFactory>(),
-        std::make_shared<TBinaryProtocolFactory>(0, 0, true, true));
+        std::make_shared<TJSONProtocolFactory>());
 
     LOG(info) << "Starting the home-timeline-service server...";
     server.serve();
