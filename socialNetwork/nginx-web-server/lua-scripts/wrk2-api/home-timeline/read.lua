@@ -78,7 +78,7 @@ function _M.ReadHomeTimeline()
 
   local client = GenericObjectPool:connection(
       HomeTimelineServiceClient, "home-timeline-service" .. k8s_suffix, 9090)
-  local status, ret = xpcall(client.ReadHomeTimeline, client, req_id,
+  local status, ret = xpcall(client.ReadHomeTimeline, debug.traceback, client, req_id,
       tonumber(args.user_id), tonumber(args.start), tonumber(args.stop), carrier)
   if not status then
     ngx.status = ngx.HTTP_INTERNAL_SERVER_ERROR
