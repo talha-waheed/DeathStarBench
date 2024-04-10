@@ -187,7 +187,7 @@ void UserTimelineHandler::ReadUserTimeline(
     std::vector<Post> &_return, int64_t req_id, int64_t user_id, int start,
     int stop, const std::map<std::string, std::string> &carrier) {
   // Initialize a span
-  LOG(error) << "ReadUserTimeline: start=" << start << ", stop=" << stop;
+  LOG(info) << "ReadUserTimeline: start=" << start << ", stop=" << stop;
   TextMapReader reader(carrier);
   std::map<std::string, std::string> writer_text_map;
   TextMapWriter writer(writer_text_map);
