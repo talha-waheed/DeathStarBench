@@ -12,6 +12,7 @@
 #include <thrift/transport/TSSLSocket.h>
 #include <thrift/transport/TTransportUtils.h>
 #include <thrift/transport/THttpClient.h>
+#include <thrift/protocol/TJSONProtocol.h>
 #include <thrift/stdcxx.h>
 #include <nlohmann/json.hpp>
 #include "logger.h"
@@ -22,6 +23,7 @@ namespace social_network {
 
 using apache::thrift::protocol::TProtocol;
 using apache::thrift::protocol::TBinaryProtocol;
+using apache::thrift::protocol::TJSONProtocol;
 using apache::thrift::transport::TFramedTransport;
 using apache::thrift::transport::TSocket;
 using apache::thrift::transport::TSSLSocketFactory;
@@ -107,7 +109,8 @@ ThriftClient<TThriftClient>::ThriftClient(
   // _transport = std::shared_ptr<TTransport>(new THttpClient(addr, port, path));
   LOG(info) << "addr: " << addr << " port: " << port << " path: " << path;
   _transport = make_shared<THttpClient>(addr, port, "/");
-  _protocol = std::shared_ptr<TProtocol>(new TBinaryProtocol(_transport));
+  // _protocol = std::shared_ptr<TProtocol>(new TBinaryProtocol(_transport));
+  _protocol = std::shared_ptr<TProtocol>(new TJSONProtocol(_transport));
   _client = new TThriftClient(_protocol);
   _connect_timestamp = std::chrono::duration_cast<std::chrono::milliseconds>(
                            std::chrono::system_clock::now().time_since_epoch())
