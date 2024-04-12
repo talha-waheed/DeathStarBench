@@ -249,6 +249,31 @@ func (s *Server) MakeReservation(ctx context.Context, req *pb.Request) (*pb.Resu
 // CheckAvailability checks if given information is available
 func (s *Server) CheckAvailability(ctx context.Context, req *pb.Request) (*pb.Result, error) {
 	res := new(pb.Result)
+	res.HotelId = req.HotelId
+	// write 1mb to foo.txt
+	filename := "foo.txt"
+	fileSize := 1024 * 1024
+	file, err := os.Create(filename)
+	if err != nil {
+		file, err = os.Open(filename)
+		if err != nil {
+			fmt.Printf("failed to open file: %v\n", err)
+		}
+	}
+	data := make([]byte, fileSize)
+	rand.Read(data)
+	if n, err := file.Write(data); err != nil {
+		fmt.Printf("failed to write to file: %v\n", err)
+	} else {
+		fmt.Printf("wrote %d bytes to %s\n", n, filename)
+
+	}
+	// truncate
+	if err := file.Truncate(0); err != nil {
+		fmt.Printf("failed to truncate file: %v\n", err)
+	}
+	file.Close()
+	return res, nil
 	res.HotelId = make([]string, 0)
 
 	hotelMemKeys := []string{}
