@@ -355,6 +355,7 @@ void PostStorageHandler::ReadPosts(
     const std::vector<int64_t> &post_ids,
     const std::map<std::string, std::string> &carrier) {
   // Initialize a span
+  LOG(error) << "ReadPosts";
   TextMapReader reader(carrier);
   std::map<std::string, std::string> writer_text_map;
   TextMapWriter writer(writer_text_map);
@@ -365,6 +366,7 @@ void PostStorageHandler::ReadPosts(
   opentracing::Tracer::Global()->Inject(span->context(), writer);
 
   if (post_ids.empty()) {
+    LOG(error) << "Post_ids are empty, return directly\n";
     return;
   }
 

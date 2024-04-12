@@ -166,6 +166,8 @@ func (s *Server) Nearby(ctx context.Context, req *pb.NearbyRequest) (*pb.SearchR
 
 	log.Trace().Msgf("nearby lat = %f", req.Lat)
 	log.Trace().Msgf("nearby lon = %f", req.Lon)
+	log.Info().Float32("lat", req.Lat).Float32("lon", req.Lon).Str("inDate", req.InDate).Str("outDate", req.OutDate).
+		 Msg("getting nearby hotels")
 
 	nearby, err := s.geoClient.Nearby(ctx, &geo.Request{
 		Lat: req.Lat,
@@ -174,6 +176,7 @@ func (s *Server) Nearby(ctx context.Context, req *pb.NearbyRequest) (*pb.SearchR
 	if err != nil {
 		return nil, err
 	}
+	log.Info().Int("len(nearby)", len(nearby.HotelIds)).Msg("got nearby hotels")
 
 	for _, hid := range nearby.HotelIds {
 		log.Trace().Msgf("get Nearby hotelId = %s", hid)
@@ -189,6 +192,7 @@ func (s *Server) Nearby(ctx context.Context, req *pb.NearbyRequest) (*pb.SearchR
 		return nil, err
 	}
 
+	log.Info().Int("len(rates)", len(rates.RatePlans)).Msg("got rates")
 	// TODO(hw): add simple ranking algo to order hotel ids:
 	// * geo distance
 	// * price (best discount?)

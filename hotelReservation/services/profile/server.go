@@ -102,26 +102,26 @@ func (s *Server) GetProfiles(ctx context.Context, req *pb.Request) (*pb.Result, 
 		profileMap[hotelId] = struct{}{}
 	}
 
-	memSpan, _ := opentracing.StartSpanFromContext(ctx, "memcached_get_profile")
-	memSpan.SetTag("span.kind", "client")
-	resMap, err := s.MemcClient.GetMulti(hotelIds)
-	memSpan.Finish()
+	// memSpan, _ := opentracing.StartSpanFromContext(ctx, "memcached_get_profile")
+	// memSpan.SetTag("span.kind", "client")
+	// resMap, err := s.MemcClient.GetMulti(hotelIds)
+	// memSpan.Finish()
 
 	res := new(pb.Result)
 	hotels := make([]*pb.Hotel, 0)
 
-	if err != nil && err != memcache.ErrCacheMiss {
-		log.Panic().Msgf("Tried to get hotelIds [%v], but got memmcached error = %s", hotelIds, err)
-	} else {
-		for hotelId, item := range resMap {
-			profileStr := string(item.Value)
-			log.Trace().Msgf("memc hit with %v", profileStr)
+	// if err != nil && err != memcache.ErrCacheMiss {
+	// 	log.Panic().Msgf("Tried to get hotelIds [%v], but got memmcached error = %s", hotelIds, err)
+	if true {
+		// for hotelId, item := range resMap {
+		// 	profileStr := string(item.Value)
+		// 	log.Trace().Msgf("memc hit with %v", profileStr)
 
-			hotelProf := new(pb.Hotel)
-			json.Unmarshal(item.Value, hotelProf)
-			hotels = append(hotels, hotelProf)
-			delete(profileMap, hotelId)
-		}
+		// 	hotelProf := new(pb.Hotel)
+		// 	json.Unmarshal(item.Value, hotelProf)
+		// 	hotels = append(hotels, hotelProf)
+		// 	delete(profileMap, hotelId)
+		// }
 
 		wg.Add(len(profileMap))
 		for hotelId := range profileMap {
@@ -143,14 +143,14 @@ func (s *Server) GetProfiles(ctx context.Context, req *pb.Request) (*pb.Result, 
 				hotels = append(hotels, hotelProf)
 				mutex.Unlock()
 
-				profJson, err := json.Marshal(hotelProf)
+				_, err = json.Marshal(hotelProf)
 				if err != nil {
 					log.Error().Msgf("Failed to marshal hotel [id: %v] with err:", hotelProf.Id, err)
 				}
-				memcStr := string(profJson)
+				// memcStr := string(profJson)
 
-				// write to memcached
-				go s.MemcClient.Set(&memcache.Item{Key: hotelId, Value: []byte(memcStr)})
+				// // write to memcached
+				// go s.MemcClient.Set(&memcache.Item{Key: hotelId, Value: []byte(memcStr)})
 				defer wg.Done()
 			}(hotelId)
 		}

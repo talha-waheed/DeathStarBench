@@ -215,6 +215,8 @@ void HomeTimelineHandler::ReadHomeTimeline(
     std::vector<Post> &_return, int64_t req_id, int64_t user_id, int start_idx,
     int stop_idx, const std::map<std::string, std::string> &carrier) {
   // Initialize a span
+  LOG(error) << "ReadHomeTimeline, user_id: " << user_id << ", start_idx: "
+            << start_idx << ", stop_idx: " << stop_idx << "\n";
   TextMapReader reader(carrier);
   std::map<std::string, std::string> writer_text_map;
   TextMapWriter writer(writer_text_map);
@@ -270,12 +272,14 @@ void HomeTimelineHandler::ReadHomeTimeline(
   auto post_client = post_client_wrapper->GetClient();
   try {
     post_client->ReadPosts(_return, req_id, post_ids, writer_text_map);
+    LOG(error) << "Read Posts from post-storage-service\n";
   } catch (...) {
     _post_client_pool->Remove(post_client_wrapper);
     LOG(error) << "Failed to read posts from post-storage-service";
     throw;
   }
   _post_client_pool->Keepalive(post_client_wrapper);
+  LOG(error) << "ReadHomeTimeline, _return size: " << _return.size() << "\n";
   span->Finish();
 }
 

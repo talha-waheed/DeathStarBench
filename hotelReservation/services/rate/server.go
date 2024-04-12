@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"net"
 	"sort"
-	"strings"
+	// "strings"
 	"sync"
 	"time"
 
@@ -90,6 +90,7 @@ func (s *Server) Shutdown() {
 // GetRates gets rates for hotels for specific date range.
 func (s *Server) GetRates(ctx context.Context, req *pb.Request) (*pb.Result, error) {
 	res := new(pb.Result)
+	log.Info().Strs("hotelIds", req.HotelIds).Msg("Received request for GetRates")
 
 	ratePlans := make(RatePlans, 0)
 
@@ -99,54 +100,62 @@ func (s *Server) GetRates(ctx context.Context, req *pb.Request) (*pb.Result, err
 		hotelIds = append(hotelIds, hotelID)
 		rateMap[hotelID] = struct{}{}
 	}
+	log.Info().Int("len(rateMap)", len(rateMap)).Msg("Built hotelIds rateMap")
 	// first check memcached(get-multi)
-	memSpan, _ := opentracing.StartSpanFromContext(ctx, "memcached_get_multi_rate")
-	memSpan.SetTag("span.kind", "client")
+	// memSpan, _ := opentracing.StartSpanFromContext(ctx, "memcached_get_multi_rate")
+	// memSpan.SetTag("span.kind", "client")
 
-	resMap, err := s.MemcClient.GetMulti(hotelIds)
-	memSpan.Finish()
+	// log.Trace().Msg("memcached get-multi")
+	// resMap, err := s.MemcClient.GetMulti(hotelIds)
+	// memSpan.Finish()
 
 	var wg sync.WaitGroup
 	var mutex sync.Mutex
-	if err != nil && err != memcache.ErrCacheMiss {
-		log.Panic().Msgf("Memmcached error while trying to get hotel [id: %v]= %s", hotelIds, err)
-	} else {
-		for hotelId, item := range resMap {
-			rateStrs := strings.Split(string(item.Value), "\n")
-			log.Trace().Msgf("memc hit, hotelId = %s,rate strings: %v", hotelId, rateStrs)
+	if true {
+	// if err != nil && err != memcache.ErrCacheMiss {
+	// 	log.Panic().Msgf("Memmcached error while trying to get hotel [id: %v]= %s", hotelIds, err)
+	// } else {
+	// 	for hotelId, item := range resMap {
+	// 		rateStrs := strings.Split(string(item.Value), "\n")
+	// 		log.Info().Msgf("memc hit, hotelId = %s,rate strings: %v", hotelId, rateStrs)
 
-			for _, rateStr := range rateStrs {
-				if len(rateStr) != 0 {
-					rateP := new(pb.RatePlan)
-					json.Unmarshal([]byte(rateStr), rateP)
-					ratePlans = append(ratePlans, rateP)
-				}
-			}
+	// 		for _, rateStr := range rateStrs {
+	// 			if len(rateStr) != 0 {
+	// 				rateP := new(pb.RatePlan)
+	// 				json.Unmarshal([]byte(rateStr), rateP)
+	// 				ratePlans = append(ratePlans, rateP)
+	// 			}
+	// 		}
 
-			delete(rateMap, hotelId)
-		}
+	// 		delete(rateMap, hotelId)
+	// 	}
 
 		wg.Add(len(rateMap))
 		for hotelId := range rateMap {
+			log.Info().Str("hotelId", hotelId).Msg("setting up goroutine")
 			go func(id string) {
-				log.Trace().Msgf("memc miss, hotelId = %s", id)
-				log.Trace().Msg("memcached miss, set up mongo connection")
+				log.Info().Msgf("memc miss, hotelId = %s", id)
+				log.Info().Msg("memcached miss, set up mongo connection")
 
 				mongoSpan, _ := opentracing.StartSpanFromContext(ctx, "mongo_rate")
 				mongoSpan.SetTag("span.kind", "client")
 
 				// memcached miss, set up mongo connection
 				collection := s.MongoClient.Database("rate-db").Collection("inventory")
-				curr, err := collection.Find(context.TODO(), bson.D{})
+				filter := bson.M{"hotelId": id}
+				curr, err := collection.Find(context.TODO(), filter)
 				if err != nil {
 					log.Error().Msgf("Failed get rate data: ", err)
-				}
+				}	
 
 				tmpRatePlans := make(RatePlans, 0)
+
+				
 				curr.All(context.TODO(), &tmpRatePlans)
 				if err != nil {
 					log.Error().Msgf("Failed get rate data: ", err)
 				}
+				log.Info().Int("len(tmpRatePlans)", len(tmpRatePlans)).Msg("Got rate plans from mongo")
 
 				mongoSpan.Finish()
 
@@ -165,7 +174,7 @@ func (s *Server) GetRates(ctx context.Context, req *pb.Request) (*pb.Result, err
 						memcStr = memcStr + string(rateJson) + "\n"
 					}
 				}
-				go s.MemcClient.Set(&memcache.Item{Key: id, Value: []byte(memcStr)})
+				// go s.MemcClient.Set(&memcache.Item{Key: id, Value: []byte(memcStr)})
 
 				defer wg.Done()
 			}(hotelId)
@@ -173,6 +182,7 @@ func (s *Server) GetRates(ctx context.Context, req *pb.Request) (*pb.Result, err
 	}
 	wg.Wait()
 
+	log.Info().Int("len(ratePlans)", len(ratePlans)).Msg("Got rate plans")
 	sort.Sort(ratePlans)
 	res.RatePlans = ratePlans
 
