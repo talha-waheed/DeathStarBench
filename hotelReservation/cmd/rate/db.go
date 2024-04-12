@@ -71,7 +71,7 @@ func initializeDatabase(url string) (*mongo.Client, func()) {
 		},
 	}
 
-	for i := 7; i <= 80; i++ {
+	for i := 7; i <= 7; i++ {
 		if i%3 != 0 {
 			continue
 		}
