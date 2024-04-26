@@ -1,0 +1,1 @@
+time curl -H "x-slate-destination:west" -v "http://node0.8node-c8220.istio-pg0.clemson.cloudlab.us:32321/recommendations?require=dis&lat=38&lon=-122"

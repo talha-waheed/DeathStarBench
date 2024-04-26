@@ -1,0 +1,56 @@
+__main__ - optimizer_entrypoint(line:980) - !!! Skip optimizer !!! all root_node_rps all regions are 0
+__main__ - optimizer_entrypoint(line:980) - !!! Skip optimizer !!! all root_node_rps all regions are 0
+__main__ - optimizer_entrypoint(line:980) - !!! Skip optimizer !!! all root_node_rps all regions are 0
+apscheduler.executors.default - run_job(line:131) - Job "optimizer_entrypoint (trigger: interval[0:00:01], next run at: 2024-04-17 22:23:22 UTC)" raised an exception
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/apscheduler/executors/base.py", line 125, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "/app/global_controller.py", line 1085, in optimizer_entrypoint
+    weight = flow / total
+ZeroDivisionError: division by zero
+apscheduler.executors.default - run_job(line:131) - Job "optimizer_entrypoint (trigger: interval[0:00:01], next run at: 2024-04-17 22:23:23 UTC)" raised an exception
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/apscheduler/executors/base.py", line 125, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "/app/global_controller.py", line 1085, in optimizer_entrypoint
+    weight = flow / total
+ZeroDivisionError: division by zero
+__main__ - optimizer_entrypoint(line:991) - !!! ERROR !!! Total demand(2004) at frontend > total capcity(2000) at slateingress
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,502 -> new_capacity, 502
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,502 -> new_capacity, 502
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,502 -> new_capacity, 502
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,502 -> new_capacity, 502
+__main__ - optimizer_entrypoint(line:991) - !!! ERROR !!! Total demand(3145) at frontend > total capcity(2000) at slateingress
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,787 -> new_capacity, 787
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,787 -> new_capacity, 787
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,787 -> new_capacity, 787
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,787 -> new_capacity, 787
+__main__ - optimizer_entrypoint(line:991) - !!! ERROR !!! Total demand(3122) at frontend > total capcity(2000) at slateingress
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,781 -> new_capacity, 781
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,781 -> new_capacity, 781
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,781 -> new_capacity, 781
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,781 -> new_capacity, 781
+__main__ - optimizer_entrypoint(line:991) - !!! ERROR !!! Total demand(2752) at frontend > total capcity(2000) at slateingress
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,689 -> new_capacity, 689
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,689 -> new_capacity, 689
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,689 -> new_capacity, 689
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,689 -> new_capacity, 689
+__main__ - optimizer_entrypoint(line:991) - !!! ERROR !!! Total demand(2756) at frontend > total capcity(2000) at slateingress
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,690 -> new_capacity, 690
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,690 -> new_capacity, 690
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,690 -> new_capacity, 690
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,690 -> new_capacity, 690
+apscheduler.executors.default - run_job(line:131) - Job "optimizer_entrypoint (trigger: interval[0:00:01], next run at: 2024-04-17 22:24:22 UTC)" raised an exception
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/apscheduler/executors/base.py", line 125, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "/app/global_controller.py", line 1085, in optimizer_entrypoint
+    weight = flow / total
+ZeroDivisionError: division by zero
+apscheduler.executors.default - run_job(line:131) - Job "optimizer_entrypoint (trigger: interval[0:00:01], next run at: 2024-04-17 22:24:23 UTC)" raised an exception
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/apscheduler/executors/base.py", line 125, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "/app/global_controller.py", line 1085, in optimizer_entrypoint
+    weight = flow / total
+ZeroDivisionError: division by zero

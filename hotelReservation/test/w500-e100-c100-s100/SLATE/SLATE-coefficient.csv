@@ -1,0 +1,17 @@
+svc_name, endpoint, coef
+frontend,frontend@GET@/recommendations,{'frontend@GET@/recommendations': 1.86130590238e-05, 'intercept': 2.2935524791624418}
+frontend,frontend@POST@/user,{'frontend@POST@/user': 3.2046709195e-06, 'intercept': 1.7479346883461522}
+frontend,frontend@GET@/hotels,{'frontend@GET@/hotels': 0.0001220950496892, 'intercept': 3.728840390918975}
+frontend,frontend@POST@/reservation,{'frontend@POST@/reservation': 5.23531604455e-05, 'intercept': 1.0}
+profile,profile@POST@/profile.Profile/GetProfiles,{'profile@POST@/profile.Profile/GetProfiles': 8.7889739123e-06, 'intercept': 0.7591297764852855}
+recommendation,recommendation@POST@/recommendation.Recommendation/GetRecommendations,{'recommendation@POST@/recommendation.Recommendation/GetRecommendations': 1.1645934725e-06, 'intercept': 0.9984041220663424}
+slateingress,slateingress@GET@/recommendations,{'slateingress@GET@/recommendations': 5.0011039791e-06, 'intercept': 2.011959983080983}
+slateingress,slateingress@POST@/user,{'slateingress@POST@/user': 0.0, 'intercept': 6.296681766101229}
+slateingress,slateingress@GET@/hotels,{'slateingress@GET@/hotels': 1.38983038412e-05, 'intercept': 2.0317137430952057}
+slateingress,slateingress@POST@/reservation,{'slateingress@POST@/reservation': 1.77363282341e-05, 'intercept': 1.0}
+user,user@POST@/user.User/CheckUser,{'intercept': 0.3117278650969302}
+rate,rate@POST@/rate.Rate/GetRates,{'intercept': 8.537163339920786}
+reservation,reservation@POST@/reservation.Reservation/CheckAvailability,{'reservation@POST@/reservation.Reservation/CheckAvailability': 1.41222509401e-05, 'intercept': 6.549906956797875}
+reservation,reservation@POST@/reservation.Reservation/MakeReservation,{'reservation@POST@/reservation.Reservation/MakeReservation': 1.23733842958e-05, 'intercept': 4.94881425584651}
+search,search@POST@/search.Search/Nearby,{'search@POST@/search.Search/Nearby': 2.00469300085e-05, 'intercept': 4.60519279173255}
+geo,geo@POST@/geo.Geo/Nearby,{'geo@POST@/geo.Geo/Nearby': 4.1849014192e-06, 'intercept': 0.9087875162609004}

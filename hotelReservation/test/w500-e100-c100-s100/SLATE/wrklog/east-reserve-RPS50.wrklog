@@ -1,0 +1,129 @@
+-- start of config --
+distribution,exp
+thread,50
+connection,50
+duration,30
+cpu_noise,0
+traffic_segmentation,1
+mode,runtime
+routing_rule,SLATE
+west_user_RPS,500
+west_recommend_RPS,500
+west_reserve_RPS,500
+west_search_RPS,500
+east_user_RPS,50
+east_recommend_RPS,50
+east_reserve_RPS,50
+east_search_RPS,50
+central_user_RPS,50
+central_recommend_RPS,50
+central_reserve_RPS,50
+central_search_RPS,50
+south_user_RPS,50
+south_recommend_RPS,50
+south_reserve_RPS,50
+south_search_RPS,50
+inter_cluster_latency,us-west-1,us-east-1,33
+inter_cluster_latency,us-east-1,us-west-1,33
+inter_cluster_latency,us-west-1,us-central-1,15
+inter_cluster_latency,us-central-1,us-west-1,15
+inter_cluster_latency,us-west-1,us-south-1,20
+inter_cluster_latency,us-south-1,us-west-1,20
+inter_cluster_latency,us-west-1,us-west-1,0
+inter_cluster_latency,us-east-1,us-central-1,20
+inter_cluster_latency,us-central-1,us-east-1,20
+inter_cluster_latency,us-east-1,us-south-1,15
+inter_cluster_latency,us-south-1,us-east-1,15
+inter_cluster_latency,us-east-1,us-east-1,0
+inter_cluster_latency,us-central-1,us-south-1,10
+inter_cluster_latency,us-south-1,us-central-1,10
+inter_cluster_latency,us-central-1,us-central-1,0
+inter_cluster_latency,us-south-1,us-south-1,0
+benchmark_name,hotelreservation
+total_num_services,2
+capacity,500
+degree,2
+req_type,reserve
+cluster,east
+RPS,50
+-- end of config --
+
+Running 30s test @ http://node1.8node-c8220.istio-pg0.clemson.cloudlab.us:32321
+  50 threads and 50 connections
+
+
+-----------------------------------------------------------------------
+Test Results @ http://node1.8node-c8220.istio-pg0.clemson.cloudlab.us:32321 
+  Thread Stats   Avg      Stdev     99%   +/- Stdev
+    Latency    23.91ms   22.76ms 123.14ms   92.66%
+    Req/Sec     0.40      2.21    13.00     96.51%
+  Latency Distribution (HdrHistogram - Recorded Latency)
+ 50.000%   17.52ms
+ 75.000%   21.58ms
+ 90.000%   36.61ms
+ 99.000%  123.14ms
+ 99.900%  198.91ms
+ 99.990%  245.63ms
+ 99.999%  245.63ms
+100.000%  245.63ms
+
+  Detailed Percentile spectrum:
+       Value   Percentile   TotalCount 1/(1-Percentile)
+
+      10.039     0.000000            1         1.00
+      12.415     0.100000           58         1.11
+      13.887     0.200000          115         1.25
+      15.287     0.300000          173         1.43
+      16.431     0.400000          230         1.67
+      17.519     0.500000          286         2.00
+      18.111     0.550000          315         2.22
+      18.591     0.600000          344         2.50
+      19.151     0.650000          372         2.86
+      20.383     0.700000          403         3.33
+      21.583     0.750000          429         4.00
+      23.103     0.775000          444         4.44
+      25.183     0.800000          458         5.00
+      26.767     0.825000          472         5.71
+      31.183     0.850000          487         6.67
+      32.703     0.875000          501         8.00
+      34.367     0.887500          508         8.89
+      36.607     0.900000          515        10.00
+      40.959     0.912500          522        11.43
+      45.887     0.925000          530        13.33
+      51.775     0.937500          537        16.00
+      57.375     0.943750          540        17.78
+      62.495     0.950000          544        20.00
+      68.863     0.956250          547        22.86
+      80.511     0.962500          551        26.67
+      83.967     0.968750          555        32.00
+      94.335     0.971875          556        35.56
+      98.879     0.975000          558        40.00
+     103.103     0.978125          560        45.71
+     107.455     0.981250          562        53.33
+     114.431     0.984375          564        64.00
+     114.431     0.985938          564        71.11
+     118.911     0.987500          565        80.00
+     123.135     0.989062          566        91.43
+     124.671     0.990625          567       106.67
+     130.047     0.992188          568       128.00
+     130.047     0.992969          568       142.22
+     156.799     0.993750          569       160.00
+     156.799     0.994531          569       182.86
+     159.743     0.995313          570       213.33
+     159.743     0.996094          570       256.00
+     159.743     0.996484          570       284.44
+     198.911     0.996875          571       320.00
+     198.911     0.997266          571       365.71
+     198.911     0.997656          571       426.67
+     198.911     0.998047          571       512.00
+     198.911     0.998242          571       568.89
+     245.631     0.998437          572       640.00
+     245.631     1.000000          572          inf
+#[Mean    =       23.912, StdDeviation   =       22.761]
+#[Max     =      245.504, Total count    =          572]
+#[Buckets =           27, SubBuckets     =         2048]
+-----------------------------------------------------------------------
+  1015 requests in 30.00s, 169.52KB read
+  Socket errors: connect 0, read 0, write 0, timeout 102
+Requests/sec:     33.83  
+Transfer/sec:      5.65KB

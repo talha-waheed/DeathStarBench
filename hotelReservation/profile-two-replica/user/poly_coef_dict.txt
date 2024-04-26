@@ -1,0 +1,6 @@
+poly_coef_dict,frontend,frontend@POST@/user,frontend@POST@/user,1.6533444954911521e-06
+poly_coef_dict,frontend,frontend@POST@/user,intercept,1.8082754783961292
+poly_coef_dict,user,user@POST@/user.User/CheckUser,user@POST@/user.User/CheckUser,9.57814006704939e-08
+poly_coef_dict,user,user@POST@/user.User/CheckUser,intercept,1.0424412417385627
+poly_coef_dict,slateingress,slateingress@POST@/user,slateingress@POST@/user,8.909284500890667e-07
+poly_coef_dict,slateingress,slateingress@POST@/user,intercept,2.025030623276551

@@ -1,0 +1,110 @@
+-- start of config --
+distribution,exp
+thread,100
+connection,100
+duration,30
+background_noise,0
+traffic_segmentation,1
+mode,runtime
+inter_cluster_latency,us-west-1,us-east-1,33
+inter_cluster_latency,us-east-1,us-west-1,33
+inter_cluster_latency,us-west-1,us-central-1,15
+inter_cluster_latency,us-central-1,us-west-1,15
+inter_cluster_latency,us-west-1,us-south-1,20
+inter_cluster_latency,us-south-1,us-west-1,20
+inter_cluster_latency,us-west-1,us-west-1,0
+inter_cluster_latency,us-east-1,us-central-1,20
+inter_cluster_latency,us-central-1,us-east-1,20
+inter_cluster_latency,us-east-1,us-south-1,15
+inter_cluster_latency,us-south-1,us-east-1,15
+inter_cluster_latency,us-east-1,us-east-1,0
+inter_cluster_latency,us-central-1,us-south-1,10
+inter_cluster_latency,us-south-1,us-central-1,10
+inter_cluster_latency,us-central-1,us-central-1,0
+inter_cluster_latency,us-south-1,us-south-1,0
+benchmark_name,hotelreservation
+total_num_services,2
+degree,2
+load_coef_flag,1
+routing_rule,WATERFALL2
+west_user_RPS,400
+west_recommend_RPS,400
+west_reserve_RPS,400
+west_search_RPS,400
+east_user_RPS,100
+east_recommend_RPS,100
+east_reserve_RPS,100
+east_search_RPS,100
+central_user_RPS,100
+central_recommend_RPS,100
+central_reserve_RPS,100
+central_search_RPS,100
+south_user_RPS,100
+south_recommend_RPS,100
+south_reserve_RPS,100
+south_search_RPS,100
+capacity,500
+req_type,reserve
+cluster,south
+RPS,100
+-- end of config --
+
+Running 30s test @ http://node0.8node-c8220.istio-pg0.clemson.cloudlab.us:32321
+  100 threads and 100 connections
+
+
+-----------------------------------------------------------------------
+Test Results @ http://node0.8node-c8220.istio-pg0.clemson.cloudlab.us:32321 
+  Thread Stats   Avg      Stdev     99%   +/- Stdev
+    Latency    13.33ms  789.55us  15.81ms   69.23%
+    Req/Sec     0.02      0.69     0.00     99.92%
+  Latency Distribution (HdrHistogram - Recorded Latency)
+ 50.000%   13.20ms
+ 75.000%   13.75ms
+ 90.000%   14.13ms
+ 99.000%   15.81ms
+ 99.900%   15.81ms
+ 99.990%   15.81ms
+ 99.999%   15.81ms
+100.000%   15.81ms
+
+  Detailed Percentile spectrum:
+       Value   Percentile   TotalCount 1/(1-Percentile)
+
+      12.191     0.000000            1         1.00
+      12.311     0.100000            4         1.11
+      12.663     0.200000            8         1.25
+      12.927     0.300000           13         1.43
+      13.031     0.400000           17         1.67
+      13.199     0.500000           20         2.00
+      13.319     0.550000           22         2.22
+      13.399     0.600000           24         2.50
+      13.447     0.650000           26         2.86
+      13.719     0.700000           28         3.33
+      13.855     0.750000           30         4.00
+      13.863     0.775000           31         4.44
+      13.991     0.800000           33         5.00
+      13.991     0.825000           33         5.71
+      14.119     0.850000           34         6.67
+      14.127     0.875000           35         8.00
+      14.127     0.887500           35         8.89
+      14.367     0.900000           36        10.00
+      14.367     0.912500           36        11.43
+      14.439     0.925000           37        13.33
+      14.439     0.937500           37        16.00
+      14.439     0.943750           37        17.78
+      15.175     0.950000           38        20.00
+      15.175     0.956250           38        22.86
+      15.175     0.962500           38        26.67
+      15.175     0.968750           38        32.00
+      15.175     0.971875           38        35.56
+      15.815     0.975000           39        40.00
+      15.815     1.000000           39          inf
+#[Mean    =       13.326, StdDeviation   =        0.790]
+#[Max     =       15.808, Total count    =           39]
+#[Buckets =           27, SubBuckets     =         2048]
+-----------------------------------------------------------------------
+  532 requests in 30.00s, 88.84KB read
+  Socket errors: connect 0, read 0, write 0, timeout 191
+Requests/sec:     17.73  
+Transfer/sec:      2.96KB

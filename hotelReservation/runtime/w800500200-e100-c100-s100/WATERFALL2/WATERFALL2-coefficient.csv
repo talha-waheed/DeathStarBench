@@ -1,0 +1,17 @@
+svc_name, endpoint, coef
+frontend,frontend@POST@/user,{'frontend@POST@/user': 0, 'intercept': 0}
+frontend,frontend@GET@/recommendations,{'frontend@GET@/recommendations': 0, 'intercept': 0}
+frontend,frontend@POST@/reservation,{'frontend@POST@/reservation': 0, 'intercept': 0}
+frontend,frontend@GET@/hotels,{'frontend@GET@/hotels': 0, 'intercept': 0}
+user,user@POST@/user.User/CheckUser,{'user@POST@/user.User/CheckUser': 0, 'intercept': 0}
+slateingress,slateingress@POST@/user,{'slateingress@POST@/user': 0, 'intercept': 0}
+slateingress,slateingress@GET@/recommendations,{'slateingress@GET@/recommendations': 0, 'intercept': 0}
+slateingress,slateingress@POST@/reservation,{'slateingress@POST@/reservation': 0, 'intercept': 0}
+slateingress,slateingress@GET@/hotels,{'slateingress@GET@/hotels': 0, 'intercept': 0}
+profile,profile@POST@/profile.Profile/GetProfiles,{'profile@POST@/profile.Profile/GetProfiles': 0, 'intercept': 0}
+recommendation,recommendation@POST@/recommendation.Recommendation/GetRecommendations,{'recommendation@POST@/recommendation.Recommendation/GetRecommendations': 0, 'intercept': 0}
+reservation,reservation@POST@/reservation.Reservation/MakeReservation,{'reservation@POST@/reservation.Reservation/MakeReservation': 0, 'intercept': 0}
+reservation,reservation@POST@/reservation.Reservation/CheckAvailability,{'reservation@POST@/reservation.Reservation/CheckAvailability': 0, 'intercept': 0}
+rate,rate@POST@/rate.Rate/GetRates,{'rate@POST@/rate.Rate/GetRates': 0, 'intercept': 0}
+search,search@POST@/search.Search/Nearby,{'search@POST@/search.Search/Nearby': 0, 'intercept': 0}
+geo,geo@POST@/geo.Geo/Nearby,{'geo@POST@/geo.Geo/Nearby': 0, 'intercept': 0}

@@ -1,0 +1,1 @@
+time curl -v "http://node0.8node-c8220.istio-pg0.clemson.cloudlab.us:32321/hotels?inDate=2015-04-01&outDate=2015-04-02&lat=38&lon=-122"

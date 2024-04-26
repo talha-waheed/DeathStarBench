@@ -22,8 +22,10 @@ local function search_hotel()
     out_date_str = "2015-04-" .. out_date_str
   end
 
-  local lat = 38.0235 + (math.random(0, 481) - 240.5)/1000.0
-  local lon = -122.095 + (math.random(0, 325) - 157.0)/1000.0
+  -- local lat = 38.0235 + (math.random(0, 481) - 240.5)/1000.0
+  -- local lon = -122.095 + (math.random(0, 325) - 157.0)/1000.0
+  local lat = 38.0235
+  local lon = -122.095
 
   local method = "GET"
   local path = url .. "/hotels?inDate=" .. in_date_str .. 

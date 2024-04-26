@@ -1,0 +1,138 @@
+-- start of config --
+distribution,exp
+thread,100
+connection,100
+duration,30
+background_noise,0
+traffic_segmentation,1
+mode,runtime
+inter_cluster_latency,us-west-1,us-east-1,33
+inter_cluster_latency,us-east-1,us-west-1,33
+inter_cluster_latency,us-west-1,us-central-1,15
+inter_cluster_latency,us-central-1,us-west-1,15
+inter_cluster_latency,us-west-1,us-south-1,20
+inter_cluster_latency,us-south-1,us-west-1,20
+inter_cluster_latency,us-west-1,us-west-1,0
+inter_cluster_latency,us-east-1,us-central-1,20
+inter_cluster_latency,us-central-1,us-east-1,20
+inter_cluster_latency,us-east-1,us-south-1,15
+inter_cluster_latency,us-south-1,us-east-1,15
+inter_cluster_latency,us-east-1,us-east-1,0
+inter_cluster_latency,us-central-1,us-south-1,10
+inter_cluster_latency,us-south-1,us-central-1,10
+inter_cluster_latency,us-central-1,us-central-1,0
+inter_cluster_latency,us-south-1,us-south-1,0
+benchmark_name,hotelreservation
+total_num_services,2
+capacity,500
+degree,2
+load_coef_flag,1
+routing_rule,WATERFALL2
+west_user_RPS,1500
+west_recommend_RPS,1500
+west_reserve_RPS,1500
+west_search_RPS,1500
+east_user_RPS,100
+east_recommend_RPS,100
+east_reserve_RPS,100
+east_search_RPS,100
+central_user_RPS,100
+central_recommend_RPS,100
+central_reserve_RPS,100
+central_search_RPS,100
+south_user_RPS,100
+south_recommend_RPS,100
+south_reserve_RPS,100
+south_search_RPS,100
+req_type,search
+cluster,east
+RPS,100
+-- end of config --
+
+Running 30s test @ http://node0.8node-c8220.istio-pg0.clemson.cloudlab.us:32321
+  100 threads and 100 connections
+
+
+-----------------------------------------------------------------------
+Test Results @ http://node0.8node-c8220.istio-pg0.clemson.cloudlab.us:32321 
+  Thread Stats   Avg      Stdev     99%   +/- Stdev
+    Latency    23.87ms    2.86ms  39.52ms   91.83%
+    Req/Sec     0.96      4.07    19.00     94.53%
+  Latency Distribution (HdrHistogram - Recorded Latency)
+ 50.000%   23.38ms
+ 75.000%   24.50ms
+ 90.000%   25.95ms
+ 99.000%   39.52ms
+ 99.900%   49.34ms
+ 99.990%   56.96ms
+ 99.999%   56.96ms
+100.000%   56.96ms
+
+  Detailed Percentile spectrum:
+       Value   Percentile   TotalCount 1/(1-Percentile)
+
+      20.015     0.000000            2         1.00
+      21.711     0.100000          196         1.11
+      22.271     0.200000          394         1.25
+      22.639     0.300000          593         1.43
+      23.007     0.400000          794         1.67
+      23.375     0.500000          981         2.00
+      23.551     0.550000         1084         2.22
+      23.743     0.600000         1176         2.50
+      24.015     0.650000         1278         2.86
+      24.239     0.700000         1379         3.33
+      24.495     0.750000         1476         4.00
+      24.639     0.775000         1522         4.44
+      24.847     0.800000         1574         5.00
+      24.991     0.825000         1621         5.71
+      25.247     0.850000         1666         6.67
+      25.535     0.875000         1717         8.00
+      25.695     0.887500         1739         8.89
+      25.951     0.900000         1766        10.00
+      26.191     0.912500         1789        11.43
+      26.399     0.925000         1814        13.33
+      26.703     0.937500         1838        16.00
+      26.991     0.943750         1849        17.78
+      27.215     0.950000         1862        20.00
+      27.407     0.956250         1874        22.86
+      27.983     0.962500         1887        26.67
+      28.399     0.968750         1898        32.00
+      28.655     0.971875         1904        35.56
+      29.167     0.975000         1911        40.00
+      29.823     0.978125         1917        45.71
+      31.711     0.981250         1923        53.33
+      33.887     0.984375         1929        64.00
+      36.415     0.985938         1932        71.11
+      37.439     0.987500         1935        80.00
+      39.263     0.989062         1938        91.43
+      40.287     0.990625         1942       106.67
+      41.055     0.992188         1944       128.00
+      41.119     0.992969         1946       142.22
+      41.215     0.993750         1947       160.00
+      42.239     0.994531         1949       182.86
+      42.463     0.995313         1950       213.33
+      43.903     0.996094         1952       256.00
+      45.183     0.996484         1953       284.44
+      45.183     0.996875         1953       320.00
+      45.503     0.997266         1954       365.71
+      45.727     0.997656         1955       426.67
+      46.687     0.998047         1956       512.00
+      46.687     0.998242         1956       568.89
+      46.687     0.998437         1956       640.00
+      49.343     0.998633         1958       731.43
+      49.343     0.998828         1958       853.33
+      49.343     0.999023         1958      1024.00
+      49.343     0.999121         1958      1137.78
+      49.343     0.999219         1958      1280.00
+      49.343     0.999316         1958      1462.86
+      49.343     0.999414         1958      1706.67
+      56.959     0.999512         1959      2048.00
+      56.959     1.000000         1959          inf
+#[Mean    =       23.865, StdDeviation   =        2.857]
+#[Max     =       56.928, Total count    =         1959]
+#[Buckets =           27, SubBuckets     =         2048]
+-----------------------------------------------------------------------
+  2994 requests in 30.01s, 499.98KB read
+  Socket errors: connect 0, read 0, write 0, timeout 192
+Requests/sec:     99.78  
+Transfer/sec:     16.66KB

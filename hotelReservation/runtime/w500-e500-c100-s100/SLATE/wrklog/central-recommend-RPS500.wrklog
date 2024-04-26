@@ -1,0 +1,303 @@
+-- start of config --
+distribution,exp
+thread,500
+connection,500
+duration,60
+background_noise,0
+traffic_segmentation,1
+mode,runtime
+inter_cluster_latency,us-west-1,us-east-1,33
+inter_cluster_latency,us-east-1,us-west-1,33
+inter_cluster_latency,us-west-1,us-central-1,15
+inter_cluster_latency,us-central-1,us-west-1,15
+inter_cluster_latency,us-west-1,us-south-1,20
+inter_cluster_latency,us-south-1,us-west-1,20
+inter_cluster_latency,us-west-1,us-west-1,0
+inter_cluster_latency,us-east-1,us-central-1,20
+inter_cluster_latency,us-central-1,us-east-1,20
+inter_cluster_latency,us-east-1,us-south-1,15
+inter_cluster_latency,us-south-1,us-east-1,15
+inter_cluster_latency,us-east-1,us-east-1,0
+inter_cluster_latency,us-central-1,us-south-1,10
+inter_cluster_latency,us-south-1,us-central-1,10
+inter_cluster_latency,us-central-1,us-central-1,0
+inter_cluster_latency,us-south-1,us-south-1,0
+benchmark_name,hotelreservation
+total_num_services,2
+capacity,500
+degree,2
+load_coef_flag,1
+routing_rule,SLATE
+west_user_RPS,500
+west_recommend_RPS,500
+west_reserve_RPS,500
+west_search_RPS,500
+east_user_RPS,50
+east_recommend_RPS,50
+east_reserve_RPS,50
+east_search_RPS,50
+central_user_RPS,500
+central_recommend_RPS,500
+central_reserve_RPS,500
+central_search_RPS,500
+south_user_RPS,50
+south_recommend_RPS,50
+south_reserve_RPS,50
+south_search_RPS,50
+req_type,recommend
+cluster,central
+RPS,500
+-- end of config --
+
+Running 1m test @ http://node0.8node-c8220.istio-pg0.clemson.cloudlab.us:32321
+  500 threads and 500 connections
+
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+reconnect_socket
+
+-----------------------------------------------------------------------
+Test Results @ http://node0.8node-c8220.istio-pg0.clemson.cloudlab.us:32321 
+  Thread Stats   Avg      Stdev     99%   +/- Stdev
+    Latency    31.50ms  132.75ms 116.22ms   99.21%
+    Req/Sec     0.71      1.10     5.00     93.69%
+  Latency Distribution (HdrHistogram - Recorded Latency)
+ 50.000%   18.32ms
+ 75.000%   27.55ms
+ 90.000%   38.81ms
+ 99.000%  116.22ms
+ 99.900%    2.11s 
+ 99.990%    4.84s 
+ 99.999%    5.38s 
+100.000%    5.38s 
+
+  Detailed Percentile spectrum:
+       Value   Percentile   TotalCount 1/(1-Percentile)
+
+       7.451     0.000000            1         1.00
+      11.079     0.100000         2490         1.11
+      12.487     0.200000         4968         1.25
+      14.111     0.300000         7449         1.43
+      15.975     0.400000         9924         1.67
+      18.319     0.500000        12402         2.00
+      19.631     0.550000        13648         2.22
+      21.103     0.600000        14888         2.50
+      22.815     0.650000        16116         2.86
+      24.943     0.700000        17356         3.33
+      27.551     0.750000        18594         4.00
+      29.263     0.775000        19216         4.44
+      30.527     0.800000        19837         5.00
+      31.647     0.825000        20455         5.71
+      33.183     0.850000        21079         6.67
+      35.487     0.875000        21699         8.00
+      36.895     0.887500        22006         8.89
+      38.815     0.900000        22313        10.00
+      41.215     0.912500        22622        11.43
+      43.967     0.925000        22936        13.33
+      47.711     0.937500        23243        16.00
+      50.111     0.943750        23398        17.78
+      52.511     0.950000        23552        20.00
+      55.583     0.956250        23707        22.86
+      59.647     0.962500        23863        26.67
+      64.799     0.968750        24018        32.00
+      68.159     0.971875        24094        35.56
+      71.999     0.975000        24172        40.00
+      76.607     0.978125        24250        45.71
+      81.663     0.981250        24328        53.33
+      89.279     0.984375        24404        64.00
+      94.207     0.985938        24443        71.11
+      99.583     0.987500        24482        80.00
+     108.287     0.989062        24520        91.43
+     123.199     0.990625        24559       106.67
+     167.551     0.992188        24598       128.00
+     289.023     0.992969        24617       142.22
+     432.895     0.993750        24637       160.00
+     528.383     0.994531        24656       182.86
+     672.767     0.995313        24675       213.33
+     881.151     0.996094        24695       256.00
+    1017.343     0.996484        24704       284.44
+    1157.119     0.996875        24714       320.00
+    1252.351     0.997266        24724       365.71
+    1355.775     0.997656        24733       426.67
+    1472.511     0.998047        24744       512.00
+    1620.991     0.998242        24748       568.89
+    1679.359     0.998437        24753       640.00
+    1809.407     0.998633        24758       731.43
+    1922.047     0.998828        24762       853.33
+    2125.823     0.999023        24767      1024.00
+    2144.255     0.999121        24770      1137.78
+    2340.863     0.999219        24772      1280.00
+    2605.055     0.999316        24775      1462.86
+    2643.967     0.999414        24777      1706.67
+    2670.591     0.999512        24779      2048.00
+    3063.807     0.999561        24781      2275.56
+    3258.367     0.999609        24782      2560.00
+    3569.663     0.999658        24783      2925.71
+    3713.023     0.999707        24784      3413.33
+    3717.119     0.999756        24785      4096.00
+    3813.375     0.999780        24786      4551.11
+    3936.255     0.999805        24787      5120.00
+    3936.255     0.999829        24787      5851.43
+    4829.183     0.999854        24788      6826.67
+    4829.183     0.999878        24788      8192.00
+    4837.375     0.999890        24789      9102.22
+    4837.375     0.999902        24789     10240.00
+    4837.375     0.999915        24789     11702.86
+    5156.863     0.999927        24790     13653.33
+    5156.863     0.999939        24790     16384.00
+    5156.863     0.999945        24790     18204.44
+    5156.863     0.999951        24790     20480.00
+    5156.863     0.999957        24790     23405.71
+    5378.047     0.999963        24791     27306.67
+    5378.047     1.000000        24791          inf
+#[Mean    =       31.497, StdDeviation   =      132.750]
+#[Max     =     5373.952, Total count    =        24791]
+#[Buckets =           27, SubBuckets     =         2048]
+-----------------------------------------------------------------------
+  29928 requests in 1.00m, 4.88MB read
+  Socket errors: connect 0, read 0, write 0, timeout 1975
+Requests/sec:    498.67  
+Transfer/sec:     83.34KB

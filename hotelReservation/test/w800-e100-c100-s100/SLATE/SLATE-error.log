@@ -1,0 +1,39 @@
+__main__ - training_phase(line:1573) - ERROR: The file trace.csv does not exist.
+__main__ - training_phase(line:1574) - @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+__main__ - optimizer_entrypoint(line:980) - !!! Skip optimizer !!! all root_node_rps all regions are 0
+__main__ - optimizer_entrypoint(line:980) - !!! Skip optimizer !!! all root_node_rps all regions are 0
+__main__ - optimizer_entrypoint(line:980) - !!! Skip optimizer !!! all root_node_rps all regions are 0
+apscheduler.executors.default - run_job(line:131) - Job "optimizer_entrypoint (trigger: interval[0:00:01], next run at: 2024-04-17 22:21:29 UTC)" raised an exception
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/apscheduler/executors/base.py", line 125, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "/app/global_controller.py", line 1026, in optimizer_entrypoint
+    cur_percentage_df, desc = opt.run_optimizer(\
+  File "/app/optimizer_test.py", line 131, in run_optimizer
+    logger.debug(f'child_svc_name: {child_svc_name}, child_ep: {child_ep}, {collapsed_endpoint_level_rps[child_svc_name]}')
+KeyError: 'profile'
+__main__ - optimizer_entrypoint(line:991) - !!! ERROR !!! Total demand(2943) at frontend > total capcity(2000) at slateingress
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,736 -> new_capacity, 736
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,736 -> new_capacity, 736
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,736 -> new_capacity, 736
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,736 -> new_capacity, 736
+__main__ - optimizer_entrypoint(line:991) - !!! ERROR !!! Total demand(2980) at frontend > total capcity(2000) at slateingress
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,746 -> new_capacity, 746
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,746 -> new_capacity, 746
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,746 -> new_capacity, 746
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,746 -> new_capacity, 746
+__main__ - optimizer_entrypoint(line:991) - !!! ERROR !!! Total demand(2742) at frontend > total capcity(2000) at slateingress
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,686 -> new_capacity, 686
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,686 -> new_capacity, 686
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,686 -> new_capacity, 686
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,686 -> new_capacity, 686
+__main__ - optimizer_entrypoint(line:991) - !!! ERROR !!! Total demand(2060) at frontend > total capcity(2000) at slateingress
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,516 -> new_capacity, 516
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,516 -> new_capacity, 516
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,516 -> new_capacity, 516
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,516 -> new_capacity, 516
+__main__ - optimizer_entrypoint(line:991) - !!! ERROR !!! Total demand(2021) at frontend > total capcity(2000) at slateingress
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,506 -> new_capacity, 506
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,506 -> new_capacity, 506
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,506 -> new_capacity, 506
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,506 -> new_capacity, 506

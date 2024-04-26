@@ -1,0 +1,14 @@
+poly_coef_dict,rate,rate@POST@/rate.Rate/GetRates,rate@POST@/rate.Rate/GetRates,2.7938776817172056e-05
+poly_coef_dict,rate,rate@POST@/rate.Rate/GetRates,intercept,0.6732968057523613
+poly_coef_dict,profile,profile@POST@/profile.Profile/GetProfiles,profile@POST@/profile.Profile/GetProfiles,1.1482228692740722e-05
+poly_coef_dict,profile,profile@POST@/profile.Profile/GetProfiles,intercept,0.1905345504505349
+poly_coef_dict,frontend,frontend@GET@/hotels,frontend@GET@/hotels,0.000193082052408697
+poly_coef_dict,frontend,frontend@GET@/hotels,intercept,-2.4506974124990752
+poly_coef_dict,search,search@POST@/search.Search/Nearby,search@POST@/search.Search/Nearby,8.213223098892066e-05
+poly_coef_dict,search,search@POST@/search.Search/Nearby,intercept,-2.2325063568518315
+poly_coef_dict,geo,geo@POST@/geo.Geo/Nearby,geo@POST@/geo.Geo/Nearby,7.045510469625027e-06
+poly_coef_dict,geo,geo@POST@/geo.Geo/Nearby,intercept,0.45464405501796157
+poly_coef_dict,reservation,reservation@POST@/reservation.Reservation/CheckAvailability,reservation@POST@/reservation.Reservation/CheckAvailability,4.804887525041407e-05
+poly_coef_dict,reservation,reservation@POST@/reservation.Reservation/CheckAvailability,intercept,3.265952311580302
+poly_coef_dict,slateingress,slateingress@GET@/hotels,slateingress@GET@/hotels,2.4544645980010163e-05
+poly_coef_dict,slateingress,slateingress@GET@/hotels,intercept,1.0241504286169645

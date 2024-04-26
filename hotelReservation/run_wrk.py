@@ -485,14 +485,14 @@ def main():
     benchmark_name="hotelreservation" # a,b, 1MB and c 2MB file write
     total_num_services=2
     # capacity_list = [500, 600, 700, 800, 1000]
-    capacity_list = [800]
+    capacity_list = [801]
     degree = 2
     
     
     mode = "runtime"
     # routing_rule_list = ["WATERFALL2"]
-    # routing_rule_list = ["SLATE"]
-    routing_rule_list = ["WATERFALL2", "SLATE"]
+    routing_rule_list = ["SLATE"]
+    # routing_rule_list = ["WATERFALL2", "SLATE"]
     
     # mode = "profile"
     # routing_rule_list = ["LOCAL"] # profile
@@ -565,10 +565,12 @@ def main():
                     # recommend: 1500
                     # reserve: 1200
                     # search: 1000
-                    # "w400-e400-c400-s400": {"west":    {"user": 400, "recommend":400, "reserve":400, "search":400}, \
-                    #                         "east":    {"user": 400, "recommend":400, "reserve":400, "search":400}, \
-                    #                         "central": {"user": 400, "recommend":400, "reserve":400, "search":400}, \
-                    #                         "south":   {"user": 400, "recommend":400, "reserve":400, "search":400}}, \
+                    
+                    "W100-E100-C100-S100": {"west":    {"user": 100, "recommend":100, "reserve":500, "search":500}, \
+                                            "east":    {"user": 100, "recommend":100, "reserve":100, "search":100}, \
+                                            "central": {"user": 100, "recommend":100, "reserve":100, "search":100}, \
+                                            "south":   {"user": 100, "recommend":100, "reserve":100, "search":100}}, \
+                                            
                     # "W400-E100-C100-S100": {"west":    {"user": 400, "recommend":400, "reserve":400, "search":400}, \
                     #                         "east":    {"user": 100, "recommend":100, "reserve":100, "search":100}, \
                     #                         "central": {"user": 100, "recommend":100, "reserve":100, "search":100}, \
@@ -586,25 +588,30 @@ def main():
                     #                          "central": {"user": 100, "recommend":100, "reserve":100, "search":100}, \
                     #                          "south":   {"user": 100, "recommend":100, "reserve":100, "search":100}}, \
                                                  
-                    "Ws800r500ur200-E100-C100-S100": {"west":    {"user": 200, "recommend":200, "reserve":500, "search":800}, \
-                                             "east":    {"user": 100, "recommend":100, "reserve":100, "search":100}, \
-                                             "central": {"user": 100, "recommend":100, "reserve":100, "search":100}, \
-                                             "south":   {"user": 100, "recommend":100, "reserve":100, "search":100}}, \
+                    # "Ws800r500ur200-E100-C100-S100": {"west":    {"user": 200, "recommend":200, "reserve":500, "search":800}, \
+                    #                          "east":    {"user": 100, "recommend":100, "reserve":100, "search":100}, \
+                    #                          "central": {"user": 100, "recommend":100, "reserve":100, "search":100}, \
+                    #                          "south":   {"user": 100, "recommend":100, "reserve":100, "search":100}}, \
                                                  
-                    "Wu800r500sr200-E100-C100-S100": {"west":    {"user": 800, "recommend":500, "reserve":200, "search":200}, \
-                                             "east":    {"user": 100, "recommend":100, "reserve":100, "search":100}, \
-                                             "central": {"user": 100, "recommend":100, "reserve":100, "search":100}, \
-                                             "south":   {"user": 100, "recommend":100, "reserve":100, "search":100}}, \
+                    # "Wu800r500sr200-E100-C100-S100": {"west":    {"user": 800, "recommend":500, "reserve":200, "search":200}, \
+                    #                          "east":    {"user": 100, "recommend":100, "reserve":100, "search":100}, \
+                    #                          "central": {"user": 100, "recommend":100, "reserve":100, "search":100}, \
+                    #                          "south":   {"user": 100, "recommend":100, "reserve":100, "search":100}}, \
                                                  
-                    "Ws500urr200-E100-C100-S100": {"west":    {"user": 200, "recommend":200, "reserve":200, "search":500}, \
-                                             "east":    {"user": 100, "recommend":100, "reserve":100, "search":100}, \
-                                             "central": {"user": 100, "recommend":100, "reserve":100, "search":100}, \
-                                             "south":   {"user": 100, "recommend":100, "reserve":100, "search":100}}, \
+                    # "Ws500urr200-E100-C100-S100": {"west":    {"user": 200, "recommend":200, "reserve":200, "search":500}, \
+                    #                          "east":    {"user": 100, "recommend":100, "reserve":100, "search":100}, \
+                    #                          "central": {"user": 100, "recommend":100, "reserve":100, "search":100}, \
+                    #                          "south":   {"user": 100, "recommend":100, "reserve":100, "search":100}}, \
                                                  
-                    "Wu1000srr100-E100-C100-S100": {"west":    {"user": 1000, "recommend":100, "reserve":100, "search":100}, \
-                                             "east":    {"user": 100, "recommend":100, "reserve":100, "search":100}, \
-                                             "central": {"user": 100, "recommend":100, "reserve":100, "search":100}, \
-                                             "south":   {"user": 100, "recommend":100, "reserve":100, "search":100}}, \
+                    # "Wu800srr100-E100-C100-S100": {"west":    {"user": 800, "recommend":100, "reserve":100, "search":100}, \
+                    #                          "east":    {"user": 100, "recommend":100, "reserve":100, "search":100}, \
+                    #                          "central": {"user": 100, "recommend":100, "reserve":100, "search":100}, \
+                    #                          "south":   {"user": 100, "recommend":100, "reserve":100, "search":100}}, \
+                    
+                    # "Wu1000srr100-E100-C100-S100": {"west":    {"user": 1000, "recommend":100, "reserve":100, "search":100}, \
+                    #                          "east":    {"user": 100, "recommend":100, "reserve":100, "search":100}, \
+                    #                          "central": {"user": 100, "recommend":100, "reserve":100, "search":100}, \
+                    #                          "south":   {"user": 100, "recommend":100, "reserve":100, "search":100}}, \
                                                  
                     # "Wsr800ur200-E100-C100-S100": {"west":    {"user": 100, "recommend":100, "reserve":100, "search":1000}, \
                     #                                 "east":    {"user": 100, "recommend":100, "reserve":1000, "search":100}, \
@@ -795,16 +802,21 @@ def main():
                     kubectl_cp_from_slate_controller_to_host(src_in_pod, dst_in_host)
                 elif mode == "runtime":
                     if routing_rule == "WATERFALL" or routing_rule == "SLATE" or routing_rule == "WATERFALL2":
-                        other_file_list = ["coefficient.csv", "routing_history.csv"] # "constraint.csv", "variable.csv", "network_df.csv", "compute_df.csv"
-                        for file in other_file_list:
+                        file_list = ["coefficient.csv", "routing_history.csv"]
+                        for file in file_list:
                             src_in_pod = f"/app/{file}"
                             dst_in_host = f"{output_dir}/{routing_rule}-{file}"
-                            kubectl_cp_from_slate_controller_to_host(src_in_pod, dst_in_host)
+                            kubectl_cp_from_slate_controller_to_host(src_in_pod, dst_in_host, required=True)
+                        file_list = ["constraint.log", "constraint.csv", "variable.csv", "network_df.csv", "compute_df.csv"]
+                        for file in file_list:
+                            src_in_pod = f"/app/{file}"
+                            dst_in_host = f"{output_dir}/{routing_rule}-{file}"
+                            kubectl_cp_from_slate_controller_to_host(src_in_pod, dst_in_host, required=False)
                 else:
                     print(f"mode: {mode} is not supported")
                     assert False
                 '''end of one set of experiment'''
-                restart_deploy(exclude=[])
+                # restart_deploy(exclude=[])
                 # run_command("kubectl rollout restart deploy slate-controller")
                 # run_command("kubectl rollout restart deploy -l=region=us-west-1", required=True)
                 # run_command("kubectl rollout restart deploy slateingress-us-west-1")

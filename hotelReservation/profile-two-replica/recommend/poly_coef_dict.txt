@@ -1,0 +1,8 @@
+poly_coef_dict,slateingress,slateingress@GET@/recommendations,slateingress@GET@/recommendations,2.2194039278976095e-06
+poly_coef_dict,slateingress,slateingress@GET@/recommendations,intercept,2.3197897028623298
+poly_coef_dict,profile,profile@POST@/profile.Profile/GetProfiles,profile@POST@/profile.Profile/GetProfiles,1.432584324948237e-06
+poly_coef_dict,profile,profile@POST@/profile.Profile/GetProfiles,intercept,1.7826624660900252
+poly_coef_dict,recommendation,recommendation@POST@/recommendation.Recommendation/GetRecommendations,recommendation@POST@/recommendation.Recommendation/GetRecommendations,5.572973106867757e-07
+poly_coef_dict,recommendation,recommendation@POST@/recommendation.Recommendation/GetRecommendations,intercept,1.0084598172667738
+poly_coef_dict,frontend,frontend@GET@/recommendations,frontend@GET@/recommendations,7.417245687683898e-06
+poly_coef_dict,frontend,frontend@GET@/recommendations,intercept,4.047917950288855

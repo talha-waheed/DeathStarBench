@@ -1,0 +1,8 @@
+poly_coef_dict,user,user@POST@/user.User/CheckUser,user@POST@/user.User/CheckUser,8.417057852342246e-07
+poly_coef_dict,user,user@POST@/user.User/CheckUser,intercept,0.993534455025805
+poly_coef_dict,reservation,reservation@POST@/reservation.Reservation/MakeReservation,reservation@POST@/reservation.Reservation/MakeReservation,4.892555800337599e-06
+poly_coef_dict,reservation,reservation@POST@/reservation.Reservation/MakeReservation,intercept,6.336680613703558
+poly_coef_dict,slateingress,slateingress@POST@/reservation,slateingress@POST@/reservation,1.9536250630575514e-06
+poly_coef_dict,slateingress,slateingress@POST@/reservation,intercept,2.4541986958310247
+poly_coef_dict,frontend,frontend@POST@/reservation,frontend@POST@/reservation,1.2538097913812865e-05
+poly_coef_dict,frontend,frontend@POST@/reservation,intercept,2.84509675458399

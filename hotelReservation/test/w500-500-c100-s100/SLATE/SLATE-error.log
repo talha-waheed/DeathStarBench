@@ -1,0 +1,88 @@
+__main__ - training_phase(line:1573) - ERROR: The file trace.csv does not exist.
+__main__ - training_phase(line:1574) - @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+__main__ - optimizer_entrypoint(line:980) - !!! Skip optimizer !!! all root_node_rps all regions are 0
+__main__ - optimizer_entrypoint(line:980) - !!! Skip optimizer !!! all root_node_rps all regions are 0
+__main__ - optimizer_entrypoint(line:980) - !!! Skip optimizer !!! all root_node_rps all regions are 0
+apscheduler.executors.default - run_job(line:131) - Job "optimizer_entrypoint (trigger: interval[0:00:01], next run at: 2024-04-17 22:28:53 UTC)" raised an exception
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/apscheduler/executors/base.py", line 125, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "/app/global_controller.py", line 1026, in optimizer_entrypoint
+    cur_percentage_df, desc = opt.run_optimizer(\
+  File "/app/optimizer_test.py", line 547, in run_optimizer
+    incoming = endpoint_level_rps[cid][root_ep_svc_name][root_ep]
+KeyError: 'slateingress@GET@/hotels'
+apscheduler.executors.default - run_job(line:131) - Job "optimizer_entrypoint (trigger: interval[0:00:01], next run at: 2024-04-17 22:28:54 UTC)" raised an exception
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/apscheduler/executors/base.py", line 125, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "/app/global_controller.py", line 1026, in optimizer_entrypoint
+    cur_percentage_df, desc = opt.run_optimizer(\
+  File "/app/optimizer_test.py", line 547, in run_optimizer
+    incoming = endpoint_level_rps[cid][root_ep_svc_name][root_ep]
+KeyError: 'slateingress@GET@/hotels'
+global_controller - log_exception(line:838) - Exception on /proxyLoad [POST]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/app/global_controller.py", line 604, in handleProxyLoad
+    temp_df = verify_return_df(temp_df, region)
+  File "/app/global_controller.py", line 360, in verify_return_df
+    assert row['dst_endpoint'] in aggregated_rps[row['dst_cid']][row['dst_svc']]
+AssertionError
+__main__ - optimizer_entrypoint(line:991) - !!! ERROR !!! Total demand(2577) at frontend > total capcity(2000) at slateingress
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,645 -> new_capacity, 645
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,645 -> new_capacity, 645
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,645 -> new_capacity, 645
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,645 -> new_capacity, 645
+__main__ - optimizer_entrypoint(line:991) - !!! ERROR !!! Total demand(2960) at frontend > total capcity(2000) at slateingress
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,741 -> new_capacity, 741
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,741 -> new_capacity, 741
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,741 -> new_capacity, 741
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,741 -> new_capacity, 741
+__main__ - optimizer_entrypoint(line:991) - !!! ERROR !!! Total demand(2657) at frontend > total capcity(2000) at slateingress
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,665 -> new_capacity, 665
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,665 -> new_capacity, 665
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,665 -> new_capacity, 665
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,665 -> new_capacity, 665
+__main__ - optimizer_entrypoint(line:991) - !!! ERROR !!! Total demand(2673) at frontend > total capcity(2000) at slateingress
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,669 -> new_capacity, 669
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,669 -> new_capacity, 669
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,669 -> new_capacity, 669
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,669 -> new_capacity, 669
+__main__ - optimizer_entrypoint(line:991) - !!! ERROR !!! Total demand(2422) at frontend > total capcity(2000) at slateingress
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,606 -> new_capacity, 606
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,606 -> new_capacity, 606
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,606 -> new_capacity, 606
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,606 -> new_capacity, 606
+__main__ - optimizer_entrypoint(line:991) - !!! ERROR !!! Total demand(2328) at frontend > total capcity(2000) at slateingress
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,583 -> new_capacity, 583
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,583 -> new_capacity, 583
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,583 -> new_capacity, 583
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,583 -> new_capacity, 583
+__main__ - optimizer_entrypoint(line:991) - !!! ERROR !!! Total demand(2005) at frontend > total capcity(2000) at slateingress
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,502 -> new_capacity, 502
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,502 -> new_capacity, 502
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,502 -> new_capacity, 502
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,502 -> new_capacity, 502
+__main__ - optimizer_entrypoint(line:991) - !!! ERROR !!! Total demand(2066) at frontend > total capcity(2000) at slateingress
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,517 -> new_capacity, 517
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,517 -> new_capacity, 517
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,517 -> new_capacity, 517
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,517 -> new_capacity, 517
+__main__ - optimizer_entrypoint(line:991) - !!! ERROR !!! Total demand(2121) at frontend > total capcity(2000) at slateingress
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,531 -> new_capacity, 531
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,531 -> new_capacity, 531
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,531 -> new_capacity, 531
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,531 -> new_capacity, 531
+__main__ - optimizer_entrypoint(line:991) - !!! ERROR !!! Total demand(2021) at frontend > total capcity(2000) at slateingress
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,506 -> new_capacity, 506
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,506 -> new_capacity, 506
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,506 -> new_capacity, 506
+__main__ - optimizer_entrypoint(line:995) - recalc capacity: slateingress, old_capacity,506 -> new_capacity, 506
