@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   annotations:
     kompose.cmd: kompose convert
@@ -13,8 +13,6 @@ spec:
   selector:
     matchLabels:
       io.kompose.service: mongodb-rate
-  strategy:
-    type: Recreate
   template:
     metadata:
       annotations:

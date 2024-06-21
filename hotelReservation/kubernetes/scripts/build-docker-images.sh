@@ -5,13 +5,14 @@ cd $(dirname $0)/..
 
 EXEC="docker buildx"
 
-USER="ghcr.io/adiprerepa"
+USER="ghcr.io/talha-waheed"
 
 TAG="latest"
 
 # ENTER THE ROOT FOLDER
 cd ../
 ROOT_FOLDER=$(pwd)
+echo $ROOT_FOLDER
 $EXEC create --name mybuilder --use
 
 for i in hotel-reservation #frontend geo profile rate recommendation reserve search user #uncomment to build multiple images

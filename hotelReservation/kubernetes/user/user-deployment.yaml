@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   annotations:
     kompose.cmd: kompose convert
@@ -13,7 +13,6 @@ spec:
   selector:
     matchLabels:
       io.kompose.service: user
-  strategy: {}
   template:
     metadata:
       annotations:
@@ -28,7 +27,7 @@ spec:
       containers:
         - command:
             - ./user
-          image: deathstarbench/hotel-reservation:latest
+          image: ghcr.io/talha-waheed/hotel-reservation:latest
           name: hotel-reserv-user
           ports:
             - containerPort: 8086

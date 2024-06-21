@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   annotations:
     kompose.cmd: kompose convert
@@ -9,11 +9,10 @@ metadata:
     io.kompose.service: frontend
   name: frontend
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       io.kompose.service: frontend
-  strategy: {}
   template:
     metadata:
       annotations:
@@ -28,7 +27,7 @@ spec:
       containers:
         - command:
             - ./frontend
-          image: deathstarbench/hotel-reservation:latest
+          image: ghcr.io/talha-waheed/hotel-reservation:latest
           name: hotel-reserv-frontend
           ports:
             - containerPort: 5000
