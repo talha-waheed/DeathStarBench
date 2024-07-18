@@ -34,10 +34,14 @@ spec:
           name: hotel-reserv-reservation-mmc
           ports:
             - containerPort: 11211
-          resources:
-            requests:
-              cpu: 100m
-            limits:
-              cpu: 1000m
+          env:
+            - name: MY_NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: MY_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
       restartPolicy: Always
 status: {}

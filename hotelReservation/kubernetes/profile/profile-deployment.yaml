@@ -9,7 +9,7 @@ metadata:
     io.kompose.service: profile
   name: profile
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       io.kompose.service: profile
@@ -31,10 +31,14 @@ spec:
           name: hotel-reserv-profile
           ports:
             - containerPort: 8081
-          resources:
-            requests:
-              cpu: 100m
-            limits:
-              cpu: 1000m
+          env:
+            - name: MY_NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: MY_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
       restartPolicy: Always
 status: {}

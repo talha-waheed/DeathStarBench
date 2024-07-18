@@ -39,10 +39,14 @@ spec:
               protocol: UDP
             - containerPort: 6832
               protocol: UDP
-          resources:
-            requests:
-              cpu: 100m
-            limits:
-              cpu: 1000m
+          env:
+            - name: MY_NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: MY_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
       restartPolicy: Always
 status: {}

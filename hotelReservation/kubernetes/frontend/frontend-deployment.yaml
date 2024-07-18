@@ -9,7 +9,7 @@ metadata:
     io.kompose.service: frontend
   name: frontend
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       io.kompose.service: frontend
@@ -29,12 +29,26 @@ spec:
             - ./frontend
           image: ghcr.io/talha-waheed/hotel-reservation:latest
           name: hotel-reserv-frontend
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 5000
-          resources:
-            requests:
-              cpu: 100m
-            limits:
-              cpu: 1000m
+          env:
+            - name: MY_NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: MY_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
       restartPolicy: Always
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - minikube
 status: {}

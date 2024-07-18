@@ -31,10 +31,27 @@ spec:
           name: hotel-reserv-search
           ports:
             - containerPort: 8082
-          resources:
-            requests:
-              cpu: 100m
-            limits:
-              cpu: 1000m
+          env:
+            - name: MY_NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: MY_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+      tolerations:
+        - key: "node"
+          value: "node1"
+          effect: "NoSchedule"
       restartPolicy: Always
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-role.kubernetes.io/worker
+                operator: In
+                values:
+                - node1
 status: {}
