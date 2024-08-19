@@ -9,7 +9,7 @@ metadata:
     io.kompose.service: rate
   name: rate
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       io.kompose.service: rate
@@ -40,22 +40,22 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.name
-      tolerations:
-        - key: "node"
-          value: "node2"
-          effect: "NoSchedule"
-        - key: "node"
-          value: "node3"
-          effect: "NoSchedule"
+      # tolerations:
+      #   - key: "node"
+      #     value: "node2"
+      #     effect: "NoSchedule"
+      #   - key: "node"
+      #     value: "node3"
+      #     effect: "NoSchedule"
       restartPolicy: Always
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: node-role.kubernetes.io/worker
-                operator: In
-                values:
-                - node2
-                - node3
+      # affinity:
+      #   nodeAffinity:
+      #     requiredDuringSchedulingIgnoredDuringExecution:
+      #       nodeSelectorTerms:
+      #       - matchExpressions:
+      #         - key: node-role.kubernetes.io/worker
+      #           operator: In
+      #           values:
+      #           - node2
+      #           - node3
 status: {}

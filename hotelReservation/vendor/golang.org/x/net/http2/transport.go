@@ -53,11 +53,11 @@ const (
 	// initialMaxConcurrentStreams is a connections maxConcurrentStreams until
 	// it's received servers initial SETTINGS frame, which corresponds with the
 	// spec's minimum recommended value.
-	initialMaxConcurrentStreams = 100
+	initialMaxConcurrentStreams = 1000
 
 	// defaultMaxConcurrentStreams is a connections default maxConcurrentStreams
 	// if the server doesn't include one in its initial SETTINGS frame.
-	defaultMaxConcurrentStreams = 1000
+	defaultMaxConcurrentStreams = 10000
 )
 
 // Transport is an HTTP/2 Transport.

@@ -40,18 +40,18 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.name
-      tolerations:
-        - key: "node"
-          value: "node1"
-          effect: "NoSchedule"
+      # tolerations:
+      #   - key: "node"
+      #     value: "node1"
+      #     effect: "NoSchedule"
       restartPolicy: Always
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: node-role.kubernetes.io/worker
-                operator: In
-                values:
-                - node1
+      # affinity:
+      #   nodeAffinity:
+      #     requiredDuringSchedulingIgnoredDuringExecution:
+      #       nodeSelectorTerms:
+      #       - matchExpressions:
+      #         - key: node-role.kubernetes.io/worker
+      #           operator: In
+      #           values:
+      #           - node1
 status: {}
